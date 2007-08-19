@@ -6,10 +6,12 @@
 
 package ingrGast.gui;
 
+import ingrGast.db.ResultSetTableModel;
 import ingrGast.management.Manager;
 import ingrGast.objects.AsientoContable;
 import java.awt.Color;
 import java.awt.Component;
+import java.sql.SQLException;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.util.Calendar;
@@ -33,7 +35,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
     
     /** Creates new form DatosFiltroPanel */
     public DatosFiltroPanel() {
-        initComponents();
+            initComponents();
     }
     
     /** This method is called from within the constructor to
@@ -411,29 +413,6 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         jTabbedPane1.addTab("Gastos", jPanel5);
 
         jTable3.setAutoCreateRowSorter(true);
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Grupo", "Motivo", "Proveedor", "Receptor", "Fecha", "Importe"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         jTable3.setShowVerticalLines(false);
         jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(jTable3);
@@ -563,7 +542,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         int row = jTable3.convertRowIndexToModel(jTable3.getSelectedRow());
         AsientoContable as = null;
         if (row >= 0){
-            as = vTot.elementAt(row);
+            //as = vTot.elementAt(row);
             JOptionPane jop = new JOptionPane();
             //0 -> YES, 1 -> NO
             int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
@@ -572,7 +551,11 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         }
         this.cargarTablaIngresos();
         this.cargarTablaGastos();
-        this.cargarTablaTotales();
+        try {
+            ((ResultSetTableModel)jTable3.getModel()).rechargeTable();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
     
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -588,13 +571,21 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         }
         this.cargarTablaIngresos();
         this.cargarTablaGastos();
-        this.cargarTablaTotales();
+        try {
+            this.cargarTablaTotales();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.cargarTablaIngresos();
         this.cargarTablaGastos();
-        this.cargarTablaTotales();
+        try {
+            this.cargarTablaTotales();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
     
     private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
@@ -620,7 +611,11 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         }
         this.cargarTablaGastos();
         this.cargarTablaIngresos();
-        this.cargarTablaTotales();
+        try {
+            this.cargarTablaTotales();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void setData(){
@@ -736,10 +731,11 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
             jLabel11.setForeground(Color.RED);
     }
     
-    private void cargarTablaTotales(){
+    private void cargarTablaTotales() throws SQLException{
         this.setData();
-        this.vTot = manager.getTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
-        Vector<Object> row;
+        ((ResultSetTableModel)jTable3.getModel()).setQuery(this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2));
+        //this.vTot = manager.getTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
+        /*Vector<Object> row;
         Vector<Vector<Object>> table = new Vector<Vector<Object>>();
         Vector<String> tNames = new Vector<String>();
         tNames.addElement("Grupo");
@@ -761,8 +757,9 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
             table.addElement(row);
         }
         ((DefaultTableModel)jTable3.getModel()).setDataVector(table, tNames);
-        ((DefaultTableModel)jTable3.getModel()).fireTableStructureChanged();
-        int totNum = vTot.size();
+        ((DefaultTableModel)jTable3.getModel()).fireTableStructureChanged();*/
+        //int totNum = vTot.size();
+        int totNum = jTable3.getModel().getRowCount();
         if(totNum <= 0)
             jLabel8.setText("No se ha encontrado ningúna entrada.");
         else if(totNum == 1)
@@ -770,19 +767,23 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         else
             jLabel8.setText("Se han encontrado " + totNum + " entradas.");
         NumberFormat nf = NumberFormat.getCurrencyInstance();
-        jLabel14.setText(nf.format(tot));
+        /*jLabel14.setText(nf.format(tot));
         if(tot > 0)
             jLabel14.setForeground(Color.GREEN);
         else if (tot == 0)
             jLabel14.setForeground(Color.BLACK);
         else if (tot < 0)
-            jLabel14.setForeground(Color.RED);
+            jLabel14.setForeground(Color.RED);*/
     }
     
     public void updateTables(){
         this.cargarTablaIngresos();
         this.cargarTablaGastos();
-        this.cargarTablaTotales();
+        try {
+            ((ResultSetTableModel)this.jTable3.getModel()).rechargeTable();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public void updateComboBoxes(){
@@ -810,6 +811,16 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
     public void setOwner(MainForm parent){
         this.owner = parent;
         this.manager = this.owner.getManager();
+        this.setData();
+        try {
+            jTable3.setModel(new ResultSetTableModel(this.manager.getConnector().getConnection(), this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
+            System.out.println(jTable3.getColumnModel().getColumn(0).getIdentifier().toString());
+            jTable3.removeColumn(jTable3.getColumn(jTable3.getColumnName(0)));
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
     }
     
     // Declaración de varibales -no modificar//GEN-BEGIN:variables
@@ -863,7 +874,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
     
     private Vector<AsientoContable> vIng;
     private Vector<AsientoContable> vGas;
-    private Vector<AsientoContable> vTot;
+    //private Vector<AsientoContable> vTot;
     
     private String grupo;
     private String motivo;

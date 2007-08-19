@@ -189,12 +189,28 @@ public class Manager {
         }
     }
 
+    public String constructQueryIngresos(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin){
+        return asm.constructQuery(1, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
+    }
+    
+    public String constructQueryGastos(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin){
+        return asm.constructQuery(-1, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
+    }
+    
+    public String constructQueryTotales(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin){
+        return asm.constructQuery(0, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
+    }
+    
     public void borrarAsiento(int id){
         try {
             asm.borrar(id);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+    
+    public Connector getConnector(){
+        return this.connector;
     }
     
     public void disconnectDB(){

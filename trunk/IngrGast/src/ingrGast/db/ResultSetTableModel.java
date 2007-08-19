@@ -1,4 +1,4 @@
-package lab05;
+package ingrGast.db;
 
 //Fig. 25.28: ResultSetTableModel.java
 import java.sql.*;
@@ -25,18 +25,16 @@ public class ResultSetTableModel extends AbstractTableModel {
 
 	private int numberOfRows;
 
+        private String lastQuery;
+        
 	// keep track of database connection status
 	private boolean connectedToDatabase = false;
 
 	// constructor initializes resultSet and obtains its meta data object;
 	// determines number of rows
-	public ResultSetTableModel(String driver, String url, String username,
-			String password, String query) throws SQLException,
+	public ResultSetTableModel(Connection connection, String query) throws SQLException,
 			ClassNotFoundException {
-		// load database driver class
-		Class.forName(driver);
-		// connect to database
-		connection = DriverManager.getConnection(url, username, password);
+		this.connection = connection;
 		// create Statement to query database
 		statement = connection.createStatement(
 				ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -132,18 +130,13 @@ public class ResultSetTableModel extends AbstractTableModel {
 		numberOfRows = resultSet.getRow(); // get row number
 		// notify JTable that model has changed
 		fireTableStructureChanged();
+                this.lastQuery = query;
 	} // end method setQuery
 	// close Statement and Connection
 	
-	
-	public void setInsert(String insert) throws SQLException,IllegalStateException{
-		if (!connectedToDatabase)
-			throw new IllegalStateException("Not Connected to Database");
-		if(statement.executeUpdate(insert)!=0){
-			setQuery(DisplayQueryResults.DEFAULT_QUERY);
-		}
-			
-	}
+	public void rechargeTable() throws SQLException{
+            setQuery(this.lastQuery);
+        }
 
 	public void disconnectFromDatabase() {
 		if (!connectedToDatabase)
