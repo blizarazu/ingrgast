@@ -1,0 +1,226 @@
+#
+# An unexpected error has been detected by Java Runtime Environment:
+#
+#  EXCEPTION_FLT_STACK_CHECK (0xc0000092) at pc=0x0096cea9, pid=392, tid=5972
+#
+# Java VM: Java HotSpot(TM) Client VM (1.6.0_02-b06 mixed mode)
+# Problematic frame:
+# v  ~RuntimeStub::resolve_opt_virtual_call
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0b124c00):  JavaThread "Swing-Shell" daemon [_thread_in_Java, id=5972]
+
+siginfo: ExceptionCode=0xc0000092, ExceptionInformation=0x00000000 0x0bbcf7c4 
+
+Registers:
+EAX=0x00000001, EBX=0x075d58a8, ECX=0x037a35f0, EDX=0x02ac0088
+ESP=0x0bbcf758, EBP=0x0bbcf868, ESI=0x037a35f0, EDI=0x0b124c00
+EIP=0x0096cea9, EFLAGS=0x00010212
+
+Top of Stack: (sp=0x0bbcf758)
+0x0bbcf758:   ffff1272 ffff0000 ffffffff 0095788f
+0x0bbcf768:   073c001b 0bbcf880 ffff0023 00360036
+0x0bbcf778:   00000036 0d0dffff 0000000d ffff0000
+0x0bbcf788:   075c1f90 069f2940 00012940 00000000
+0x0bbcf798:   24000000 f9de6000 b504f333 00003fff
+0x0bbcf7a8:   00000000 ffff0000 00000000 80000000
+0x0bbcf7b8:   00004007 00000000 00000000 0bbcf81c
+0x0bbcf7c8:   0bbcfae4 7c839aa8 7c8025f8 0b125640 
+
+Instructions: (pc=0x0096cea9)
+0x0096ce99:   00 00 83 ec 6c dd 34 24 9b dd 24 24 dd 5c 24 6c
+0x0096cea9:   dd 5c 24 74 dd 5c 24 7c dd 9c 24 84 00 00 00 dd 
+
+
+Stack: [0x0bb80000,0x0bbd0000),  sp=0x0bbcf758,  free space=317k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+v  ~RuntimeStub::resolve_opt_virtual_call
+J  java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await()V
+J  java.util.concurrent.LinkedBlockingQueue.take()Ljava/lang/Object;
+J  java.util.concurrent.ThreadPoolExecutor.getTask()Ljava/lang/Runnable;
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+18
+j  sun.awt.shell.Win32ShellFolder2$ComTaskExecutor$2.run()V+7
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0ab2a400 JavaThread "Thread-3" [_thread_in_vm, id=5540]
+=>0x0b124c00 JavaThread "Swing-Shell" daemon [_thread_in_Java, id=5972]
+  0x0b21cc00 JavaThread "MySQL Statement Cancellation Timer" daemon [_thread_blocked, id=1704]
+  0x0b198000 JavaThread "TimerQueue" daemon [_thread_blocked, id=5364]
+  0x002e6800 JavaThread "DestroyJavaVM" [_thread_blocked, id=3304]
+  0x0b132400 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=2640]
+  0x0b0f2000 JavaThread "AWT-Shutdown" [_thread_blocked, id=3424]
+  0x0b0f1000 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=5896]
+  0x0ab02800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=1440]
+  0x0ab01400 JavaThread "CompilerThread0" daemon [_thread_blocked, id=5472]
+  0x0aaf5c00 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=5624]
+  0x0aaf4800 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=188]
+  0x0aaf2800 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=4988]
+  0x0aae7800 JavaThread "Attach Listener" daemon [_thread_blocked, id=2008]
+  0x0aae6c00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=1212]
+  0x0aad7400 JavaThread "Finalizer" daemon [_thread_blocked, id=3520]
+  0x0aad3000 JavaThread "Reference Handler" daemon [_thread_blocked, id=5620]
+
+Other Threads:
+  0x0aacfc00 VMThread [id=5060]
+  0x0ab04000 WatcherThread [id=5560]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x002e54d0/0x00003718] Threads_lock - owner thread: 0x0ab2a400
+
+Heap
+ def new generation   total 1024K, used 944K [0x029c0000, 0x02ad0000, 0x02ea0000)
+  eden
+[error occurred during error reporting, step 190, id 0xc0000092]
+
+Dynamic libraries:
+0x00400000 - 0x00423000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\java.exe
+0x7c910000 - 0x7c9c6000 	C:\WINDOWS\system32\ntdll.dll
+0x7c800000 - 0x7c902000 	C:\WINDOWS\system32\kernel32.dll
+0x77da0000 - 0x77e4c000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x77e50000 - 0x77ee1000 	C:\WINDOWS\system32\RPCRT4.dll
+0x7c340000 - 0x7c396000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\msvcr71.dll
+0x6d870000 - 0x6dab9000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\client\jvm.dll
+0x7e390000 - 0x7e420000 	C:\WINDOWS\system32\USER32.dll
+0x77ef0000 - 0x77f37000 	C:\WINDOWS\system32\GDI32.dll
+0x76b00000 - 0x76b2e000 	C:\WINDOWS\system32\WINMM.dll
+0x5d160000 - 0x5d167000 	C:\WINDOWS\system32\serwvdrv.dll
+0x5b480000 - 0x5b487000 	C:\WINDOWS\system32\umdmxfrm.dll
+0x6d3c0000 - 0x6d3c8000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\hpi.dll
+0x76bb0000 - 0x76bbb000 	C:\WINDOWS\system32\PSAPI.DLL
+0x6d4b0000 - 0x6d4d9000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\jdwp.dll
+0x6d770000 - 0x6d776000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\npt.dll
+0x6d820000 - 0x6d82c000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\verify.dll
+0x6d460000 - 0x6d47f000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\java.dll
+0x6d860000 - 0x6d86f000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\zip.dll
+0x6d330000 - 0x6d337000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\dt_socket.dll
+0x71a30000 - 0x71a47000 	C:\WINDOWS\system32\WS2_32.dll
+0x77be0000 - 0x77c38000 	C:\WINDOWS\system32\msvcrt.dll
+0x71a20000 - 0x71a28000 	C:\WINDOWS\system32\WS2HELP.dll
+0x719d0000 - 0x71a10000 	C:\WINDOWS\System32\mswsock.dll
+0x76ee0000 - 0x76f07000 	C:\WINDOWS\system32\DNSAPI.dll
+0x76f70000 - 0x76f78000 	C:\WINDOWS\System32\winrnr.dll
+0x76f20000 - 0x76f4d000 	C:\WINDOWS\system32\WLDAP32.dll
+0x16080000 - 0x16099000 	C:\Archivos de programa\Bonjour\mdnsNSP.dll
+0x76d20000 - 0x76d39000 	C:\WINDOWS\system32\Iphlpapi.dll
+0x76f80000 - 0x76f86000 	C:\WINDOWS\system32\rasadhlp.dll
+0x20b00000 - 0x20b4b000 	C:\WINDOWS\system32\imon.dll
+0x774b0000 - 0x775ed000 	C:\WINDOWS\system32\ole32.dll
+0x71a50000 - 0x71a5a000 	C:\WINDOWS\system32\WSOCK32.dll
+0x20c00000 - 0x20c0d000 	C:\Archivos de programa\Eset\pr_imon.dll
+0x66740000 - 0x66799000 	C:\WINDOWS\system32\hnetcfg.dll
+0x71a10000 - 0x71a18000 	C:\WINDOWS\System32\wshtcpip.dll
+0x6d0b0000 - 0x6d273000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\awt.dll
+0x72f80000 - 0x72fa6000 	C:\WINDOWS\system32\WINSPOOL.DRV
+0x76340000 - 0x7635d000 	C:\WINDOWS\system32\IMM32.dll
+0x5b150000 - 0x5b188000 	C:\WINDOWS\system32\uxtheme.dll
+0x736e0000 - 0x73729000 	C:\WINDOWS\system32\ddraw.dll
+0x73b40000 - 0x73b46000 	C:\WINDOWS\system32\DCIMAN32.dll
+0x7c9d0000 - 0x7d1ef000 	C:\WINDOWS\system32\shell32.dll
+0x77f40000 - 0x77fb6000 	C:\WINDOWS\system32\SHLWAPI.dll
+0x773a0000 - 0x774a3000 	C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll
+0x58c30000 - 0x58cca000 	C:\WINDOWS\system32\comctl32.dll
+0x6d360000 - 0x6d3b3000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\fontmanager.dll
+0x6d620000 - 0x6d633000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\net.dll
+0x590d0000 - 0x590d7000 	C:\WINDOWS\System32\wship6.dll
+0x6d640000 - 0x6d649000 	C:\Archivos de programa\Java\jdk1.6.0_02\jre\bin\nio.dll
+0x597f0000 - 0x59844000 	C:\WINDOWS\system32\netapi32.dll
+0x76f90000 - 0x7700f000 	C:\WINDOWS\system32\CLBCATQ.DLL
+0x77010000 - 0x770e0000 	C:\WINDOWS\system32\COMRes.dll
+0x770f0000 - 0x7717c000 	C:\WINDOWS\system32\OLEAUT32.dll
+0x77bd0000 - 0x77bd8000 	C:\WINDOWS\system32\VERSION.dll
+0x76940000 - 0x76948000 	C:\WINDOWS\system32\LINKINFO.dll
+0x76950000 - 0x76976000 	C:\WINDOWS\system32\ntshrui.dll
+0x76ae0000 - 0x76af1000 	C:\WINDOWS\system32\ATL.DLL
+0x76630000 - 0x766e4000 	C:\WINDOWS\system32\USERENV.dll
+0x778f0000 - 0x779e7000 	C:\WINDOWS\system32\SETUPAPI.dll
+0x75dd0000 - 0x75e61000 	C:\WINDOWS\system32\MLANG.dll
+0x77b10000 - 0x77b32000 	C:\WINDOWS\system32\appHelp.dll
+0x73300000 - 0x73357000 	C:\WINDOWS\system32\zipfldr.dll
+0x71aa0000 - 0x71ab2000 	C:\WINDOWS\system32\MPR.dll
+0x75f10000 - 0x75f17000 	C:\WINDOWS\System32\drprov.dll
+0x71bb0000 - 0x71bbe000 	C:\WINDOWS\System32\ntlanman.dll
+0x71c70000 - 0x71c87000 	C:\WINDOWS\System32\NETUI0.dll
+0x71c30000 - 0x71c70000 	C:\WINDOWS\System32\NETUI1.dll
+0x71c20000 - 0x71c27000 	C:\WINDOWS\System32\NETRAP.dll
+0x71b90000 - 0x71ba3000 	C:\WINDOWS\System32\SAMLIB.dll
+0x75f20000 - 0x75f29000 	C:\WINDOWS\System32\davclnt.dll
+0x5a500000 - 0x5a54e000 	C:\Archivos de programa\MSN Messenger\fsshext.8.1.0178.00.dll
+0x78130000 - 0x781cb000 	C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.762_x-ww_6b128700\MSVCR80.dll
+0x4eba0000 - 0x4ed43000 	C:\WINDOWS\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.2600.2180_x-ww_522f9f82\gdiplus.dll
+0x779f0000 - 0x77a45000 	C:\WINDOWS\System32\cscui.dll
+0x765b0000 - 0x765cd000 	C:\WINDOWS\System32\CSCDLL.dll
+0x16210000 - 0x1648e000 	C:\WINDOWS\system32\wpdshext.dll
+0x10930000 - 0x10979000 	C:\WINDOWS\system32\PortableDeviceApi.dll
+0x76bf0000 - 0x76c1e000 	C:\WINDOWS\system32\WINTRUST.dll
+0x77a50000 - 0x77ae5000 	C:\WINDOWS\system32\CRYPT32.dll
+0x77af0000 - 0x77b02000 	C:\WINDOWS\system32\MSASN1.dll
+0x76c50000 - 0x76c78000 	C:\WINDOWS\system32\IMAGEHLP.dll
+0x73cf0000 - 0x73d03000 	C:\WINDOWS\system32\shgina.dll
+0x75920000 - 0x75a18000 	C:\WINDOWS\system32\MSGINA.dll
+0x76310000 - 0x76320000 	C:\WINDOWS\system32\WINSTA.dll
+0x745e0000 - 0x7461d000 	C:\WINDOWS\system32\ODBC32.dll
+0x76360000 - 0x763aa000 	C:\WINDOWS\system32\comdlg32.dll
+0x20000000 - 0x20018000 	C:\WINDOWS\system32\odbcint.dll
+0x77fc0000 - 0x77fd1000 	C:\WINDOWS\system32\Secur32.dll
+0x0c9a0000 - 0x0c9e6000 	C:\WINDOWS\system32\Audiodev.dll
+0x15110000 - 0x1536a000 	C:\WINDOWS\system32\WMVCore.DLL
+0x11c70000 - 0x11ca9000 	C:\WINDOWS\system32\WMASF.DLL
+0x4eee0000 - 0x4ef73000 	C:\WINDOWS\system32\wiashext.dll
+0x43330000 - 0x433ff000 	C:\WINDOWS\system32\WININET.dll
+0x0c5c0000 - 0x0c5c9000 	C:\WINDOWS\system32\Normaliz.dll
+0x430b0000 - 0x430f5000 	C:\WINDOWS\system32\iertutil.dll
+0x0cab0000 - 0x0cd86000 	C:\WINDOWS\system32\xpsp2res.dll
+0x73b20000 - 0x73b34000 	C:\WINDOWS\system32\sti.dll
+0x74a70000 - 0x74a77000 	C:\WINDOWS\system32\CFGMGR32.dll
+0x5c2e0000 - 0x5c331000 	C:\Archivos de programa\OpenOffice.org 2.0\program\shlxthdl.dll
+0x60b30000 - 0x60b48000 	C:\Archivos de programa\OpenOffice.org 2.0\program\uwinapi.dll
+0x62410000 - 0x6249e000 	C:\Archivos de programa\OpenOffice.org 2.0\program\stlport_vc7145.dll
+0x7c3a0000 - 0x7c41b000 	C:\Archivos de programa\OpenOffice.org 2.0\program\MSVCP71.dll
+0x10000000 - 0x1005b000 	C:\Archivos de programa\Archivos comunes\Adobe\Acrobat\ActiveX\PDFShell.dll
+0x0ce30000 - 0x0ce7c000 	C:\Archivos de programa\Archivos comunes\Adobe\Acrobat\ActiveX\PDFShell.ESP
+0x0d1a0000 - 0x0d271000 	C:\ARCHIV~1\ALCOHO~1\ALCOHO~1\AxShlex.dll
+0x5f1f0000 - 0x5f207000 	C:\WINDOWS\system32\OLEPRO32.DLL
+0x0d380000 - 0x0d442000 	C:\Archivos de programa\Alcohol Soft\Alcohol 120\alcoholx.dll
+0x77660000 - 0x77681000 	C:\WINDOWS\system32\NTMARTA.DLL
+0x0c620000 - 0x0c64d000 	C:\Archivos de programa\Alcohol Soft\Alcohol 120\PFCTOC.DLL
+0x0cea0000 - 0x0cea5000 	C:\Archivos de programa\Alcohol Soft\Alcohol 120\Plugins\Images\ccdmount.dll
+0x0d450000 - 0x0d455000 	C:\Archivos de programa\Alcohol Soft\Alcohol 120\Plugins\Images\cuemount.dll
+0x0d460000 - 0x0d466000 	C:\Archivos de programa\Alcohol Soft\Alcohol 120\Plugins\Images\nrgmount.dll
+0x0d470000 - 0x0d475000 	C:\Archivos de programa\Alcohol Soft\Alcohol 120\Plugins\Images\pdimount.dll
+0x6bd10000 - 0x6bd20000 	C:\Archivos de programa\Microsoft Office\Office12\msohevi.dll
+
+VM Arguments:
+jvm_args: -Xdebug -Xnoagent -Djava.compiler=none -Xrunjdwp:transport=dt_socket,address=localhost:2470
+java_command: ingrGast.gui.MainForm
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Archivos de programa\ATI Technologies\ATI.ACE\;C:\Archivos de programa\Microsoft SQL Server\80\Tools\Binn\;C:\Archivos de programa\IDM Computer Solutions\UltraEdit-32;C:\Archivos de programa\Microsoft SQL Server\90\Tools\binn\;C:\Archivos de programa\MySQL\MySQL Server 5.0\bin;C:\Archivos de programa\Subversion\bin;C:\Archivos de programa\Nmap;C:\Archivos de programa\OpenVPN\bin;C:\Archivos de programa\Pinnacle\Shared Files;C:\Archivos de programa\Pinnacle\Shared Files\Filter;C:\Archivos de programa\Archivos comunes\Ahead\Lib\
+USERNAME=Beñat
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 13 Stepping 6, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows XP Build 2600 Service Pack 2
+
+CPU:total 1 (1 cores per cpu, 1 threads per core) family 6 model 13 stepping 6, cmov, cx8, fxsr, mmx, sse, sse2
+
+Memory: 4k page, physical 1047920k(256992k free), swap 2520548k(1830496k free)
+
+vm_info: Java HotSpot(TM) Client VM (1.6.0_02-b06) for windows-x86, built on Jul 12 2007 01:16:14 by "java_re" with unknown MS VC++:1310
+
