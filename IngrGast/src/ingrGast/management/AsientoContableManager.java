@@ -88,4 +88,27 @@ public class AsientoContableManager{
     public int borrar(int id) throws SQLException {
         return asDB.delete(id);
     }
+
+    String constructQuery(int i, String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) {
+        String sql = "SELECT A.ID, G.Nombre, C.Motivo, C.Proveedor, C.Receptor, A.Fecha, A.Importe FROM asientoscontables AS A INNER JOIN conceptos AS C ON A.Concepto_ID = C.ID INNER JOIN grupos AS G ON A.Grupo_ID = G.ID WHERE ";
+        String s = "";
+        if (i > 0)
+            s += "A.Importe >= 0";
+        else if (i < 0)
+            s += "A.Importe < 0";
+        else
+            s += "TRUE";
+        if(grupo != null)
+            s += " AND G.Nombre = '" + grupo + "'";
+        if(motivo != null)
+            s += " AND C.Motivo = '" + motivo + "'";
+        if(proveedor != null)
+            s += " AND C.Proveedor = '" + proveedor + "'";
+        if(receptor != null)
+            s += " AND C.Receptor = '" + receptor + "'";
+        if(fechaIni != null && fechaFin != null)
+            s += " AND A.Fecha BETWEEN '" + String.valueOf(fechaIni.get(Calendar.YEAR)) + "/" + String.valueOf(fechaIni.get(Calendar.MONTH) + 1) + "/" + String.valueOf(fechaIni.get(Calendar.DAY_OF_MONTH)) + "' AND '" + String.valueOf(fechaFin.get(Calendar.YEAR)) + "/" + String.valueOf(fechaFin.get(Calendar.MONTH) + 1) + "/" + String.valueOf(fechaFin.get(Calendar.DAY_OF_MONTH)) + "'";
+        sql += s + " ORDER BY A.Fecha";
+        return sql;
+    }
 }
