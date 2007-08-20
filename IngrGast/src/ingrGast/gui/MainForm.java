@@ -34,12 +34,8 @@ public class MainForm extends javax.swing.JFrame {
     
     /** Creates new form MainForm */
     public MainForm() {
-        try {
             this.manager = new Manager();
             initComponents();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
     }
     
     /** This method is called from within the constructor to
@@ -56,9 +52,7 @@ public class MainForm extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
-        datosFiltroPanel1 = new ingrGast.gui.DatosFiltroPanel();
-        datosFiltroPanel1.setOwner(this);
-        this.updateDatosFiltro();
+        datosFiltroPanel1 = new DatosFiltroPanel(this);
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -243,59 +237,30 @@ public class MainForm extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.manager.disconnectDB();
+        datosFiltroPanel1.disconectResultSetTableModels();
     }//GEN-LAST:event_formWindowClosing
     
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        try {
             JFileChooser jfcC = new JFileChooser();
             jfcC.showOpenDialog(this);
             String fileName = jfcC.getSelectedFile().getPath();
             if (fileName.length() > 0)
                 this.manager.importarConceptos(fileName);
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }//GEN-LAST:event_jMenuItem9ActionPerformed
     
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        try {
             JFileChooser jfcAC = new JFileChooser();
             jfcAC.showOpenDialog(this);
             String fileName = jfcAC.getSelectedFile().getPath();
             if (fileName.length() > 0)
                 this.manager.importarAsientosContables(fileName);
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
     
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        try {
             JFileChooser jfcG = new JFileChooser();
             jfcG.showOpenDialog(this);
             if (jfcG.getSelectedFile() != null)
                 this.manager.importarGrupos(jfcG.getSelectedFile().getPath());
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

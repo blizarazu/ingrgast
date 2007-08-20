@@ -305,8 +305,6 @@ public class NuevoAsientoDialog extends javax.swing.JDialog {
         try{
             this.setData();
             this.manager.guardarAsientoContable(this.grupo, this.motivo, this.proveedor, this.receptor, this.importe, this.fecha);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         }catch (NumberFormatException ex){
             JOptionPane jop = new JOptionPane("El importe introducido no es correcto", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(this, "Importe incorrecto");
@@ -378,8 +376,6 @@ public class NuevoAsientoDialog extends javax.swing.JDialog {
         try {
             this.setData();
             this.manager.guardarAsientoContable(this.grupo, this.motivo, this.proveedor, this.receptor, this.importe, this.fecha);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
         } catch (NumberFormatException ex) {
             JOptionPane jop = new JOptionPane("El importe introducido no es correcto", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(this, "Importe incorrecto").setVisible(true);

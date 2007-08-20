@@ -243,7 +243,7 @@
       <SubComponents>
         <Component class="ingrGast.gui.DatosFiltroPanel" name="datosFiltroPanel1">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="datosFiltroPanel1.setOwner(this);&#xa;this.updateDatosFiltro();"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new DatosFiltroPanel(this);"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
