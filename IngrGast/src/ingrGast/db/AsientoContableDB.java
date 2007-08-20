@@ -9,28 +9,11 @@
 
 package ingrGast.db;
 
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
-import java.sql.Array;
-import java.sql.Blob;
-import java.sql.Clob;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.NClob;
-import java.sql.ParameterMetaData;
 import java.sql.PreparedStatement;
-import java.sql.Ref;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.RowId;
 import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.SQLXML;
 import java.sql.Statement;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Vector;
@@ -79,7 +62,7 @@ public class AsientoContableDB {
     public ResultSet executeQuery(String sql) throws SQLException {
         return statement.executeQuery(sql);
     }
-
+    
     public int delete(int id) throws SQLException {
         String sql = "DELETE FROM asientoscontables WHERE ID = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -88,7 +71,7 @@ public class AsientoContableDB {
         ps.close();
         return result;
     }
-
+    
     public double SUM(String s) throws SQLException {
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables AS A INNER JOIN conceptos AS C ON A.Concepto_ID = C.ID INNER JOIN grupos AS G ON A.Grupo_ID = G.ID WHERE " + s;
         ResultSet rs = statement.executeQuery(sql);
@@ -99,7 +82,7 @@ public class AsientoContableDB {
         rs.close();
         return result;
     }
-
+    
     public int update(int id, int cId, int gId, double imp, Calendar fecha) throws SQLException {
         String sql = "UPDATE asientoscontables SET Concepto_ID = ?, Grupo_ID = ?, Importe = ?, Fecha = ? WHERE ID = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
@@ -111,5 +94,14 @@ public class AsientoContableDB {
         int result = ps.executeUpdate();
         ps.close();
         return result;
+    }
+    
+    public Vector<String> getDates() throws SQLException {
+        String sql = "SELECT Fecha FROM asientoscontables ORDER BY Fecha";
+        ResultSet rs = statement.executeQuery(sql);
+        Vector<String> vDate = new Vector<String>();
+        while(rs.next())
+            vDate.addElement(rs.getString("Fecha"));
+        return vDate;
     }
 }

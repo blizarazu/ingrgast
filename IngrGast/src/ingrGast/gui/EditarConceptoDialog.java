@@ -191,7 +191,7 @@ public class EditarConceptoDialog extends javax.swing.JDialog {
             System.out.println("Error al editar el concepto");
         if (this.owner.getCurrentDialog() == this)
             this.owner.setCurrentDialog(null);
-        this.owner.updateDatosFiltro();
+        this.owner.updateData();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
     

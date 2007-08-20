@@ -7,6 +7,7 @@
 package ingrGast.gui;
 
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import ingrGast.management.Manager;
 import ingrGast.objects.AsientoContable;
 import java.awt.Color;
@@ -28,7 +29,6 @@ public class NuevoAsientoDialog extends javax.swing.JDialog {
     /** Creates new form NuevoAsientoDialog */
     public NuevoAsientoDialog(MainForm parent, boolean modal) {
         super(parent, modal);
-        System.out.println(this.getOwner().toString());
         this.owner = parent;
         this.manager = this.owner.getManager();
         initComponents();
@@ -155,6 +155,7 @@ public class NuevoAsientoDialog extends javax.swing.JDialog {
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
         jDateChooser1.setCalendar(cal);
+        ((JTextFieldDateEditor)jDateChooser1.getComponent(1)).setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -307,9 +308,9 @@ public class NuevoAsientoDialog extends javax.swing.JDialog {
             this.manager.guardarAsientoContable(this.grupo, this.motivo, this.proveedor, this.receptor, this.importe, this.fecha);
         }catch (NumberFormatException ex){
             JOptionPane jop = new JOptionPane("El importe introducido no es correcto", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(this, "Importe incorrecto");
+            jop.createDialog(this, "Importe incorrecto").setVisible(true);
         }
-        this.owner.updateDatosFiltro();
+        this.owner.updateData();
         this.owner.openNuevoAsientoDialog();
     }//GEN-LAST:event_jButton3ActionPerformed
     
@@ -327,11 +328,7 @@ public class NuevoAsientoDialog extends javax.swing.JDialog {
                     jTextField1.setForeground(Color.GREEN);
                 }
             }
-        } catch (NumberFormatException ex){
-            JOptionPane jop = new JOptionPane("El importe introducido no es correcto", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(this, "Importe incorrecto").setVisible(true);
-        }
-        
+        } catch (NumberFormatException ex){}        
     }//GEN-LAST:event_setTipoImporte
     
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
@@ -382,7 +379,7 @@ public class NuevoAsientoDialog extends javax.swing.JDialog {
         }
         if (this.owner.getCurrentDialog() == this)
             this.owner.setCurrentDialog(null);
-        this.owner.updateDatosFiltro();
+        this.owner.updateData();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
     

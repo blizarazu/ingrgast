@@ -6,42 +6,49 @@
 
 package ingrGast.gui;
 
+import com.toedter.calendar.JTextFieldDateEditor;
 import ingrGast.db.Connector;
 import ingrGast.db.ResultSetTableModel;
+import ingrGast.interfaces.InsidePanel;
 import ingrGast.management.Manager;
 import ingrGast.objects.AsientoContable;
 import java.awt.Color;
-import java.awt.Component;
 import java.sql.SQLException;
-import java.text.Format;
 import java.text.NumberFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Formattable;
-import java.util.Formatter;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
-import java.util.Locale;
 import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 
 /**
  *
  * @author  Beñat
  */
-public class DatosFiltroPanel extends javax.swing.JPanel {
+public class DatosFiltroPanel extends javax.swing.JPanel implements InsidePanel{
     
     /** Creates new form DatosFiltroPanel */
-    public DatosFiltroPanel(MainForm parent) {
+    public DatosFiltroPanel(/*MainForm parent*/) {
+        initComponents();
+    }
+    
+    public void initData(MainForm parent){
         this.owner = parent;
         this.manager = this.owner.getManager();
-        initComponents();
+        jTable1.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
+        this.setInfoTextIngresos(); jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID"))); jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
+        jTable2.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
+        this.setInfoTextGastos(); jTable2.getColumnModel().removeColumn(jTable2.getColumnModel().getColumn(jTable2.getColumnModel().getColumnIndex("ID"))); jTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
+        jTable3.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
+        this.setInfoTextTotales(); jTable3.getColumnModel().removeColumn(jTable3.getColumnModel().getColumn(jTable3.getColumnModel().getColumnIndex("ID"))); jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        
+        this.updateComboBoxes();
+    }
+    
+    public void updateData(){
+        this.updateTables();
         this.updateComboBoxes();
     }
     
@@ -131,12 +138,14 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         cal.setTime(new Date());
         jDateChooser1.setCalendar(cal);
         jDateChooser1.setEnabled(false);
+        ((JTextFieldDateEditor)jDateChooser1.getComponent(1)).setEditable(false);
 
         jDateChooser2.setToolTipText("D\u00eda-Mes-A\u00f1o");
         Calendar cal2 = new GregorianCalendar();
         cal2.setTime(new Date());
         jDateChooser2.setCalendar(cal2);
         jDateChooser2.setEnabled(false);
+        ((JTextFieldDateEditor)jDateChooser2.getComponent(1)).setEditable(false);
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -248,12 +257,8 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         });
 
         jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setShowVerticalLines(false);
-        this.setInfoTextIngresos();
-        jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID")));
-        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
@@ -347,12 +352,8 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         });
 
         jTable2.setAutoCreateRowSorter(true);
-        jTable2.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
         jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setShowVerticalLines(false);
-        this.setInfoTextGastos();
-        jTable2.getColumnModel().removeColumn(jTable2.getColumnModel().getColumn(jTable2.getColumnModel().getColumnIndex("ID")));
-        jTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jTable2);
 
         org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
@@ -451,12 +452,8 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         });
 
         jTable3.setAutoCreateRowSorter(true);
-        jTable3.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
         jTable3.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable3.setShowVerticalLines(false);
-        this.setInfoTextTotales();
-        jTable3.getColumnModel().removeColumn(jTable3.getColumnModel().getColumn(jTable3.getColumnModel().getColumnIndex("ID")));
-        jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(jTable3);
 
         org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
@@ -518,99 +515,148 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        int row = jTable3.convertRowIndexToModel(jTable3.getSelectedRow());
-        AsientoContable as = null;
-        if (row >= 0){
-            ResultSetTableModel model = (ResultSetTableModel)jTable3.getModel();
-            int asID = new Integer(model.getValueAt(row, 0).toString()).intValue();
-            String grupo = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Grupo"))).toString();
-            String motivo = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Motivo"))).toString();
-            String proveedor = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Proveedor"))).toString();
-            String receptor = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Receptor"))).toString();
-            double importe = new Double(model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Importe"))).toString()).doubleValue();
-            Date d = (Date)model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Fecha")));
-            Calendar fecha = new GregorianCalendar();
-            fecha.setTime(d);
-            as = new AsientoContable(asID, grupo, motivo, proveedor, receptor, importe, fecha);
+        if (jTable3.getSelectedRow() >= 0){
+            int row = jTable3.convertRowIndexToModel(jTable3.getSelectedRow());
+            AsientoContable as = null;
+            if (row >= 0){
+                ResultSetTableModel model = (ResultSetTableModel)jTable3.getModel();
+                int asID = new Integer(model.getValueAt(row, 0).toString()).intValue();
+                String grupo = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Grupo"))).toString();
+                String motivo = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Motivo"))).toString();
+                String proveedor = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Proveedor"))).toString();
+                String receptor = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Receptor"))).toString();
+                double importe;
+                try {
+                    importe = new Double(model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Importe"))).toString()).doubleValue();
+                } catch (NumberFormatException ex) {
+                    ex.printStackTrace();
+                    importe = 0;
+                }
+                Date d = (Date)model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Fecha")));
+                Calendar fecha = new GregorianCalendar();
+                fecha.setTime(d);
+                as = new AsientoContable(asID, grupo, motivo, proveedor, receptor, importe, fecha);
+            }
+            if(as != null){
+                EditarAsientoDialog ead = new EditarAsientoDialog(this.owner, true, as);
+                ead.setLocationRelativeTo(null);
+                this.owner.setCurrentDialog(ead);
+                ead.setVisible(true);
+            }
+        } else{
+            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Imposible editar el asiento contable").setVisible(true);
         }
-            
-        EditarAsientoDialog ead = new EditarAsientoDialog(this.owner, true, as);
-        this.owner.setCurrentDialog(ead);
-        ead.setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
-
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
-        AsientoContable as = null;
-        if (row >= 0){
-            ResultSetTableModel model = (ResultSetTableModel)jTable2.getModel();
-            int asID = new Integer(model.getValueAt(row, 0).toString()).intValue();
-            String grupo = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Grupo"))).toString();
-            String motivo = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Motivo"))).toString();
-            String proveedor = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Proveedor"))).toString();
-            String receptor = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Receptor"))).toString();
-            double importe = new Double(model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Importe"))).toString()).doubleValue();
-            Date d = (Date)model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Fecha")));
-            Calendar fecha = new GregorianCalendar();
-            fecha.setTime(d);
-            as = new AsientoContable(asID, grupo, motivo, proveedor, receptor, importe, fecha);
+        if (jTable2.getSelectedRow() >= 0){
+            int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
+            AsientoContable as = null;
+            if (row >= 0){
+                ResultSetTableModel model = (ResultSetTableModel)jTable2.getModel();
+                int asID = new Integer(model.getValueAt(row, 0).toString()).intValue();
+                String grupo = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Grupo"))).toString();
+                String motivo = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Motivo"))).toString();
+                String proveedor = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Proveedor"))).toString();
+                String receptor = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Receptor"))).toString();
+                double importe;
+                try {
+                    importe = new Double(model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Importe"))).toString()).doubleValue();
+                } catch (NumberFormatException ex) {
+                    ex.printStackTrace();
+                    importe = 0;
+                }
+                Date d = (Date)model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Fecha")));
+                Calendar fecha = new GregorianCalendar();
+                fecha.setTime(d);
+                as = new AsientoContable(asID, grupo, motivo, proveedor, receptor, importe, fecha);
+            }
+            if(as != null){
+                EditarAsientoDialog ead = new EditarAsientoDialog(this.owner, true, as);
+                ead.setLocationRelativeTo(null);
+                this.owner.setCurrentDialog(ead);
+                ead.setVisible(true);
+            }
+        } else{
+            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Imposible editar el asiento contable").setVisible(true);
         }
-            
-        EditarAsientoDialog ead = new EditarAsientoDialog(this.owner, true, as);
-        this.owner.setCurrentDialog(ead);
-        ead.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
-        AsientoContable as = null;
-        if (row >= 0){
-            ResultSetTableModel model = (ResultSetTableModel)jTable1.getModel();
-            int asID = new Integer(model.getValueAt(row, 0).toString()).intValue();
-            String grupo = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Grupo"))).toString();
-            String motivo = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Motivo"))).toString();
-            String proveedor = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Proveedor"))).toString();
-            String receptor = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Receptor"))).toString();
-            double importe = new Double(model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Importe"))).toString()).doubleValue();
-            Date d = (Date)model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Fecha")));
-            Calendar fecha = new GregorianCalendar();
-            fecha.setTime(d);
-            as = new AsientoContable(asID, grupo, motivo, proveedor, receptor, importe, fecha);
+        if (jTable1.getSelectedRow() >= 0){
+            int row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
+            AsientoContable as = null;
+            if (row >= 0){
+                ResultSetTableModel model = (ResultSetTableModel)jTable1.getModel();
+                int asID = new Integer(model.getValueAt(row, 0).toString()).intValue();
+                String grupo = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Grupo"))).toString();
+                String motivo = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Motivo"))).toString();
+                String proveedor = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Proveedor"))).toString();
+                String receptor = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Receptor"))).toString();
+                double importe;
+                try {
+                    importe = new Double(model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Importe"))).toString()).doubleValue();
+                } catch (NumberFormatException ex) {
+                    ex.printStackTrace();
+                    importe = 0;
+                }
+                Date d = (Date)model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Fecha")));
+                Calendar fecha = new GregorianCalendar();
+                fecha.setTime(d);
+                as = new AsientoContable(asID, grupo, motivo, proveedor, receptor, importe, fecha);
+            }
+            if(as != null){
+                EditarAsientoDialog ead = new EditarAsientoDialog(this.owner, true, as);
+                ead.setLocationRelativeTo(null);
+                this.owner.setCurrentDialog(ead);
+                ead.setVisible(true);
+            }
+        } else{
+            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Imposible editar el asiento contable").setVisible(true);
         }
-            
-        EditarAsientoDialog ead = new EditarAsientoDialog(this.owner, true, as);
-        this.owner.setCurrentDialog(ead);
-        ead.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
     
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        int row = jTable3.convertRowIndexToModel(jTable3.getSelectedRow());
-        if (row >= 0){
-            JOptionPane jop = new JOptionPane();
-            //0 -> YES, 1 -> NO
-            int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
-            if(option == 0){
-                Integer asID = new Integer(((ResultSetTableModel)jTable3.getModel()).getValueAt(row, 0).toString());
-                manager.borrarAsiento(asID.intValue());
+        if (jTable3.getSelectedRow() >= 0){
+            int row = jTable3.convertRowIndexToModel(jTable3.getSelectedRow());
+            if (row >= 0){
+                JOptionPane jop = new JOptionPane();
+                //0 -> YES, 1 -> NO
+                int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
+                if(option == 0){
+                    Integer asID = new Integer(((ResultSetTableModel)jTable3.getModel()).getValueAt(row, 0).toString());
+                    manager.borrarAsiento(asID.intValue());
+                }
             }
+            this.owner.updateData();
+        } else{
+            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Imposible borrar el asiento contable").setVisible(true);
         }
-        this.updateTables();
     }//GEN-LAST:event_jButton7ActionPerformed
     
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
-        if (row >= 0){
-            JOptionPane jop = new JOptionPane();
-            //0 -> YES, 1 -> NO
-            int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
-            if(option == 0){
-                Integer asID = new Integer(((ResultSetTableModel)jTable2.getModel()).getValueAt(row, 0).toString());
-                manager.borrarAsiento(asID.intValue());
+        if (jTable2.getSelectedRow() >= 0){
+            int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
+            if (row >= 0){
+                JOptionPane jop = new JOptionPane();
+                //0 -> YES, 1 -> NO
+                int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
+                if(option == 0){
+                    Integer asID = new Integer(((ResultSetTableModel)jTable2.getModel()).getValueAt(row, 0).toString());
+                    manager.borrarAsiento(asID.intValue());
+                }
             }
+            this.owner.updateData();
+        } else{
+            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Imposible borrar el asiento contable").setVisible(true);
         }
-        this.updateTables();
     }//GEN-LAST:event_jButton5ActionPerformed
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -622,11 +668,11 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
         } catch (IllegalStateException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
         try {
             ((ResultSetTableModel)jTable2.getModel()).setQuery(this.manager.constructQueryGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2));
@@ -635,7 +681,7 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
         try {
             ((ResultSetTableModel)jTable3.getModel()).setQuery(this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2));
@@ -644,7 +690,7 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
@@ -659,17 +705,22 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
     }//GEN-LAST:event_jCheckBox1ItemStateChanged
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        int row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
-        if (row >= 0){
-            JOptionPane jop = new JOptionPane();
-            //0 -> YES, 1 -> NO
-            int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
-            if(option == 0){
-                Integer asID = new Integer(((ResultSetTableModel)jTable1.getModel()).getValueAt(row, 0).toString());
-                manager.borrarAsiento(asID.intValue());
+        if (jTable1.getSelectedRow() >= 0){
+            int row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
+            if (row >= 0){
+                JOptionPane jop = new JOptionPane();
+                //0 -> YES, 1 -> NO
+                int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
+                if(option == 0){
+                    Integer asID = new Integer(((ResultSetTableModel)jTable1.getModel()).getValueAt(row, 0).toString());
+                    manager.borrarAsiento(asID.intValue());
+                }
             }
+            this.owner.updateData();
+        } else{
+            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Imposible borrar el asiento contable").setVisible(true);
         }
-        this.updateTables();
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void setData(){
@@ -698,7 +749,7 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
         }
     }
     
-    public void updateTables(){
+    private void updateTables(){
         try {
             ((ResultSetTableModel)jTable1.getModel()).refress();
             jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID")));
@@ -706,7 +757,7 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
         try {
             ((ResultSetTableModel)jTable2.getModel()).refress();
@@ -715,7 +766,7 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
         try {
             ((ResultSetTableModel)jTable3.getModel()).refress();
@@ -724,11 +775,11 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
     }
     
-    public void updateComboBoxes(){
+    private void updateComboBoxes(){
         jComboBox1.removeAllItems();
         Vector <String> vG = this.manager.getGruposNombres();
         vG.add(0, "TODOS");
@@ -752,12 +803,12 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
     
     private void setInfoTextIngresos(){
         int ingNum = ((ResultSetTableModel)jTable1.getModel()).getRowCount();
-            if(ingNum <= 0)
-                jLabel4.setText("No se ha encontrado ningún ingreso.");
-            else if(ingNum == 1)
-                jLabel4.setText("Se ha encontrado un ingreso.");
-            else
-                jLabel4.setText("Se han encontrado " + ingNum + " ingresos.");
+        if(ingNum <= 0)
+            jLabel4.setText("No se ha encontrado ningún ingreso.");
+        else if(ingNum == 1)
+            jLabel4.setText("Se ha encontrado un ingreso.");
+        else
+            jLabel4.setText("Se han encontrado " + ingNum + " ingresos.");
         NumberFormat nf = NumberFormat.getCurrencyInstance();
         double totIngr = this.manager.getTotalIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
         jLabel1.setText(nf.format(totIngr));
@@ -771,12 +822,12 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
     
     private void setInfoTextGastos(){
         int gastNum = ((ResultSetTableModel)jTable2.getModel()).getRowCount();
-            if(gastNum <= 0)
-                jLabel6.setText("No se ha encontrado ningún gasto.");
-            else if(gastNum == 1)
-                jLabel6.setText("Se ha encontrado un gasto.");
-            else
-                jLabel6.setText("Se han encontrado " + gastNum + " gastos.");
+        if(gastNum <= 0)
+            jLabel6.setText("No se ha encontrado ningún gasto.");
+        else if(gastNum == 1)
+            jLabel6.setText("Se ha encontrado un gasto.");
+        else
+            jLabel6.setText("Se han encontrado " + gastNum + " gastos.");
         NumberFormat nf = NumberFormat.getCurrencyInstance();
         double totGast = this.manager.getTotalGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
         jLabel11.setText(nf.format(totGast));
@@ -790,12 +841,12 @@ int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
     
     private void setInfoTextTotales(){
         int totNum = ((ResultSetTableModel)jTable3.getModel()).getRowCount();
-            if(totNum <= 0)
-                jLabel8.setText("No se ha encontrado ninguna entrada.");
-            else if(totNum == 1)
-                jLabel8.setText("Se ha encontrado una entrada.");
-            else
-                jLabel8.setText("Se han encontrado " + totNum + " entradas.");
+        if(totNum <= 0)
+            jLabel8.setText("No se ha encontrado ninguna entrada.");
+        else if(totNum == 1)
+            jLabel8.setText("Se ha encontrado una entrada.");
+        else
+            jLabel8.setText("Se han encontrado " + totNum + " entradas.");
         this.setData();
         double tot = this.manager.getTotal(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
         NumberFormat nf = NumberFormat.getCurrencyInstance();

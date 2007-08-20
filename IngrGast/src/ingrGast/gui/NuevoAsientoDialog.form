@@ -331,6 +331,9 @@
               <Connection code="cal" type="code"/>
             </Property>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="((JTextFieldDateEditor)jDateChooser1.getComponent(1)).setEditable(false);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

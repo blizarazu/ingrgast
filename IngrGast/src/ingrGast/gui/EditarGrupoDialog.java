@@ -138,7 +138,7 @@ public class EditarGrupoDialog extends javax.swing.JDialog {
         this.manager.editarGrupo(this.nombre, this.nuevoNombre);
         if (this.owner.getCurrentDialog() == this)
             this.owner.setCurrentDialog(null);
-        this.owner.updateDatosFiltro();
+        this.owner.updateData();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
     
