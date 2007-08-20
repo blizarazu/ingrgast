@@ -6,6 +6,7 @@
 
 package ingrGast.gui;
 
+import ingrGast.db.Connector;
 import ingrGast.db.ResultSetTableModel;
 import ingrGast.management.Manager;
 import ingrGast.objects.AsientoContable;
@@ -24,7 +25,10 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -34,8 +38,11 @@ import javax.swing.table.TableModel;
 public class DatosFiltroPanel extends javax.swing.JPanel {
     
     /** Creates new form DatosFiltroPanel */
-    public DatosFiltroPanel() {
-            initComponents();
+    public DatosFiltroPanel(MainForm parent) {
+        this.owner = parent;
+        this.manager = this.owner.getManager();
+        initComponents();
+        this.updateComboBoxes();
     }
     
     /** This method is called from within the constructor to
@@ -78,8 +85,6 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
@@ -88,6 +93,8 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Consultar Datos"));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
@@ -103,6 +110,14 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                 jCheckBox1ItemStateChanged(evt);
             }
         });
+
+        jComboBox1.setToolTipText("Selecciona un grupo");
+
+        jComboBox2.setToolTipText("Selecciona un motivo");
+
+        jComboBox3.setToolTipText("Selecciona un proveedor");
+
+        jComboBox4.setToolTipText("Selecciona un receptor");
 
         jButton1.setText("Filtrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +161,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jComboBox3, 0, 81, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jComboBox4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 114, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 108, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 80, Short.MAX_VALUE)
                         .add(jButton1)))
                 .addContainerGap())
         );
@@ -189,7 +204,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(jLabel4)
-                .addContainerGap(578, Short.MAX_VALUE))
+                .addContainerGap(550, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -209,7 +224,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                 .add(jLabel5)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel1)
-                .addContainerGap(535, Short.MAX_VALUE))
+                .addContainerGap(507, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -233,31 +248,11 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         });
 
         jTable1.setAutoCreateRowSorter(true);
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Grupo", "Motivo", "Proveedor", "Receptor", "Fecha", "Importe"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable1.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setShowVerticalLines(false);
+        this.setInfoTextIngresos();
+        jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID")));
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTable1);
 
@@ -270,7 +265,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton2)
@@ -292,7 +287,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                         .add(jButton2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton3))
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -308,7 +303,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel7Layout.createSequentialGroup()
                 .add(jLabel6)
-                .addContainerGap(578, Short.MAX_VALUE))
+                .addContainerGap(550, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -328,7 +323,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                 .add(jLabel7)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel11)
-                .addContainerGap(535, Short.MAX_VALUE))
+                .addContainerGap(507, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -338,6 +333,11 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         );
 
         jButton4.setText("Editar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Borrar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -347,30 +347,11 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         });
 
         jTable2.setAutoCreateRowSorter(true);
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Grupo", "Motivo", "Proveedor", "Receptor", "Fecha", "Importe"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable2.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
+        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setShowVerticalLines(false);
+        this.setInfoTextGastos();
+        jTable2.getColumnModel().removeColumn(jTable2.getColumnModel().getColumn(jTable2.getColumnModel().getColumnIndex("ID")));
         jTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jTable2);
 
@@ -383,7 +364,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                 .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton4)
@@ -405,17 +386,12 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                         .add(jButton4)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton5))
-                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jTabbedPane1.addTab("Gastos", jPanel5);
-
-        jTable3.setAutoCreateRowSorter(true);
-        jTable3.setShowVerticalLines(false);
-        jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane3.setViewportView(jTable3);
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jLabel8.setText(" ");
@@ -426,7 +402,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel9Layout.createSequentialGroup()
                 .add(jLabel8)
-                .addContainerGap(578, Short.MAX_VALUE))
+                .addContainerGap(550, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -461,6 +437,11 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         );
 
         jButton6.setText("Editar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Borrar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -469,6 +450,15 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
             }
         });
 
+        jTable3.setAutoCreateRowSorter(true);
+        jTable3.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
+        jTable3.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTable3.setShowVerticalLines(false);
+        this.setInfoTextTotales();
+        jTable3.getColumnModel().removeColumn(jTable3.getColumnModel().getColumn(jTable3.getColumnModel().getColumnIndex("ID")));
+        jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(jTable3);
+
         org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -476,14 +466,14 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
             .add(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jButton6)
-                            .add(jButton7)))
+                    .add(jPanel10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton6)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton7))))
                 .addContainerGap())
         );
 
@@ -500,7 +490,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                         .add(jButton6)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton7))
-                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -514,7 +504,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -524,67 +514,137 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        int row = jTable3.convertRowIndexToModel(jTable3.getSelectedRow());
+        AsientoContable as = null;
+        if (row >= 0){
+            ResultSetTableModel model = (ResultSetTableModel)jTable3.getModel();
+            int asID = new Integer(model.getValueAt(row, 0).toString()).intValue();
+            String grupo = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Grupo"))).toString();
+            String motivo = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Motivo"))).toString();
+            String proveedor = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Proveedor"))).toString();
+            String receptor = model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Receptor"))).toString();
+            double importe = new Double(model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Importe"))).toString()).doubleValue();
+            Date d = (Date)model.getValueAt(row, jTable3.convertColumnIndexToModel(jTable3.getColumnModel().getColumnIndex("Fecha")));
+            Calendar fecha = new GregorianCalendar();
+            fecha.setTime(d);
+            as = new AsientoContable(asID, grupo, motivo, proveedor, receptor, importe, fecha);
+        }
+            
+        EditarAsientoDialog ead = new EditarAsientoDialog(this.owner, true, as);
+        this.owner.setCurrentDialog(ead);
+        ead.setVisible(true);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
+        AsientoContable as = null;
+        if (row >= 0){
+            ResultSetTableModel model = (ResultSetTableModel)jTable2.getModel();
+            int asID = new Integer(model.getValueAt(row, 0).toString()).intValue();
+            String grupo = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Grupo"))).toString();
+            String motivo = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Motivo"))).toString();
+            String proveedor = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Proveedor"))).toString();
+            String receptor = model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Receptor"))).toString();
+            double importe = new Double(model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Importe"))).toString()).doubleValue();
+            Date d = (Date)model.getValueAt(row, jTable2.convertColumnIndexToModel(jTable2.getColumnModel().getColumnIndex("Fecha")));
+            Calendar fecha = new GregorianCalendar();
+            fecha.setTime(d);
+            as = new AsientoContable(asID, grupo, motivo, proveedor, receptor, importe, fecha);
+        }
+            
+        EditarAsientoDialog ead = new EditarAsientoDialog(this.owner, true, as);
+        this.owner.setCurrentDialog(ead);
+        ead.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
         AsientoContable as = null;
-        if (row >= 0)
-            as = vIng.elementAt(row);
+        if (row >= 0){
+            ResultSetTableModel model = (ResultSetTableModel)jTable1.getModel();
+            int asID = new Integer(model.getValueAt(row, 0).toString()).intValue();
+            String grupo = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Grupo"))).toString();
+            String motivo = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Motivo"))).toString();
+            String proveedor = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Proveedor"))).toString();
+            String receptor = model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Receptor"))).toString();
+            double importe = new Double(model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Importe"))).toString()).doubleValue();
+            Date d = (Date)model.getValueAt(row, jTable1.convertColumnIndexToModel(jTable1.getColumnModel().getColumnIndex("Fecha")));
+            Calendar fecha = new GregorianCalendar();
+            fecha.setTime(d);
+            as = new AsientoContable(asID, grupo, motivo, proveedor, receptor, importe, fecha);
+        }
+            
         EditarAsientoDialog ead = new EditarAsientoDialog(this.owner, true, as);
+        this.owner.setCurrentDialog(ead);
         ead.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
     
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         int row = jTable3.convertRowIndexToModel(jTable3.getSelectedRow());
-        AsientoContable as = null;
         if (row >= 0){
-            //as = vTot.elementAt(row);
             JOptionPane jop = new JOptionPane();
             //0 -> YES, 1 -> NO
             int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
-            if(option == 0)
-                manager.borrarAsiento(as.getID());
+            if(option == 0){
+                Integer asID = new Integer(((ResultSetTableModel)jTable3.getModel()).getValueAt(row, 0).toString());
+                manager.borrarAsiento(asID.intValue());
+            }
         }
-        this.cargarTablaIngresos();
-        this.cargarTablaGastos();
-        try {
-            ((ResultSetTableModel)jTable3.getModel()).rechargeTable();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        this.updateTables();
     }//GEN-LAST:event_jButton7ActionPerformed
     
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
-        AsientoContable as = null;
         if (row >= 0){
-            as = vGas.elementAt(row);
             JOptionPane jop = new JOptionPane();
             //0 -> YES, 1 -> NO
             int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
-            if(option == 0)
-                manager.borrarAsiento(as.getID());
+            if(option == 0){
+                Integer asID = new Integer(((ResultSetTableModel)jTable2.getModel()).getValueAt(row, 0).toString());
+                manager.borrarAsiento(asID.intValue());
+            }
         }
-        this.cargarTablaIngresos();
-        this.cargarTablaGastos();
-        try {
-            this.cargarTablaTotales();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        this.updateTables();
     }//GEN-LAST:event_jButton5ActionPerformed
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.cargarTablaIngresos();
-        this.cargarTablaGastos();
+        this.setData();
         try {
-            this.cargarTablaTotales();
+            ((ResultSetTableModel)jTable1.getModel()).setQuery(this.manager.constructQueryIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2));
+            jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID")));
+            this.setInfoTextIngresos();
+        } catch (IllegalStateException ex) {
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos");
         } catch (SQLException ex) {
             ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos");
+        }
+        try {
+            ((ResultSetTableModel)jTable2.getModel()).setQuery(this.manager.constructQueryGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2));
+            jTable2.getColumnModel().removeColumn(jTable2.getColumnModel().getColumn(jTable2.getColumnModel().getColumnIndex("ID")));
+            this.setInfoTextGastos();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos");
+        }
+        try {
+            ((ResultSetTableModel)jTable3.getModel()).setQuery(this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2));
+            jTable3.getColumnModel().removeColumn(jTable3.getColumnModel().getColumn(jTable3.getColumnModel().getColumnIndex("ID")));
+            this.setInfoTextTotales();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
@@ -600,22 +660,16 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
-        AsientoContable as = null;
         if (row >= 0){
-            as = vIng.elementAt(row);
             JOptionPane jop = new JOptionPane();
             //0 -> YES, 1 -> NO
             int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
-            if(option == 0)
-                manager.borrarAsiento(as.getID());
+            if(option == 0){
+                Integer asID = new Integer(((ResultSetTableModel)jTable1.getModel()).getValueAt(row, 0).toString());
+                manager.borrarAsiento(asID.intValue());
+            }
         }
-        this.cargarTablaGastos();
-        this.cargarTablaIngresos();
-        try {
-            this.cargarTablaTotales();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+        this.updateTables();
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void setData(){
@@ -644,40 +698,68 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
         }
     }
     
-    private void cargarTablaIngresos(){
-        this.setData();
-        this.vIng = manager.getIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
-        Vector<Object> row;
-        Vector<Vector<Object>> table = new Vector<Vector<Object>>();
-        Vector<String> tNames = new Vector<String>();
-        tNames.addElement("Grupo");
-        tNames.addElement("Motivo");
-        tNames.addElement("Proveedor");
-        tNames.addElement("Receptor");
-        tNames.addElement("Fecha");
-        tNames.addElement("Importe");
-        double totIngr = 0;
-        for(AsientoContable as: vIng) {
-            row = new Vector<Object>();
-            row.addElement(as.getGrupo());
-            row.addElement(as.getMotivo());
-            row.addElement(as.getProveedor());
-            row.addElement(as.getReceptor());
-            row.addElement(as.getFecha().get(Calendar.YEAR) + "/" + String.valueOf(as.getFecha().get(Calendar.MONTH) + 1) + "/" + as.getFecha().get(Calendar.DAY_OF_MONTH));
-            row.addElement(as.getImporte());
-            totIngr += as.getImporte();
-            table.addElement(row);
+    public void updateTables(){
+        try {
+            ((ResultSetTableModel)jTable1.getModel()).refress();
+            jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID")));
+            this.setInfoTextIngresos();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos");
         }
-        ((DefaultTableModel)jTable1.getModel()).setDataVector(table, tNames);
-        ((DefaultTableModel)jTable1.getModel()).fireTableStructureChanged();
-        int ingrNum = vIng.size();
-        if(ingrNum <= 0)
-            jLabel4.setText("No se ha encontrado ningún ingreso.");
-        else if(ingrNum == 1)
-            jLabel4.setText("Se ha encontrado un ingreso.");
-        else
-            jLabel4.setText("Se han encontrado " + ingrNum + " ingresos.");
+        try {
+            ((ResultSetTableModel)jTable2.getModel()).refress();
+            jTable2.getColumnModel().removeColumn(jTable2.getColumnModel().getColumn(jTable2.getColumnModel().getColumnIndex("ID")));
+            this.setInfoTextGastos();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos");
+        }
+        try {
+            ((ResultSetTableModel)jTable3.getModel()).refress();
+            jTable3.getColumnModel().removeColumn(jTable3.getColumnModel().getColumn(jTable3.getColumnModel().getColumnIndex("ID")));
+            this.setInfoTextTotales();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos");
+        }
+    }
+    
+    public void updateComboBoxes(){
+        jComboBox1.removeAllItems();
+        Vector <String> vG = this.manager.getGruposNombres();
+        vG.add(0, "TODOS");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(vG));
+        
+        jComboBox2.removeAllItems();
+        Vector <String> vM = this.manager.getConceptosMotivos();
+        vM.add(0, "TODOS");
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(vM));
+        
+        jComboBox3.removeAllItems();
+        Vector <String> vP = this.manager.getConceptosProveedores();
+        vP.add(0, "TODOS");
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(vP));
+        
+        jComboBox4.removeAllItems();
+        Vector <String> vR = this.manager.getConceptosReceptores();
+        vR.add(0, "TODOS");
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(vR));
+    }
+    
+    private void setInfoTextIngresos(){
+        int ingNum = ((ResultSetTableModel)jTable1.getModel()).getRowCount();
+            if(ingNum <= 0)
+                jLabel4.setText("No se ha encontrado ningún ingreso.");
+            else if(ingNum == 1)
+                jLabel4.setText("Se ha encontrado un ingreso.");
+            else
+                jLabel4.setText("Se han encontrado " + ingNum + " ingresos.");
         NumberFormat nf = NumberFormat.getCurrencyInstance();
+        double totIngr = this.manager.getTotalIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
         jLabel1.setText(nf.format(totIngr));
         if(totIngr > 0)
             jLabel1.setForeground(Color.GREEN);
@@ -685,43 +767,18 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
             jLabel1.setForeground(Color.BLACK);
         else if (totIngr < 0)
             jLabel1.setForeground(Color.RED);
-        
     }
     
-    private void cargarTablaGastos(){
-        this.setData();
-        this.vGas = manager.getGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
-        Vector<Object> row;
-        Vector<Vector<Object>> table = new Vector<Vector<Object>>();
-        Vector<String> tNames = new Vector<String>();
-        tNames.addElement("Grupo");
-        tNames.addElement("Motivo");
-        tNames.addElement("Proveedor");
-        tNames.addElement("Receptor");
-        tNames.addElement("Fecha");
-        tNames.addElement("Importe");
-        double totGast = 0;
-        for(AsientoContable as: vGas) {
-            row = new Vector<Object>();
-            row.addElement(as.getGrupo());
-            row.addElement(as.getMotivo());
-            row.addElement(as.getProveedor());
-            row.addElement(as.getReceptor());
-            row.addElement(as.getFecha().get(Calendar.YEAR) + "/" + String.valueOf(as.getFecha().get(Calendar.MONTH) + 1) + "/" + as.getFecha().get(Calendar.DAY_OF_MONTH));
-            row.addElement(as.getImporte());
-            totGast += as.getImporte();
-            table.addElement(row);
-        }
-        ((DefaultTableModel)jTable2.getModel()).setDataVector(table, tNames);
-        ((DefaultTableModel)jTable2.getModel()).fireTableStructureChanged();
-        int gastNum = vGas.size();
-        if(gastNum <= 0)
-            jLabel6.setText("No se ha encontrado ningún gasto.");
-        else if(gastNum == 1)
-            jLabel6.setText("Se ha encontrado un gasto.");
-        else
-            jLabel6.setText("Se han encontrado " + gastNum + " gastos.");
+    private void setInfoTextGastos(){
+        int gastNum = ((ResultSetTableModel)jTable2.getModel()).getRowCount();
+            if(gastNum <= 0)
+                jLabel6.setText("No se ha encontrado ningún gasto.");
+            else if(gastNum == 1)
+                jLabel6.setText("Se ha encontrado un gasto.");
+            else
+                jLabel6.setText("Se han encontrado " + gastNum + " gastos.");
         NumberFormat nf = NumberFormat.getCurrencyInstance();
+        double totGast = this.manager.getTotalGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
         jLabel11.setText(nf.format(totGast));
         if(totGast > 0)
             jLabel11.setForeground(Color.GREEN);
@@ -731,96 +788,30 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
             jLabel11.setForeground(Color.RED);
     }
     
-    private void cargarTablaTotales() throws SQLException{
+    private void setInfoTextTotales(){
+        int totNum = ((ResultSetTableModel)jTable3.getModel()).getRowCount();
+            if(totNum <= 0)
+                jLabel8.setText("No se ha encontrado ninguna entrada.");
+            else if(totNum == 1)
+                jLabel8.setText("Se ha encontrado una entrada.");
+            else
+                jLabel8.setText("Se han encontrado " + totNum + " entradas.");
         this.setData();
-        ((ResultSetTableModel)jTable3.getModel()).setQuery(this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2));
-        //this.vTot = manager.getTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
-        /*Vector<Object> row;
-        Vector<Vector<Object>> table = new Vector<Vector<Object>>();
-        Vector<String> tNames = new Vector<String>();
-        tNames.addElement("Grupo");
-        tNames.addElement("Motivo");
-        tNames.addElement("Proveedor");
-        tNames.addElement("Receptor");
-        tNames.addElement("Importe");
-        tNames.addElement("Fecha");
-        double tot = 0;
-        for(AsientoContable as: vTot) {
-            row = new Vector<Object>();
-            row.addElement(as.getGrupo());
-            row.addElement(as.getMotivo());
-            row.addElement(as.getProveedor());
-            row.addElement(as.getReceptor());
-            row.addElement(as.getFecha().get(Calendar.YEAR) + "/" + String.valueOf(as.getFecha().get(Calendar.MONTH) + 1) + "/" + as.getFecha().get(Calendar.DAY_OF_MONTH));
-            row.addElement(as.getImporte());
-            tot += as.getImporte();
-            table.addElement(row);
-        }
-        ((DefaultTableModel)jTable3.getModel()).setDataVector(table, tNames);
-        ((DefaultTableModel)jTable3.getModel()).fireTableStructureChanged();*/
-        //int totNum = vTot.size();
-        int totNum = jTable3.getModel().getRowCount();
-        if(totNum <= 0)
-            jLabel8.setText("No se ha encontrado ningúna entrada.");
-        else if(totNum == 1)
-            jLabel8.setText("Se ha encontrado una entrada.");
-        else
-            jLabel8.setText("Se han encontrado " + totNum + " entradas.");
+        double tot = this.manager.getTotal(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2);
         NumberFormat nf = NumberFormat.getCurrencyInstance();
-        /*jLabel14.setText(nf.format(tot));
+        jLabel14.setText(nf.format(tot));
         if(tot > 0)
             jLabel14.setForeground(Color.GREEN);
         else if (tot == 0)
             jLabel14.setForeground(Color.BLACK);
         else if (tot < 0)
-            jLabel14.setForeground(Color.RED);*/
+            jLabel14.setForeground(Color.RED);
     }
     
-    public void updateTables(){
-        this.cargarTablaIngresos();
-        this.cargarTablaGastos();
-        try {
-            ((ResultSetTableModel)this.jTable3.getModel()).rechargeTable();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    public void updateComboBoxes(){
-        jComboBox1.removeAllItems();
-        Vector <String> vG = this.manager.getGruposNombres();
-        vG.add(0, "TODOS");
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(vG));
-
-        jComboBox2.removeAllItems();
-        Vector <String> vM = this.manager.getConceptosMotivos();
-        vM.add(0, "TODOS");
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(vM));
-
-        jComboBox3.removeAllItems();
-        Vector <String> vP = this.manager.getConceptosProveedores();
-        vP.add(0, "TODOS");
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(vP));
-
-        jComboBox4.removeAllItems();
-        Vector <String> vR = this.manager.getConceptosReceptores();
-        vR.add(0, "TODOS");
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(vR));
-    }
-    
-    public void setOwner(MainForm parent){
-        this.owner = parent;
-        this.manager = this.owner.getManager();
-        this.setData();
-        try {
-            jTable3.setModel(new ResultSetTableModel(this.manager.getConnector().getConnection(), this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
-            System.out.println(jTable3.getColumnModel().getColumn(0).getIdentifier().toString());
-            jTable3.removeColumn(jTable3.getColumn(jTable3.getColumnName(0)));
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
+    public void disconectResultSetTableModels(){
+        ((ResultSetTableModel)this.jTable1.getModel()).disconnectFromDatabase();
+        ((ResultSetTableModel)this.jTable2.getModel()).disconnectFromDatabase();
+        ((ResultSetTableModel)this.jTable3.getModel()).disconnectFromDatabase();
     }
     
     // Declaración de varibales -no modificar//GEN-BEGIN:variables
@@ -871,10 +862,6 @@ public class DatosFiltroPanel extends javax.swing.JPanel {
     
     private MainForm owner;
     private Manager manager;
-    
-    private Vector<AsientoContable> vIng;
-    private Vector<AsientoContable> vGas;
-    //private Vector<AsientoContable> vTot;
     
     private String grupo;
     private String motivo;

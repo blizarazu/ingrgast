@@ -28,7 +28,7 @@ public class GrupoDB {
     /** Creates a new instance of GrupoDB */
     public GrupoDB(Connector con) throws SQLException {
         this.connection = con.getConnection();
-        this.statement = (Statement) this.connection.createStatement();
+        this.statement = con.getStatement();
     }
     
     public int insert(int id, String nombre) throws SQLException{
@@ -36,14 +36,18 @@ public class GrupoDB {
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ps.setInt(1, id);
         ps.setString(2, nombre);
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
     
     public int insert(String nombre) throws SQLException{
         String sql = "INSERT INTO grupos SET Nombre = ?";
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ps.setString(1, nombre);
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
     
     public int find(String nombre) throws SQLException{
@@ -76,6 +80,8 @@ public class GrupoDB {
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ps.setString(1, nuevoNombre);
         ps.setString(2, nombre);
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
 }

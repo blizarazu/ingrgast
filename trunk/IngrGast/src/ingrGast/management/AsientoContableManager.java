@@ -55,8 +55,7 @@ public class AsientoContableManager{
             return asDB.insert(as.getConceptoID(), as.getGrupoID(), as.getImporte(), as.getFecha());
     }
 
-    public Vector<AsientoContable> getAll(int i, String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) throws SQLException {
-        String sql = "SELECT A.ID, G.Nombre, C.Motivo, C.Proveedor, C.Receptor, A.Importe, A.Fecha FROM asientoscontables AS A INNER JOIN conceptos AS C ON A.Concepto_ID = C.ID INNER JOIN grupos AS G ON A.Grupo_ID = G.ID WHERE ";
+    public double getSUM(int i, String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) throws SQLException {
         String s = "";
         if (i > 0)
             s += "A.Importe >= 0";
@@ -74,15 +73,8 @@ public class AsientoContableManager{
             s += " AND C.Receptor = '" + receptor + "'";
         if(fechaIni != null && fechaFin != null)
             s += " AND A.Fecha BETWEEN '" + String.valueOf(fechaIni.get(Calendar.YEAR)) + "/" + String.valueOf(fechaIni.get(Calendar.MONTH) + 1) + "/" + String.valueOf(fechaIni.get(Calendar.DAY_OF_MONTH)) + "' AND '" + String.valueOf(fechaFin.get(Calendar.YEAR)) + "/" + String.valueOf(fechaFin.get(Calendar.MONTH) + 1) + "/" + String.valueOf(fechaFin.get(Calendar.DAY_OF_MONTH)) + "'";
-        sql += s + " ORDER BY A.Fecha";
-        Vector<AsientoContable> vTot = new Vector<AsientoContable>();
-        ResultSet rs = asDB.executeQuery(sql);
-        while (rs.next()){
-            String[] f = rs.getString("A.Fecha").split("-");
-            vTot.addElement(new AsientoContable(rs.getInt("A.ID"), rs.getString("G.Nombre"), rs.getString("C.Motivo"), rs.getString("C.Proveedor"), rs.getString("C.Receptor"), rs.getDouble("A.Importe"), new GregorianCalendar(Integer.parseInt(f[0]), Integer.parseInt(f[1]) - 1, Integer.parseInt(f[2]))));
-        }
-        rs.close();
-        return vTot;
+        String sql = s + " ORDER BY A.Fecha";
+        return asDB.SUM(sql);        
     }
 
     public int borrar(int id) throws SQLException {
@@ -90,7 +82,7 @@ public class AsientoContableManager{
     }
 
     String constructQuery(int i, String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) {
-        String sql = "SELECT A.ID, G.Nombre, C.Motivo, C.Proveedor, C.Receptor, A.Fecha, A.Importe FROM asientoscontables AS A INNER JOIN conceptos AS C ON A.Concepto_ID = C.ID INNER JOIN grupos AS G ON A.Grupo_ID = G.ID WHERE ";
+        String sql = "SELECT A.ID AS ID, G.Nombre AS Grupo, C.Motivo AS Motivo, C.Proveedor AS Proveedor, C.Receptor AS Receptor, A.Fecha AS Fecha, A.Importe AS Importe FROM asientoscontables AS A INNER JOIN conceptos AS C ON A.Concepto_ID = C.ID INNER JOIN grupos AS G ON A.Grupo_ID = G.ID WHERE ";
         String s = "";
         if (i > 0)
             s += "A.Importe >= 0";
@@ -110,5 +102,10 @@ public class AsientoContableManager{
             s += " AND A.Fecha BETWEEN '" + String.valueOf(fechaIni.get(Calendar.YEAR)) + "/" + String.valueOf(fechaIni.get(Calendar.MONTH) + 1) + "/" + String.valueOf(fechaIni.get(Calendar.DAY_OF_MONTH)) + "' AND '" + String.valueOf(fechaFin.get(Calendar.YEAR)) + "/" + String.valueOf(fechaFin.get(Calendar.MONTH) + 1) + "/" + String.valueOf(fechaFin.get(Calendar.DAY_OF_MONTH)) + "'";
         sql += s + " ORDER BY A.Fecha";
         return sql;
+    }
+
+    public void editar(AsientoContable as) throws SQLException {
+        as.constructDate();
+        asDB.update(as.getID(), as.getConceptoID(), as.getGrupoID(), as.getImporte(), as.getFecha());
     }
 }

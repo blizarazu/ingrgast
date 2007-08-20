@@ -32,8 +32,6 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
         this.as = as;
         this.manager = this.owner.getManager();
         initComponents();
-        System.out.println(as.getGrupo());
-        System.out.println(jComboBox1.getSelectedIndex());
     }
     
     /** This method is called from within the constructor to
@@ -106,18 +104,19 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
 
         jComboBox2.setEditable(true);
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(manager.getConceptosMotivos()));
-        jComboBox2.setSelectedItem(null);
+        jComboBox2.setSelectedItem(String.valueOf(as.getMotivo()));
 
         jComboBox3.setEditable(true);
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(manager.getConceptosProveedores()));
-        jComboBox3.setSelectedItem(null);
+        jComboBox3.setSelectedItem(String.valueOf(as.getProveedor()));
 
         jComboBox4.setEditable(true);
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(manager.getConceptosReceptores()));
-        jComboBox4.setSelectedItem(null);
+        jComboBox4.setSelectedItem(String.valueOf(as.getReceptor()));
 
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField1.setText("0");
+        jTextField1.setText(String.valueOf(as.getImporte()));
+        this.formatImporte();
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextField1FocusLost(evt);
@@ -148,7 +147,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
         jDateChooser1.setToolTipText("D\u00eda-Mes-A\u00f1o");
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
-        jDateChooser1.setCalendar(cal);
+        jDateChooser1.setCalendar(as.getFecha());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -310,6 +309,10 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_setTipoImporte
     
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        formatImporte();
+    }//GEN-LAST:event_jTextField1FocusLost
+    
+    private void formatImporte(){
         try{
             String importe = jTextField1.getText().replace(',', '.');
             if(importe.length() == 0)
@@ -344,14 +347,12 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
             jop.createDialog(this, "Importe incorrecto").setVisible(true);
         }
         jButton2.setEnabled(true);
-    }//GEN-LAST:event_jTextField1FocusLost
+    }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             this.setData();
-            this.manager.guardarAsientoContable(this.grupo, this.motivo, this.proveedor, this.receptor, this.importe, this.fecha);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+            this.manager.editarAsientoContable(this.as.getID(), this.grupo, this.motivo, this.proveedor, this.receptor, this.importe, this.fecha);
         } catch (NumberFormatException ex) {
             JOptionPane jop = new JOptionPane("El importe introducido no es correcto", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(this, "Importe incorrecto").setVisible(true);

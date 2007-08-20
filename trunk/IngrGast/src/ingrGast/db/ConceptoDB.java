@@ -28,7 +28,7 @@ public class ConceptoDB {
     /** Creates a new instance of ConceptoDB */
     public ConceptoDB(Connector con) throws SQLException {
         this.connection = con.getConnection();
-        this.statement = (Statement) connection.createStatement();
+        this.statement = con.getStatement();
     }
     
     public int insert(String motivo, String proveedor, String receptor) throws SQLException{
@@ -37,7 +37,9 @@ public class ConceptoDB {
         ps.setString(1, motivo);
         ps.setString(2, proveedor);
         ps.setString(3, receptor);
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
     
     public int insert(int id, String motivo, String proveedor, String receptor) throws SQLException{
@@ -47,7 +49,9 @@ public class ConceptoDB {
         ps.setString(2, motivo);
         ps.setString(3, proveedor);
         ps.setString(4, receptor);
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
 
     public int find(String motivo, String proveedor, String receptor) throws SQLException {
@@ -104,7 +108,9 @@ public class ConceptoDB {
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ps.setString(1, nuevoProveedor);
         ps.setString(2, proveedor);
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
 
     public int updateMotivo(String motivo, String nuevoMotivo) throws SQLException {
@@ -112,7 +118,9 @@ public class ConceptoDB {
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ps.setString(1, nuevoMotivo);
         ps.setString(2, motivo);
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
 
     public int updateReceptor(String receptor, String nuevoReceptor) throws SQLException {
@@ -120,6 +128,8 @@ public class ConceptoDB {
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ps.setString(1, nuevoReceptor);
         ps.setString(2, receptor);
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
 }

@@ -47,7 +47,7 @@ public class AsientoContableDB {
     /** Creates a new instance of AsientoContableDB */
     public AsientoContableDB(Connector con) throws SQLException {
         this.connection = con.getConnection();
-        this.statement = (Statement) connection.createStatement();
+        this.statement = con.getStatement();
         Calendar cal = new GregorianCalendar();
     }
     
@@ -58,7 +58,9 @@ public class AsientoContableDB {
         ps.setInt(2, grupoID);
         ps.setDouble(3, importe);
         ps.setString(4, fecha.get(Calendar.YEAR) + "/" + String.valueOf(fecha.get(Calendar.MONTH) + 1) + "/" + fecha.get(Calendar.DAY_OF_MONTH));
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
     
     public int insert(int ID, int conceptoID, int grupoID, double importe, Calendar fecha) throws SQLException{
@@ -69,7 +71,9 @@ public class AsientoContableDB {
         ps.setInt(3, grupoID);
         ps.setDouble(4, importe);
         ps.setString(5, fecha.get(Calendar.YEAR) + "/" + String.valueOf(fecha.get(Calendar.MONTH) + 1) + "/" + fecha.get(Calendar.DAY_OF_MONTH));
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
     
     public ResultSet executeQuery(String sql) throws SQLException {
@@ -80,6 +84,32 @@ public class AsientoContableDB {
         String sql = "DELETE FROM asientoscontables WHERE ID = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
-        return ps.executeUpdate();
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
+    }
+
+    public double SUM(String s) throws SQLException {
+        String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables AS A INNER JOIN conceptos AS C ON A.Concepto_ID = C.ID INNER JOIN grupos AS G ON A.Grupo_ID = G.ID WHERE " + s;
+        ResultSet rs = statement.executeQuery(sql);
+        double result = 0;
+        if (rs.next()){
+            result = rs.getDouble("Total");
+        }
+        rs.close();
+        return result;
+    }
+
+    public int update(int id, int cId, int gId, double imp, Calendar fecha) throws SQLException {
+        String sql = "UPDATE asientoscontables SET Concepto_ID = ?, Grupo_ID = ?, Importe = ?, Fecha = ? WHERE ID = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, cId);
+        ps.setInt(2, gId);
+        ps.setDouble(3, imp);
+        ps.setString(4, fecha.get(Calendar.YEAR) + "/" + String.valueOf(fecha.get(Calendar.MONTH) + 1) + "/" + fecha.get(Calendar.DAY_OF_MONTH));
+        ps.setInt(5, id);
+        int result = ps.executeUpdate();
+        ps.close();
+        return result;
     }
 }

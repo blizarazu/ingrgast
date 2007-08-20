@@ -99,6 +99,22 @@ public class AsientoContable implements Serializable{
         return Motivo;
     }
 
+    public void setGrupo(String Grupo) {
+        this.Grupo = Grupo;
+    }
+
+    public void setMotivo(String Motivo) {
+        this.Motivo = Motivo;
+    }
+
+    public void setReceptor(String Receptor) {
+        this.Receptor = Receptor;
+    }
+
+    public void setProveedor(String Proveedor) {
+        this.Proveedor = Proveedor;
+    }
+
     public String getProveedor() {
         return Proveedor;
     }
