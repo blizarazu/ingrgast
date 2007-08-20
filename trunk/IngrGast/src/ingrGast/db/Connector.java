@@ -43,12 +43,12 @@ public class Connector {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al establecer la conexión con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexión fallida");
+            jop.createDialog(null, "Conexión fallida").setVisible(true);
             System.exit(1);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al establecer la conexión con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexión fallida");
+            jop.createDialog(null, "Conexión fallida").setVisible(true);
             System.exit(1);
         }
     }

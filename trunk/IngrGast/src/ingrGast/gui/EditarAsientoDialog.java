@@ -7,6 +7,7 @@
 package ingrGast.gui;
 
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
 import ingrGast.management.Manager;
 import ingrGast.objects.AsientoContable;
 import java.awt.Color;
@@ -148,6 +149,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
         jDateChooser1.setCalendar(as.getFecha());
+        ((JTextFieldDateEditor)jDateChooser1.getComponent(1)).setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -301,11 +303,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
                     jTextField1.setForeground(Color.GREEN);
                 }
             }
-        } catch (NumberFormatException ex){
-            JOptionPane jop = new JOptionPane("El importe introducido no es correcto", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(this, "Importe incorrecto").setVisible(true);
-        }
-        
+        } catch (NumberFormatException ex){}        
     }//GEN-LAST:event_setTipoImporte
     
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
@@ -359,7 +357,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
         }
         if (this.owner.getCurrentDialog() == this)
             this.owner.setCurrentDialog(null);
-        this.owner.updateDatosFiltro();
+        this.owner.updateData();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
     

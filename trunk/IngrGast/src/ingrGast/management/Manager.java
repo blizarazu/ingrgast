@@ -13,16 +13,12 @@ import ingrGast.db.Connector;
 import ingrGast.objects.AsientoContable;
 import ingrGast.objects.Concepto;
 import ingrGast.objects.Grupo;
-import java.awt.HeadlessException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *
@@ -45,7 +41,7 @@ public class Manager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al establecer la conexión con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexión fallida");
+            jop.createDialog(null, "Conexión fallida").setVisible(true);
         }
     }
     
@@ -57,19 +53,19 @@ public class Manager {
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("El archivo seleccionado no existe.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "No existe el archivo");
+            jop.createDialog(null, "No existe el archivo").setVisible(true);
         } catch (IOException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los asientos contables.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación");
+            jop.createDialog(null, "Error de importación").setVisible(true);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los asientos contables.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación");
+            jop.createDialog(null, "Error de importación").setVisible(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los asientos contables.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación");
+            jop.createDialog(null, "Error de importación").setVisible(true);
         }
     }
     
@@ -81,19 +77,19 @@ public class Manager {
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("El archivo seleccionado no existe.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "No existe el archivo");
+            jop.createDialog(null, "No existe el archivo").setVisible(true);
         } catch (IOException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los conceptos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación");
+            jop.createDialog(null, "Error de importación").setVisible(true);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los conceptos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación");
+            jop.createDialog(null, "Error de importación").setVisible(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los conceptos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación");
+            jop.createDialog(null, "Error de importación").setVisible(true);
         }
     }
     
@@ -105,19 +101,19 @@ public class Manager {
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("El archivo seleccionado no existe.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "No existe el archivo");
+            jop.createDialog(null, "No existe el archivo").setVisible(true);
         } catch (IOException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los grupos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación");
+            jop.createDialog(null, "Error de importación").setVisible(true);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los grupos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación");
+            jop.createDialog(null, "Error de importación").setVisible(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los grupos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación");
+            jop.createDialog(null, "Error de importación").setVisible(true);
         }
     }
     
@@ -141,16 +137,16 @@ public class Manager {
                     asm.guardar(as);
                 else{
                     JOptionPane jop = new JOptionPane("Se ha producido un error al guardar el asiento contable.", JOptionPane.ERROR_MESSAGE);
-                    jop.createDialog(null, "Error al guardar el asiento contable");
+                    jop.createDialog(null, "Error al guardar el asiento contable").setVisible(true);
                 }
             } else{
                 JOptionPane jop = new JOptionPane("No ha sido posible guardar el asiento contable.", JOptionPane.ERROR_MESSAGE);
-                jop.createDialog(null, "Error al guardar el asiento contable");
+                jop.createDialog(null, "Error al guardar el asiento contable").setVisible(true);
             }
         }catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("No ha sido posible guardar el asiento contable.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error al guardar el asiento contable");
+            jop.createDialog(null, "Error al guardar el asiento contable").setVisible(true);
         }
     }
     
@@ -160,7 +156,7 @@ public class Manager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
             return null;
         }
     }
@@ -171,7 +167,7 @@ public class Manager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
             return null;
         }
     }
@@ -182,7 +178,7 @@ public class Manager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
             return null;
         }
     }
@@ -193,7 +189,7 @@ public class Manager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
             return null;
         }
     }
@@ -204,12 +200,12 @@ public class Manager {
                 gm.editar(nombre, nuevoNombre);
             else{
                 JOptionPane jop = new JOptionPane("No ha sido posible editar el grupo.", JOptionPane.ERROR_MESSAGE);
-                jop.createDialog(null, "Error al editar el grupo");
+                jop.createDialog(null, "Error al editar el grupo").setVisible(true);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("No ha sido posible editar el grupo.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error al editar el grupo");
+            jop.createDialog(null, "Error al editar el grupo").setVisible(true);
         }
     }
     
@@ -219,12 +215,12 @@ public class Manager {
                 cm.editarMotivo(motivo, nuevoMotivo);
             else{
                 JOptionPane jop = new JOptionPane("No ha sido posible editar el concepto.", JOptionPane.ERROR_MESSAGE);
-                jop.createDialog(null, "Error al editar el concepto");
+                jop.createDialog(null, "Error al editar el concepto").setVisible(true);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("No ha sido posible editar el concepto.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error al editar el concepto");
+            jop.createDialog(null, "Error al editar el concepto").setVisible(true);
         }
     }
     
@@ -234,11 +230,11 @@ public class Manager {
                 cm.editarProveedor(proveedor, nuevoProveedor);
             else {
                 JOptionPane jop = new JOptionPane("No ha sido posible editar el concepto.", JOptionPane.ERROR_MESSAGE);
-                jop.createDialog(null, "Error al editar el concepto");
+                jop.createDialog(null, "Error al editar el concepto").setVisible(true);
             }
         } catch (SQLException ex) {
             JOptionPane jop = new JOptionPane("No ha sido posible editar el concepto.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error al editar el concepto");
+            jop.createDialog(null, "Error al editar el concepto").setVisible(true);
             ex.printStackTrace();
         }
     }
@@ -249,11 +245,11 @@ public class Manager {
                 cm.editarReceptor(receptor, nuevoReceptor);
             else {
                 JOptionPane jop = new JOptionPane("No ha sido posible editar el concepto.", JOptionPane.ERROR_MESSAGE);
-                jop.createDialog(null, "Error al editar el concepto");
+                jop.createDialog(null, "Error al editar el concepto").setVisible(true);
             }
         } catch (SQLException ex) {
             JOptionPane jop = new JOptionPane("No ha sido posible editar el concepto.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error al editar el concepto");
+            jop.createDialog(null, "Error al editar el concepto").setVisible(true);
             ex.printStackTrace();
         }
     }
@@ -264,7 +260,7 @@ public class Manager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
             return 0;
         }
     }
@@ -275,7 +271,7 @@ public class Manager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
             return 0;
         }
     }
@@ -286,7 +282,7 @@ public class Manager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de base de datos");
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
             return 0;
         }
     }
@@ -309,7 +305,7 @@ public class Manager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("No ha sido posible borrar el asiento contable.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error as borrar el asiento contable");
+            jop.createDialog(null, "Error as borrar el asiento contable").setVisible(true);
         }
     }
     
@@ -323,7 +319,7 @@ public class Manager {
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al intentar la desconexión con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de desconexión");
+            jop.createDialog(null, "Error de desconexión").setVisible(true);
         }
     }
     
@@ -348,16 +344,34 @@ public class Manager {
                     asm.editar(as);
                 else{
                     JOptionPane jop = new JOptionPane("No ha sido posible editar el asiento contable.", JOptionPane.ERROR_MESSAGE);
-                    jop.createDialog(null, "Error al editar el asiento contable");
+                    jop.createDialog(null, "Error al editar el asiento contable").setVisible(true);
                 }
             } else{
                 JOptionPane jop = new JOptionPane("No ha sido posible editar el asiento contable.", JOptionPane.ERROR_MESSAGE);
-                jop.createDialog(null, "Error al editar el asiento contable");
+                jop.createDialog(null, "Error al editar el asiento contable").setVisible(true);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("No ha sido posible editar el asiento contable.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error al editar el asiento contable");
+            jop.createDialog(null, "Error al editar el asiento contable").setVisible(true);
+        }
+    }
+
+    public Vector<Integer> getAñosAsientos() {
+        try {
+            Vector<Calendar> vFechas = asm.getFechas();
+            Vector<Integer> vYears = new Vector<Integer>();
+            Integer year;
+            for (Calendar cal: vFechas){
+                year = new Integer(cal.get(Calendar.YEAR));
+                if(!vYears.contains(year)){
+                    vYears.addElement(year);
+                }
+            }
+            return vYears;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
         }
     }
 }

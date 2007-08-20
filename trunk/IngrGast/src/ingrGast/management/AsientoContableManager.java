@@ -15,8 +15,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -40,7 +38,7 @@ public class AsientoContableManager{
     
     public Vector<AsientoContable> read(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException{
         ObjectInputStream sar = new ObjectInputStream(new FileInputStream(fileName));
-	Object[] oArr = (Object[]) sar.readObject();
+        Object[] oArr = (Object[]) sar.readObject();
         Vector<AsientoContable> vAS = new Vector<AsientoContable>();
         for(Object o: oArr)
             vAS.addElement((AsientoContable)o);
@@ -54,7 +52,7 @@ public class AsientoContableManager{
         else
             return asDB.insert(as.getConceptoID(), as.getGrupoID(), as.getImporte(), as.getFecha());
     }
-
+    
     public double getSUM(int i, String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) throws SQLException {
         String s = "";
         if (i > 0)
@@ -74,13 +72,13 @@ public class AsientoContableManager{
         if(fechaIni != null && fechaFin != null)
             s += " AND A.Fecha BETWEEN '" + String.valueOf(fechaIni.get(Calendar.YEAR)) + "/" + String.valueOf(fechaIni.get(Calendar.MONTH) + 1) + "/" + String.valueOf(fechaIni.get(Calendar.DAY_OF_MONTH)) + "' AND '" + String.valueOf(fechaFin.get(Calendar.YEAR)) + "/" + String.valueOf(fechaFin.get(Calendar.MONTH) + 1) + "/" + String.valueOf(fechaFin.get(Calendar.DAY_OF_MONTH)) + "'";
         String sql = s + " ORDER BY A.Fecha";
-        return asDB.SUM(sql);        
+        return asDB.SUM(sql);
     }
-
+    
     public int borrar(int id) throws SQLException {
         return asDB.delete(id);
     }
-
+    
     String constructQuery(int i, String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) {
         String sql = "SELECT A.ID AS ID, G.Nombre AS Grupo, C.Motivo AS Motivo, C.Proveedor AS Proveedor, C.Receptor AS Receptor, A.Fecha AS Fecha, A.Importe AS Importe FROM asientoscontables AS A INNER JOIN conceptos AS C ON A.Concepto_ID = C.ID INNER JOIN grupos AS G ON A.Grupo_ID = G.ID WHERE ";
         String s = "";
@@ -103,9 +101,20 @@ public class AsientoContableManager{
         sql += s + " ORDER BY A.Fecha";
         return sql;
     }
-
+    
     public void editar(AsientoContable as) throws SQLException {
         as.constructDate();
         asDB.update(as.getID(), as.getConceptoID(), as.getGrupoID(), as.getImporte(), as.getFecha());
+    }
+    
+    public Vector<Calendar> getFechas() throws SQLException {
+        Vector<String> vDate = asDB.getDates();
+        Vector<Calendar> vCal = new Vector<Calendar>();
+        String[] s;
+        for(String d: vDate){
+            s = d.split("-");
+            vCal.addElement(new GregorianCalendar(Integer.parseInt(s[0]), (Integer.parseInt(s[1])-1), Integer.parseInt(s[2])));
+        }
+        return vCal;
     }
 }

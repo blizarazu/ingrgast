@@ -151,33 +151,21 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBox1">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
             <Property name="toolTipText" type="java.lang.String" value="Selecciona un grupo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBox2">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
             <Property name="toolTipText" type="java.lang.String" value="Selecciona un motivo"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBox3">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
             <Property name="toolTipText" type="java.lang.String" value="Selecciona un proveedor"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBox4">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
-            </Property>
             <Property name="toolTipText" type="java.lang.String" value="Selecciona un receptor"/>
           </Properties>
         </Component>
@@ -197,6 +185,9 @@
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="((JTextFieldDateEditor)jDateChooser1.getComponent(1)).setEditable(false);"/>
+          </AuxValues>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
           <Properties>
@@ -206,6 +197,9 @@
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="((JTextFieldDateEditor)jDateChooser2.getComponent(1)).setEditable(false);"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -365,15 +359,9 @@
                 <Component class="javax.swing.JTable" name="jTable1">
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2))" type="code"/>
-                    </Property>
                     <Property name="autoResizeMode" type="int" value="4"/>
                     <Property name="showVerticalLines" type="boolean" value="false"/>
                   </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.setInfoTextIngresos();&#xa;jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex(&quot;ID&quot;)));&#xa;jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);"/>
-                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -531,15 +519,9 @@
                 <Component class="javax.swing.JTable" name="jTable2">
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2))" type="code"/>
-                    </Property>
                     <Property name="autoResizeMode" type="int" value="4"/>
                     <Property name="showVerticalLines" type="boolean" value="false"/>
                   </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.setInfoTextGastos();&#xa;jTable2.getColumnModel().removeColumn(jTable2.getColumnModel().getColumn(jTable2.getColumnModel().getColumnIndex(&quot;ID&quot;)));&#xa;jTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);"/>
-                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
@@ -705,15 +687,9 @@
                 <Component class="javax.swing.JTable" name="jTable3">
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2))" type="code"/>
-                    </Property>
                     <Property name="autoResizeMode" type="int" value="4"/>
                     <Property name="showVerticalLines" type="boolean" value="false"/>
                   </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="this.setInfoTextTotales();&#xa;jTable3.getColumnModel().removeColumn(jTable3.getColumnModel().getColumn(jTable3.getColumnModel().getColumnIndex(&quot;ID&quot;)));&#xa;jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);"/>
-                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>
