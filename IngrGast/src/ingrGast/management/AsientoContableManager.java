@@ -117,4 +117,12 @@ public class AsientoContableManager{
         }
         return vCal;
     }
+    
+    public Vector<Double> getIngresosAño(int año) throws SQLException{
+        Vector<Double> ingAño = new Vector<Double>();
+        for(int i = 1; i < 13; i++)
+            ingAño.addElement(new Double(asDB.getIngresos(i, año)));
+        ingAño.addElement(new Double(asDB.getIngresos(1, 12, año)));
+        return ingAño;
+    }
 }

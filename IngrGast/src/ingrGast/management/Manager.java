@@ -374,4 +374,8 @@ public class Manager {
             return null;
         }
     }
+
+    public void getTotalesAño(int i) {
+        //throw new UnsupportedOperationException("Not yet implemented");
+    }
 }

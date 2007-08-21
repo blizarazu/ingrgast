@@ -104,4 +104,64 @@ public class AsientoContableDB {
             vDate.addElement(rs.getString("Fecha"));
         return vDate;
     }
+    
+    public double getIngresos(int mes, int año) throws SQLException{
+        String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Importe >= 0 AND Fecha BETWEEN ? AND ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, String.valueOf(año) + "/" + String.valueOf(mes) + "/1");
+        ps.setString(2, String.valueOf(año) + "/" + String.valueOf(mes) + "/31");
+        double result = ps.executeQuery().getDouble("Total");
+        ps.close();
+        return result;
+    }
+    
+    public double getIngresos(int mes1, int mes2, int año) throws SQLException{
+        String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Importe >= 0 AND Fecha BETWEEN ? AND ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, String.valueOf(año) + "/" + String.valueOf(mes1) + "/1");
+        ps.setString(2, String.valueOf(año) + "/" + String.valueOf(mes2) + "/31");
+        double result = ps.executeQuery().getDouble("Total");
+        ps.close();
+        return result;
+    }
+    
+    public double getGastos(int mes, int año) throws SQLException{
+        String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Importe < 0 AND Fecha BETWEEN ? AND ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, String.valueOf(año) + "/" + String.valueOf(mes) + "/1");
+        ps.setString(2, String.valueOf(año) + "/" + String.valueOf(mes) + "/31");
+        double result = ps.executeQuery().getDouble("Total");
+        ps.close();
+        return result;
+    }
+    
+    public double getGastos(int mes1, int mes2, int año) throws SQLException{
+        String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Importe < 0 AND Fecha BETWEEN ? AND ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, String.valueOf(año) + "/" + String.valueOf(mes1) + "/1");
+        ps.setString(2, String.valueOf(año) + "/" + String.valueOf(mes2) + "/31");
+        double result = ps.executeQuery().getDouble("Total");
+        ps.close();
+        return result;
+    }
+    
+    public double getTotales(int mes, int año) throws SQLException{
+        String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Fecha BETWEEN ? AND ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, String.valueOf(año) + "/" + String.valueOf(mes) + "/1");
+        ps.setString(2, String.valueOf(año) + "/" + String.valueOf(mes) + "/31");
+        double result = ps.executeQuery().getDouble("Total");
+        ps.close();
+        return result;
+    }
+    
+    public double getTotales(int mes1, int mes2, int año) throws SQLException{
+        String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Fecha BETWEEN ? AND ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, String.valueOf(año) + "/" + String.valueOf(mes1) + "/1");
+        ps.setString(2, String.valueOf(año) + "/" + String.valueOf(mes2) + "/31");
+        double result = ps.executeQuery().getDouble("Total");
+        ps.close();
+        return result;
+    }
 }
