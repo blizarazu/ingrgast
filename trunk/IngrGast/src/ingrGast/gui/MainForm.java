@@ -125,12 +125,15 @@ public class MainForm extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.CardLayout());
 
-        balancePanel1.initData(this);
         jPanel2.add(balancePanel1, "card3");
 
-        datosFiltroPanel1.initData(this);
         jPanel2.add(datosFiltroPanel1, "card2");
 
+        InsidePanel ip;
+        for(Component c: jPanel2.getComponents()){
+            ip = (InsidePanel)c;
+            ip.initData(this);
+        }
         jMenu4.setText("Archivo");
         jMenu5.setText("Nuevo");
         jMenuItem1.setText("Asiento Contable");
