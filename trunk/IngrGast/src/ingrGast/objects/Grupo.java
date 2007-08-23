@@ -12,8 +12,8 @@ package ingrGast.objects;
 import java.io.Serializable;
 
 /**
- *
- * @author Beñat
+ * 
+ * @author Blizarazu
  */
 public class Grupo implements Serializable{
     
@@ -26,18 +26,34 @@ public class Grupo implements Serializable{
         this.Nombre = name.trim();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getID() {
         return ID;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getNombre() {
         return Nombre;
     }
 
+    /**
+     * 
+     * @param ID 
+     */
     public void setID(int ID) {
         this.ID = ID;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String toString(){
         return (String.valueOf(this.ID) + " " +
                 this.Nombre);

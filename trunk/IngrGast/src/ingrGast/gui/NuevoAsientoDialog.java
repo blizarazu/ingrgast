@@ -21,12 +21,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
- *
- * @author  Beñat
+ * 
+ * @author Blizarazu
  */
 public class NuevoAsientoDialog extends javax.swing.JDialog {
     
-    /** Creates new form NuevoAsientoDialog */
+    /**
+     * Creates new form NuevoAsientoDialog
+     * @param parent 
+     * @param modal 
+     */
     public NuevoAsientoDialog(MainForm parent, boolean modal) {
         super(parent, modal);
         this.owner = parent;
@@ -383,6 +387,10 @@ public class NuevoAsientoDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
     
+    /**
+     * 
+     * @throws java.lang.NumberFormatException 
+     */
     public void setData() throws NumberFormatException{
         this.grupo = jComboBox1.getSelectedItem().toString().trim();
         this.motivo = jComboBox2.getSelectedItem().toString().trim();

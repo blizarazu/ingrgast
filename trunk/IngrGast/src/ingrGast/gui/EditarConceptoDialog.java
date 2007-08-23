@@ -10,12 +10,16 @@ import ingrGast.management.Manager;
 import java.util.Vector;
 
 /**
- *
- * @author  Beñat
+ * 
+ * @author Blizarazu
  */
 public class EditarConceptoDialog extends javax.swing.JDialog {
     
-    /** Creates new form EditarConceptoDialog */
+    /**
+     * Creates new form EditarConceptoDialog
+     * @param parent 
+     * @param modal 
+     */
     public EditarConceptoDialog(MainForm parent, boolean modal) {
         super(parent, modal);
         this.owner = parent;

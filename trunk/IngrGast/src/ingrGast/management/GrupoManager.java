@@ -21,18 +21,30 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 /**
- *
- * @author Beñat
+ * 
+ * @author Blizarazu
  */
 public class GrupoManager {
     
     private GrupoDB gDB;
     
-    /** Creates a new instance of GrupoManager */
+    /**
+     * Creates a new instance of GrupoManager
+     * @param c 
+     * @throws java.sql.SQLException 
+     */
     public GrupoManager(Connector c) throws SQLException {
         this.gDB = new GrupoDB(c);
     }
     
+    /**
+     * 
+     * @param fileName 
+     * @throws java.io.FileNotFoundException 
+     * @throws java.io.IOException 
+     * @throws java.lang.ClassNotFoundException 
+     * @return 
+     */
     public Vector<Grupo> read(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException{
         ObjectInputStream sar = new ObjectInputStream(new FileInputStream(fileName));
         Object[] oArr = (Object[]) sar.readObject();
@@ -42,6 +54,12 @@ public class GrupoManager {
         return vG;
     }
     
+    /**
+     * 
+     * @param g 
+     * @throws java.sql.SQLException 
+     * @return 
+     */
     public int guardar(Grupo g) throws SQLException{
         if (g.getID() > 0)
             return gDB.insert(g.getID(), g.getNombre());
@@ -49,6 +67,12 @@ public class GrupoManager {
             return gDB.insert(g.getNombre());
     }
     
+    /**
+     * 
+     * @param g 
+     * @throws java.sql.SQLException 
+     * @return 
+     */
     public Grupo find(Grupo g) throws SQLException{
         int id = gDB.find(g.getNombre());
         if(id >= 0){
@@ -59,10 +83,22 @@ public class GrupoManager {
             return null;
     }
     
+    /**
+     * 
+     * @throws java.sql.SQLException 
+     * @return 
+     */
     public Vector<String> getNombres() throws SQLException{
         return gDB.getNombres();
     }
 
+    /**
+     * 
+     * @param nombre 
+     * @param nuevoNombre 
+     * @throws java.sql.SQLException 
+     * @return 
+     */
     public int editar(String nombre, String nuevoNombre) throws SQLException {
         return gDB.update(nombre, nuevoNombre);
     }

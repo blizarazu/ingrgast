@@ -359,7 +359,6 @@
                 <Component class="javax.swing.JTable" name="jTable1">
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                    <Property name="autoResizeMode" type="int" value="4"/>
                     <Property name="showVerticalLines" type="boolean" value="false"/>
                   </Properties>
                 </Component>
@@ -519,7 +518,6 @@
                 <Component class="javax.swing.JTable" name="jTable2">
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                    <Property name="autoResizeMode" type="int" value="4"/>
                     <Property name="showVerticalLines" type="boolean" value="false"/>
                   </Properties>
                 </Component>
@@ -687,7 +685,6 @@
                 <Component class="javax.swing.JTable" name="jTable3">
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                    <Property name="autoResizeMode" type="int" value="4"/>
                     <Property name="showVerticalLines" type="boolean" value="false"/>
                   </Properties>
                 </Component>
