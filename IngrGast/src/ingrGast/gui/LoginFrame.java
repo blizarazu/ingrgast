@@ -37,7 +37,7 @@ public class LoginFrame extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login");
+        setTitle("IngrGast Login");
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/key_48x48.png")).getImage());
         setResizable(false);
         jLabel1.setText("Nombre de usuario:");
