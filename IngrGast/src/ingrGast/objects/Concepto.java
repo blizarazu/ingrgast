@@ -12,8 +12,8 @@ package ingrGast.objects;
 import java.io.Serializable;
 
 /**
- *
- * @author Beñat
+ * 
+ * @author Blizarazu
  */
 public class Concepto implements  Serializable{
     
@@ -30,26 +30,50 @@ public class Concepto implements  Serializable{
         this.Receptor = recep.trim();
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getID() {
         return ID;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getMotivo() {
         return Motivo;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getProveedor() {
         return Proveedor;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getReceptor() {
         return Receptor;
     }
 
+    /**
+     * 
+     * @param ID 
+     */
     public void setID(int ID) {
         this.ID = ID;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String toString(){
         return (String.valueOf(this.ID) + " " +
                 this.Motivo + " " +

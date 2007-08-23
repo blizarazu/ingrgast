@@ -15,6 +15,7 @@ import ingrGast.objects.Concepto;
 import ingrGast.objects.Grupo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Vector;
@@ -22,7 +23,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Beñat
+ * @author Blizarazu
  */
 public class Manager {
     
@@ -32,19 +33,44 @@ public class Manager {
     private GrupoManager gm;
     
     /** Creates a new instance of Manager */
-    public Manager() {
+    public Manager(String user, String pass) {
         try {
-            this.connector = new Connector();
+            this.connector = new Connector(user, pass);
+            } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("El nombre de usuario o la contraseña son incorrectos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Conexión fallida").setVisible(true);
+            System.exit(1);
+        }
+        try {
             this.asm = new AsientoContableManager(this.connector);
             this.cm = new ConceptoManager(this.connector);
             this.gm= new GrupoManager(this.connector);
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane jop = new JOptionPane("Error al establecer la conexión con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexión fallida").setVisible(true);
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
     }
     
+    public Manager(Connector con){
+        try {
+            this.connector = con;
+            this.asm = new AsientoContableManager(this.connector);
+            this.cm = new ConceptoManager(this.connector);
+            this.gm= new GrupoManager(this.connector);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
+            System.exit(1);
+        }
+    }
+    
+    /**
+     *
+     * @param fileName
+     */
     public void importarAsientosContables(String fileName) {
         try {
             Vector<AsientoContable> vAS  = this.asm.read(fileName);
@@ -69,6 +95,10 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param fileName
+     */
     public void importarConceptos(String fileName) {
         try {
             Vector<Concepto> vC = this.cm.read(fileName);
@@ -93,6 +123,10 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param fileName
+     */
     public void importarGrupos(String fileName){
         try {
             Vector<Grupo> vG = this.gm.read(fileName);
@@ -117,6 +151,15 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param grupo
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @param importe
+     * @param cal
+     */
     public void guardarAsientoContable(String grupo, String motivo, String proveedor, String receptor, double importe, Calendar cal){
         try {
             if(grupo.length() != 0 && motivo.length() != 0 && proveedor.length() != 0 && receptor.length() != 0 && !Double.isNaN(importe) && cal != null){
@@ -150,6 +193,10 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public Vector<String> getGruposNombres(){
         try {
             return gm.getNombres();
@@ -161,6 +208,10 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public Vector<String> getConceptosMotivos(){
         try {
             return cm.getMotivos();
@@ -172,6 +223,10 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public Vector<String> getConceptosProveedores(){
         try {
             return cm.getProveedores();
@@ -183,6 +238,10 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public Vector<String> getConceptosReceptores(){
         try {
             return cm.getReceptores();
@@ -194,6 +253,11 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param nombre
+     * @param nuevoNombre
+     */
     public void editarGrupo(String nombre, String nuevoNombre) {
         try {
             if (nuevoNombre.length() > 0)
@@ -209,6 +273,11 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param motivo
+     * @param nuevoMotivo
+     */
     public void editarConceptoMotivo(String motivo, String nuevoMotivo) {
         try {
             if (nuevoMotivo.length() > 0)
@@ -224,6 +293,11 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param proveedor
+     * @param nuevoProveedor
+     */
     public void editarConceptoProveedor(String proveedor, String nuevoProveedor) {
         try {
             if (nuevoProveedor.length() > 0)
@@ -239,6 +313,11 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param receptor
+     * @param nuevoReceptor
+     */
     public void editarConceptoReceptor(String receptor, String nuevoReceptor) {
         try {
             if (nuevoReceptor.length() > 0)
@@ -254,6 +333,16 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param grupo
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @param fechaIni
+     * @param fechaFin
+     * @return
+     */
     public double getTotalIngresos(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) {
         try {
             return asm.getSUM(1, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
@@ -265,6 +354,16 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param grupo
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @param fechaIni
+     * @param fechaFin
+     * @return
+     */
     public double getTotalGastos(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) {
         try {
             return asm.getSUM(-1, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
@@ -276,6 +375,16 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param grupo
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @param fechaIni
+     * @param fechaFin
+     * @return
+     */
     public double getTotal(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) {
         try {
             return asm.getSUM(0, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
@@ -287,18 +396,52 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param grupo
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @param fechaIni
+     * @param fechaFin
+     * @return
+     */
     public String constructQueryIngresos(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin){
         return asm.constructQuery(1, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
     }
     
+    /**
+     *
+     * @param grupo
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @param fechaIni
+     * @param fechaFin
+     * @return
+     */
     public String constructQueryGastos(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin){
         return asm.constructQuery(-1, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
     }
     
+    /**
+     *
+     * @param grupo
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @param fechaIni
+     * @param fechaFin
+     * @return
+     */
     public String constructQueryTotales(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin){
         return asm.constructQuery(0, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
     }
     
+    /**
+     *
+     * @param id
+     */
     public void borrarAsiento(int id){
         try {
             asm.borrar(id);
@@ -309,6 +452,10 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @return
+     */
     public Connector getConnector(){
         return this.connector;
     }
@@ -323,6 +470,16 @@ public class Manager {
         }
     }
     
+    /**
+     *
+     * @param id
+     * @param grupo
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @param importe
+     * @param fecha
+     */
     public void editarAsientoContable(int id, String grupo, String motivo, String proveedor, String receptor, double importe, Calendar fecha) {
         try {
             if(grupo.length() != 0 && motivo.length() != 0 && proveedor.length() != 0 && receptor.length() != 0 && !Double.isNaN(importe) && fecha != null){
@@ -356,7 +513,11 @@ public class Manager {
             jop.createDialog(null, "Error al editar el asiento contable").setVisible(true);
         }
     }
-
+    
+    /**
+     *
+     * @return
+     */
     public Vector<Integer> getAñosAsientos() {
         try {
             Vector<Calendar> vFechas = asm.getFechas();
@@ -371,11 +532,38 @@ public class Manager {
             return vYears;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
             return null;
         }
     }
-
-    public void getTotalesAño(int i) {
-        //throw new UnsupportedOperationException("Not yet implemented");
+    
+    /**
+     *
+     * @param año
+     * @return
+     */
+    public Vector<Vector<Double>> getBalanceAño(int año) {
+        try {
+            Vector<Vector<Double>> vBalance = new Vector<Vector<Double>>();
+            vBalance.addElement(asm.getIngresosAño(año));
+            vBalance.addElement(asm.getGastosAño(año));
+            vBalance.addElement(asm.getTotalesAño(año));
+            return vBalance;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
+            return null;
+        }
+    }
+    
+    /**
+     *
+     * @param i
+     * @return
+     */
+    public String constructUltimosAsientos(int i) {
+        return asm.constructLast(i);
     }
 }

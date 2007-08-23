@@ -10,12 +10,16 @@ import ingrGast.management.Manager;
 import java.util.Vector;
 
 /**
- *
- * @author  Beñat
+ * 
+ * @author Blizarazu
  */
 public class EditarGrupoDialog extends javax.swing.JDialog {
     
-    /** Creates new form EditarGrupoDialog */
+    /**
+     * Creates new form EditarGrupoDialog
+     * @param parent 
+     * @param modal 
+     */
     public EditarGrupoDialog(MainForm parent, boolean modal) {
         super(parent, modal);
         this.owner = parent;

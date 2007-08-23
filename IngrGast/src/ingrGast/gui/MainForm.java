@@ -6,6 +6,7 @@
 
 package ingrGast.gui;
 
+import ingrGast.db.Connector;
 import ingrGast.interfaces.InsidePanel;
 import ingrGast.management.Manager;
 import java.awt.CardLayout;
@@ -23,6 +24,7 @@ import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -30,13 +32,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
- * @author  Beñat
+ * @author Blizarazu
  */
 public class MainForm extends javax.swing.JFrame {
     
     /** Creates new form MainForm */
-    public MainForm() {
-        this.manager = new Manager();
+    public MainForm(Connector con) {
+        this.manager = new Manager(con);
         initComponents();
     }
     
@@ -52,10 +54,12 @@ public class MainForm extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         balancePanel1 = new ingrGast.gui.BalancePanel();
         datosFiltroPanel1 = new ingrGast.gui.DatosFiltroPanel();
+        ultimasEntradasPanel1 = new ingrGast.gui.UltimasEntradasPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -76,12 +80,14 @@ public class MainForm extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("IngrGast");
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/appIcon.png")).getImage());
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/appIcon_48x48.png")).getImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -90,7 +96,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jToolBar1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jToolBar1.setFloatable(false);
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/NuevoAsiento.png")));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/NuevoAsiento_48x48.png")));
         jButton2.setToolTipText("Nuevo Asiento Contable");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +120,8 @@ public class MainForm extends javax.swing.JFrame {
 
         jToolBar1.add(jButton3);
 
-        jButton1.setText("Consultar Datos");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/ConsultarDatos_48x48.png")));
+        jButton1.setToolTipText("Consultar Datos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -123,11 +130,22 @@ public class MainForm extends javax.swing.JFrame {
 
         jToolBar1.add(jButton1);
 
+        jButton4.setText("\u00daltimas Entradas");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jToolBar1.add(jButton4);
+
         jPanel2.setLayout(new java.awt.CardLayout());
 
-        jPanel2.add(balancePanel1, "card3");
+        jPanel2.add(balancePanel1, "Balance");
 
-        jPanel2.add(datosFiltroPanel1, "card2");
+        jPanel2.add(datosFiltroPanel1, "Consulta");
+
+        jPanel2.add(ultimasEntradasPanel1, "UltimasEntradas");
 
         InsidePanel ip;
         for(Component c: jPanel2.getComponents()){
@@ -136,6 +154,7 @@ public class MainForm extends javax.swing.JFrame {
         }
         jMenu4.setText("Archivo");
         jMenu5.setText("Nuevo");
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/NuevoAsiento_24x24.png")));
         jMenuItem1.setText("Asiento Contable");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,8 +240,33 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu1.setText("Ver");
-        jMenuItem7.setText("Datos por Filtro");
+        jMenuItem7.setText("Balance Anual");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+
         jMenu1.add(jMenuItem7);
+
+        jMenuItem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/ConsultarDatos_24x24.png")));
+        jMenuItem14.setText("Consultar Datos");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+
+        jMenu1.add(jMenuItem14);
+
+        jMenuItem15.setText("\u00daltimas Entradas");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+
+        jMenu1.add(jMenuItem15);
 
         jMenuBar1.add(jMenu1);
 
@@ -250,24 +294,51 @@ public class MainForm extends javax.swing.JFrame {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 63, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 425, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        NuevoAsientoDialog naDialog = new NuevoAsientoDialog(this, true);
+        currentDialog = naDialog;
+        naDialog.setLocationRelativeTo(null);
+        naDialog.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+    
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "UltimasEntradas");
+    }//GEN-LAST:event_jButton4ActionPerformed
+    
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "UltimasEntradas");
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
+    
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Consulta");
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+    
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Balance");
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "card3");
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Balance");
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "card2");
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Consulta");
     }//GEN-LAST:event_jButton1ActionPerformed
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.manager.disconnectDB();
-        datosFiltroPanel1.disconectResultSetTableModels();
+        InsidePanel ip;
+        for(Component c: jPanel2.getComponents()){
+            ip = (InsidePanel)c;
+            ip.disconnectResultSetTableModels();
+        }
     }//GEN-LAST:event_formWindowClosing
     
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
@@ -292,13 +363,6 @@ public class MainForm extends javax.swing.JFrame {
         if (jfcG.getSelectedFile() != null)
             this.manager.importarGrupos(jfcG.getSelectedFile().getPath());
     }//GEN-LAST:event_jMenuItem10ActionPerformed
-    
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        NuevoAsientoDialog naDialog = new NuevoAsientoDialog(this, true);
-        currentDialog = naDialog;
-        naDialog.setLocationRelativeTo(null);
-        naDialog.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
     
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         EditarConceptoDialog ecDialog = new EditarConceptoDialog(this, true);
@@ -330,14 +394,26 @@ public class MainForm extends javax.swing.JFrame {
         naDialog.setVisible(true);
     }
     
+    /**
+     *
+     * @param currentDialog
+     */
     public void setCurrentDialog(Dialog currentDialog) {
         this.currentDialog = currentDialog;
     }
     
+    /**
+     *
+     * @return
+     */
     public Dialog getCurrentDialog() {
         return currentDialog;
     }
     
+    /**
+     *
+     * @return
+     */
     public Manager getManager() {
         return manager;
     }
@@ -349,11 +425,11 @@ public class MainForm extends javax.swing.JFrame {
             ip.updateData();
         }
     }
-    
+   
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+   /* public static void main(String args[]) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
@@ -361,13 +437,13 @@ public class MainForm extends javax.swing.JFrame {
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                MainForm mainForm = new MainForm();
+                MainForm mainForm = new MainForm(con);
                 mainForm.setLocationRelativeTo(null);
                 mainForm.setExtendedState(MAXIMIZED_BOTH);
                 mainForm.setVisible(true);
             }
         });
-    }
+    }*/
     
     // Declaración de varibales -no modificar//GEN-BEGIN:variables
     private ingrGast.gui.BalancePanel balancePanel1;
@@ -375,6 +451,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -388,6 +465,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
+    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -401,6 +480,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JToolBar jToolBar1;
+    private ingrGast.gui.UltimasEntradasPanel ultimasEntradasPanel1;
     // Fin de declaración de variables//GEN-END:variables
     
     private Dialog currentDialog = null;

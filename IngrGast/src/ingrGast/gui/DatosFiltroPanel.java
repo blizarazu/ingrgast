@@ -32,17 +32,27 @@ public class DatosFiltroPanel extends javax.swing.JPanel implements InsidePanel{
         initComponents();
     }
     
+    /**
+     * 
+     * @param parent 
+     */
     public void initData(MainForm parent){
         this.owner = parent;
         this.manager = this.owner.getManager();
-        jTable1.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
-        this.setInfoTextIngresos(); jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID"))); jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, this.manager.getConnector().getUsername(), this.manager.getConnector().getPassword(), this.manager.constructQueryIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
+        this.setInfoTextIngresos();
+        jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID")));
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         
-        jTable2.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
-        this.setInfoTextGastos(); jTable2.getColumnModel().removeColumn(jTable2.getColumnModel().getColumn(jTable2.getColumnModel().getColumnIndex("ID"))); jTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable2.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, this.manager.getConnector().getUsername(), this.manager.getConnector().getPassword(), this.manager.constructQueryGastos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
+        this.setInfoTextGastos();
+        jTable2.getColumnModel().removeColumn(jTable2.getColumnModel().getColumn(jTable2.getColumnModel().getColumnIndex("ID")));
+        jTable2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         
-        jTable3.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, Connector.USERNAME, Connector.PASSWORD, this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
-        this.setInfoTextTotales(); jTable3.getColumnModel().removeColumn(jTable3.getColumnModel().getColumn(jTable3.getColumnModel().getColumnIndex("ID"))); jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable3.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, this.manager.getConnector().getUsername(), this.manager.getConnector().getPassword(), this.manager.constructQueryTotales(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
+        this.setInfoTextTotales();
+        jTable3.getColumnModel().removeColumn(jTable3.getColumnModel().getColumn(jTable3.getColumnModel().getColumnIndex("ID")));
+        jTable3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         
         this.updateComboBoxes();
     }
@@ -257,7 +267,6 @@ public class DatosFiltroPanel extends javax.swing.JPanel implements InsidePanel{
         });
 
         jTable1.setAutoCreateRowSorter(true);
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable1.setShowVerticalLines(false);
         jScrollPane1.setViewportView(jTable1);
 
@@ -352,7 +361,6 @@ public class DatosFiltroPanel extends javax.swing.JPanel implements InsidePanel{
         });
 
         jTable2.setAutoCreateRowSorter(true);
-        jTable2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable2.setShowVerticalLines(false);
         jScrollPane2.setViewportView(jTable2);
 
@@ -452,7 +460,6 @@ public class DatosFiltroPanel extends javax.swing.JPanel implements InsidePanel{
         });
 
         jTable3.setAutoCreateRowSorter(true);
-        jTable3.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jTable3.setShowVerticalLines(false);
         jScrollPane3.setViewportView(jTable3);
 
@@ -859,7 +866,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel implements InsidePanel{
             jLabel14.setForeground(Color.RED);
     }
     
-    public void disconectResultSetTableModels(){
+    public void disconnectResultSetTableModels(){
         ((ResultSetTableModel)this.jTable1.getModel()).disconnectFromDatabase();
         ((ResultSetTableModel)this.jTable2.getModel()).disconnectFromDatabase();
         ((ResultSetTableModel)this.jTable3.getModel()).disconnectFromDatabase();

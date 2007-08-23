@@ -15,8 +15,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- *
- * @author Beñat
+ * 
+ * @author Blizarazu
  */
 public class AsientoContable implements Serializable{
     
@@ -45,6 +45,16 @@ public class AsientoContable implements Serializable{
         this.ID = -1;
     }
 
+    /**
+     * 
+     * @param ID 
+     * @param gNombre 
+     * @param cMotivo 
+     * @param cProveedor 
+     * @param cReceptor 
+     * @param imp 
+     * @param date 
+     */
     public AsientoContable(int ID, String gNombre, String cMotivo, String cProveedor, String cReceptor, double imp, Calendar date){
         this.ID = ID;
         this.Grupo = gNombre;
@@ -55,26 +65,50 @@ public class AsientoContable implements Serializable{
         this.Fecha = date;
     }
     
+    /**
+     * 
+     * @param ID 
+     */
     public void setID(int ID) {
         this.ID = ID;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getConceptoID() {
         return ConceptoID;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public Calendar getFecha() {
         return Fecha;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getGrupoID() {
         return GrupoID;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public int getID() {
         return ID;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public double getImporte() {
         return Importe;
     }
@@ -83,46 +117,90 @@ public class AsientoContable implements Serializable{
         this.Fecha = new GregorianCalendar(this.year, this.month, this.day);
     }
 
+    /**
+     * 
+     * @param GrupoID 
+     */
     public void setGrupoID(int GrupoID) {
         this.GrupoID = GrupoID;
     }
 
+    /**
+     * 
+     * @param ConceptoID 
+     */
     public void setConceptoID(int ConceptoID) {
         this.ConceptoID = ConceptoID;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getGrupo() {
         return Grupo;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getMotivo() {
         return Motivo;
     }
 
+    /**
+     * 
+     * @param Grupo 
+     */
     public void setGrupo(String Grupo) {
         this.Grupo = Grupo;
     }
 
+    /**
+     * 
+     * @param Motivo 
+     */
     public void setMotivo(String Motivo) {
         this.Motivo = Motivo;
     }
 
+    /**
+     * 
+     * @param Receptor 
+     */
     public void setReceptor(String Receptor) {
         this.Receptor = Receptor;
     }
 
+    /**
+     * 
+     * @param Proveedor 
+     */
     public void setProveedor(String Proveedor) {
         this.Proveedor = Proveedor;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getProveedor() {
         return Proveedor;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getReceptor() {
         return Receptor;
     }
     
+    /**
+     * 
+     * @return 
+     */
     public String toString(){
        return (String.valueOf(this.ID) + " " +
                String.valueOf(this.GrupoID) + " " +

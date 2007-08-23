@@ -8,11 +8,17 @@ package ingrGast.gui;
 
 import ingrGast.interfaces.InsidePanel;
 import ingrGast.management.Manager;
+import java.awt.Color;
+import java.awt.Component;
+import java.text.NumberFormat;
+import java.util.Collections;
 import java.util.Vector;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
- *
- * @author  Beñat
+ * 
+ * @author Blizarazu
  */
 public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
     
@@ -23,12 +29,24 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
         initComponents();
     }
     
+    /**
+     * 
+     * @param parent 
+     */
     public void initData(MainForm parent){
         this.owner = parent;
         this.manager = this.owner.getManager();
         this.chargeComboBox();
+        jTable1.setValueAt("Media",0,0);
+        jTable1.setValueAt("Mediana",1,0);
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(new RowHeaderRenderer(jTable1));
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(100);
+        //jTable1.getColumnModel().getColumn(1).setCellRenderer(new CurrencyCellRenderer());
     }
     
+    /**
+     * 
+     */
     public void updateData() {
         this.chargeComboBox();
     }
@@ -104,6 +122,8 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
         jPanel9 = new javax.swing.JPanel();
         jLabel53 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Balance Anual"));
         jLabel1.setText("A\u00f1o:");
@@ -133,29 +153,31 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
 
         jLabel10.setText("Septiembre:");
 
-        jLabel11.setText("Noviembre:");
+        jLabel11.setText("Octubre:");
 
-        jLabel12.setText("Diciembre:");
+        jLabel12.setText("Noviembre:");
 
-        jLabel13.setText("Octubre:");
+        jLabel13.setText("Diciembre:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,55 +200,58 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingresos"));
-        jLabel14.setText("0\u20ac");
+        jLabel14.setText(" ");
 
-        jLabel15.setText("0\u20ac");
+        jLabel15.setText(" ");
 
-        jLabel16.setText("0\u20ac");
+        jLabel16.setText(" ");
 
-        jLabel17.setText("0\u20ac");
+        jLabel17.setText(" ");
 
-        jLabel18.setText("0\u20ac");
+        jLabel18.setText(" ");
 
-        jLabel19.setText("0\u20ac");
+        jLabel19.setText(" ");
 
-        jLabel20.setText("0\u20ac");
+        jLabel20.setText(" ");
 
-        jLabel21.setText("0\u20ac");
+        jLabel21.setText(" ");
 
-        jLabel22.setText("0\u20ac");
+        jLabel22.setText(" ");
 
-        jLabel23.setText("0\u20ac");
+        jLabel23.setText(" ");
 
-        jLabel24.setText("0\u20ac");
+        jLabel24.setText(" ");
 
-        jLabel25.setText("0\u20ac");
+        jLabel25.setText(" ");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14)
-            .addComponent(jLabel15)
-            .addComponent(jLabel16)
-            .addComponent(jLabel17)
-            .addComponent(jLabel18)
-            .addComponent(jLabel19)
-            .addComponent(jLabel20)
-            .addComponent(jLabel21)
-            .addComponent(jLabel22)
-            .addComponent(jLabel25)
-            .addComponent(jLabel23)
-            .addComponent(jLabel24)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel24)
+                    .addComponent(jLabel25))
+                .addGap(112, 112, 112))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,55 +274,58 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel23)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel24)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel25)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Gastos"));
-        jLabel26.setText("0\u20ac");
+        jLabel26.setText(" ");
 
-        jLabel27.setText("0\u20ac");
+        jLabel27.setText(" ");
 
-        jLabel28.setText("0\u20ac");
+        jLabel28.setText(" ");
 
-        jLabel29.setText("0\u20ac");
+        jLabel29.setText(" ");
 
-        jLabel30.setText("0\u20ac");
+        jLabel30.setText(" ");
 
-        jLabel31.setText("0\u20ac");
+        jLabel31.setText(" ");
 
-        jLabel32.setText("0\u20ac");
+        jLabel32.setText(" ");
 
-        jLabel33.setText("0\u20ac");
+        jLabel33.setText(" ");
 
-        jLabel34.setText("0\u20ac");
+        jLabel34.setText(" ");
 
-        jLabel35.setText("0\u20ac");
+        jLabel35.setText(" ");
 
-        jLabel36.setText("0\u20ac");
+        jLabel36.setText(" ");
 
-        jLabel37.setText("0\u20ac");
+        jLabel37.setText(" ");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel26)
-            .addComponent(jLabel27)
-            .addComponent(jLabel28)
-            .addComponent(jLabel29)
-            .addComponent(jLabel30)
-            .addComponent(jLabel31)
-            .addComponent(jLabel32)
-            .addComponent(jLabel33)
-            .addComponent(jLabel34)
-            .addComponent(jLabel37)
-            .addComponent(jLabel35)
-            .addComponent(jLabel36)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel28)
+                    .addComponent(jLabel29)
+                    .addComponent(jLabel30)
+                    .addComponent(jLabel31)
+                    .addComponent(jLabel32)
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel34)
+                    .addComponent(jLabel35)
+                    .addComponent(jLabel36)
+                    .addComponent(jLabel37))
+                .addGap(105, 105, 105))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,55 +348,58 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel34)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel37)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel35)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel37)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Totales"));
-        jLabel38.setText("0\u20ac");
+        jLabel38.setText(" ");
 
-        jLabel39.setText("0\u20ac");
+        jLabel39.setText(" ");
 
-        jLabel40.setText("0\u20ac");
+        jLabel40.setText(" ");
 
-        jLabel41.setText("0\u20ac");
+        jLabel41.setText(" ");
 
-        jLabel42.setText("0\u20ac");
+        jLabel42.setText(" ");
 
-        jLabel43.setText("0\u20ac");
+        jLabel43.setText(" ");
 
-        jLabel44.setText("0\u20ac");
+        jLabel44.setText(" ");
 
-        jLabel45.setText("0\u20ac");
+        jLabel45.setText(" ");
 
-        jLabel46.setText("0\u20ac");
+        jLabel46.setText(" ");
 
-        jLabel47.setText("0\u20ac");
+        jLabel47.setText(" ");
 
-        jLabel48.setText("0\u20ac");
+        jLabel48.setText(" ");
 
-        jLabel49.setText("0\u20ac");
+        jLabel49.setText(" ");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel38)
-            .addComponent(jLabel39)
-            .addComponent(jLabel40)
-            .addComponent(jLabel41)
-            .addComponent(jLabel42)
-            .addComponent(jLabel43)
-            .addComponent(jLabel44)
-            .addComponent(jLabel45)
-            .addComponent(jLabel46)
-            .addComponent(jLabel49)
-            .addComponent(jLabel47)
-            .addComponent(jLabel48)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel39)
+                    .addComponent(jLabel40)
+                    .addComponent(jLabel41)
+                    .addComponent(jLabel42)
+                    .addComponent(jLabel43)
+                    .addComponent(jLabel44)
+                    .addComponent(jLabel45)
+                    .addComponent(jLabel46)
+                    .addComponent(jLabel47)
+                    .addComponent(jLabel48)
+                    .addComponent(jLabel49))
+                .addGap(101, 101, 101))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,11 +422,11 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel46)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel49)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel47)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel49)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -407,7 +438,7 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(jLabel50))
         );
         jPanel6Layout.setVerticalGroup(
@@ -418,7 +449,7 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Total Ingresos"));
-        jLabel51.setText("0\u20ac");
+        jLabel51.setText(" ");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -426,7 +457,7 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jLabel51)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -436,7 +467,7 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Total Gastos"));
-        jLabel52.setText("0\u20ac");
+        jLabel52.setText(" ");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -444,17 +475,17 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(jLabel52)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addComponent(jLabel52)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Total"));
-        jLabel53.setText("0\u20ac");
+        jLabel53.setText(" ");
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -462,25 +493,59 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jLabel53)
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jLabel53)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Estad\u00edsticas"));
+        jTable1.setAutoCreateRowSorter(true);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "", "Ingresos", "Gastos", "Totales"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setCellSelectionEnabled(true);
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 436, Short.MAX_VALUE)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -492,25 +557,25 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))))
+                            .addComponent(jPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -521,19 +586,18 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -541,23 +605,21 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        cleanPanels();
         if(jComboBox1.getSelectedItem() != null){
-            this.manager.getTotalesAño(((Integer)jComboBox1.getSelectedItem()).intValue());
+            Vector<Vector<Double>> vBalance = this.manager.getBalanceAño(((Integer)jComboBox1.getSelectedItem()).intValue());
+            setIngresosText(vBalance.elementAt(0));
+            setGastosText(vBalance.elementAt(1));
+            setTotalesText(vBalance.elementAt(2));
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
     
@@ -566,6 +628,78 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
         this.jComboBox1.removeAllItems();
         for (Integer i: vYears)
             jComboBox1.addItem(i);
+    }
+    
+    private void setIngresosText(Vector<Double> vIngresos){
+        for(int i = 0; i < (vIngresos.size()-1); i++){
+            setLabelText((JLabel)jPanel3.getComponent(i), vIngresos.elementAt(i).doubleValue());
+        }
+        setLabelText(jLabel51, vIngresos.lastElement().doubleValue());
+        jTable1.setValueAt(NumberFormat.getCurrencyInstance().format(vIngresos.lastElement().doubleValue()/(vIngresos.size()-1)), 0, 1);
+        vIngresos.remove(vIngresos.size()-1);
+        Collections.sort(vIngresos);
+        double mediana;
+        if((vIngresos.size()%2) != 0)
+            mediana = vIngresos.elementAt((vIngresos.size()/2));
+        else
+            mediana = ((vIngresos.elementAt((vIngresos.size()/2)-1) + vIngresos.elementAt(vIngresos.size()/2))/2);
+        jTable1.setValueAt(NumberFormat.getCurrencyInstance().format(mediana),1,1);
+    }
+    
+    private void setGastosText(Vector<Double> vGastos){
+        for(int i = 0; i < (vGastos.size()-1); i++){
+            setLabelText((JLabel)jPanel4.getComponent(i), vGastos.elementAt(i).doubleValue());
+        }
+        setLabelText(jLabel52, vGastos.lastElement().doubleValue());
+        jTable1.setValueAt(NumberFormat.getCurrencyInstance().format(vGastos.lastElement().doubleValue()/(vGastos.size()-1)), 0, 2);
+        vGastos.remove(vGastos.size()-1);
+        Collections.sort(vGastos);
+        double mediana;
+        if((vGastos.size()%2) != 0)
+            mediana = vGastos.elementAt((vGastos.size()/2));
+        else
+            mediana = ((vGastos.elementAt((vGastos.size()/2)-1) + vGastos.elementAt(vGastos.size()/2))/2);
+        jTable1.setValueAt(NumberFormat.getCurrencyInstance().format(mediana),1,2);
+    }
+    
+    private void setTotalesText(Vector<Double> vTotales){
+        for(int i = 0; i < (vTotales.size()-1); i++){
+            setLabelText((JLabel)jPanel5.getComponent(i), vTotales.elementAt(i).doubleValue());
+        }
+        setLabelText(jLabel53, vTotales.lastElement().doubleValue());
+        jTable1.setValueAt(NumberFormat.getCurrencyInstance().format(vTotales.lastElement().doubleValue()/12), 0, 3);
+         vTotales.remove(vTotales.size()-1);
+        Collections.sort(vTotales);
+        double mediana;
+        if((vTotales.size()%2) != 0)
+            mediana = vTotales.elementAt((vTotales.size()/2));
+        else
+            mediana = ((vTotales.elementAt((vTotales.size()/2)-1) + vTotales.elementAt(vTotales.size()/2))/2);
+        jTable1.setValueAt(NumberFormat.getCurrencyInstance().format(mediana),1,3);
+    }
+    
+    private void cleanPanels(){
+        for(Component label: jPanel3.getComponents())
+            ((JLabel)label).setText(" ");
+        for(Component label: jPanel4.getComponents())
+            ((JLabel)label).setText(" ");
+        for(Component label: jPanel5.getComponents())
+            ((JLabel)label).setText(" ");
+    }
+    
+    private void setLabelText(JLabel label, double num){
+        label.setText(String.valueOf(num));
+        NumberFormat nf = NumberFormat.getCurrencyInstance();
+        label.setText(nf.format(num));
+        if(num > 0)
+            label.setForeground(Color.GREEN);
+        else if (num == 0)
+            label.setForeground(Color.BLACK);
+        else if (num < 0)
+            label.setForeground(Color.RED);
+    }
+
+    public void disconnectResultSetTableModels() {
     }
     
     // Declaración de varibales -no modificar//GEN-BEGIN:variables
@@ -633,6 +767,8 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // Fin de declaración de variables//GEN-END:variables
     
     MainForm owner;
