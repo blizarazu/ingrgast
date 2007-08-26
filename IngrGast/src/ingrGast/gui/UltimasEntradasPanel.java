@@ -223,7 +223,7 @@ public class UltimasEntradasPanel extends javax.swing.JPanel implements InsidePa
      * 
      * @param parent 
      */
-    public void initData(MainForm parent) {
+    public void initData(MainFrame parent) {
         this.owner = parent;
         this.manager = this.owner.getManager();
         int i = 10;
@@ -265,7 +265,7 @@ public class UltimasEntradasPanel extends javax.swing.JPanel implements InsidePa
     private javax.swing.JTable jTable1;
     // Fin de declaración de variables//GEN-END:variables
     
-    private MainForm owner;
+    private MainFrame owner;
     
     private Manager manager;
     

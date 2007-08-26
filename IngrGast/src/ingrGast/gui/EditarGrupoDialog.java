@@ -20,7 +20,7 @@ public class EditarGrupoDialog extends javax.swing.JDialog {
      * @param parent 
      * @param modal 
      */
-    public EditarGrupoDialog(MainForm parent, boolean modal) {
+    public EditarGrupoDialog(MainFrame parent, boolean modal) {
         super(parent, modal);
         this.owner = parent;
         this.manager = this.owner.getManager();
@@ -188,7 +188,7 @@ public class EditarGrupoDialog extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField1;
     // Fin de declaración de variables//GEN-END:variables
     
-    private MainForm owner;
+    private MainFrame owner;
     private Manager manager;
     private String nombre;
     private String nuevoNombre;

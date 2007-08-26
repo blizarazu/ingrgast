@@ -6,19 +6,15 @@
 
 package ingrGast.gui;
 
-import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 import ingrGast.management.Manager;
 import ingrGast.objects.AsientoContable;
+import ingrGast.gui.util.AutoCompletion;
 import java.awt.Color;
-import java.awt.Frame;
-import java.awt.Window;
-import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  * 
@@ -32,7 +28,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
      * @param modal 
      * @param as 
      */
-    public EditarAsientoDialog(MainForm parent, boolean modal, AsientoContable as) {
+    public EditarAsientoDialog(MainFrame parent, boolean modal, AsientoContable as) {
         super(parent, modal);
         this.owner = parent;
         this.as = as;
@@ -107,23 +103,30 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
         jComboBox1.setEditable(true);
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(manager.getGruposNombres()));
         jComboBox1.setSelectedItem(String.valueOf(as.getGrupo()));
+        AutoCompletion.enable(jComboBox1);
 
         jComboBox2.setEditable(true);
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(manager.getConceptosMotivos()));
         jComboBox2.setSelectedItem(String.valueOf(as.getMotivo()));
+        AutoCompletion.enable(jComboBox2);
 
         jComboBox3.setEditable(true);
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(manager.getConceptosProveedores()));
         jComboBox3.setSelectedItem(String.valueOf(as.getProveedor()));
+        AutoCompletion.enable(jComboBox3);
 
         jComboBox4.setEditable(true);
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(manager.getConceptosReceptores()));
         jComboBox4.setSelectedItem(String.valueOf(as.getReceptor()));
+        AutoCompletion.enable(jComboBox4);
 
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField1.setText(String.valueOf(as.getImporte()));
         this.formatImporte();
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextField1FocusLost(evt);
             }
@@ -259,6 +262,11 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
         );
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+        jTextField1.setCaretPosition(0);
+        jTextField1.moveCaretPosition(jTextField1.getText().length());
+    }//GEN-LAST:event_jTextField1FocusGained
     
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         String importe = jTextField1.getText().replace(',', '.');
@@ -406,7 +414,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
     private javax.swing.JTextField jTextField1;
     // Fin de declaración de variables//GEN-END:variables
     
-    private MainForm owner;
+    private MainFrame owner;
     private Manager manager;
     private String grupo;
     private String motivo;

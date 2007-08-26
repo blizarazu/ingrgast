@@ -91,7 +91,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             Connector con = new Connector(jTextField1.getText(), String.valueOf(jPasswordField1.getPassword()));
-            MainForm mainForm = new MainForm(con);
+            MainFrame mainForm = new MainFrame(con);
             mainForm.setLocationRelativeTo(null);
             mainForm.setExtendedState(MAXIMIZED_BOTH);
             this.setVisible(false);
@@ -108,6 +108,8 @@ public class LoginFrame extends javax.swing.JFrame {
                 JOptionPane jop = new JOptionPane("MySQL no está en marcha.", JOptionPane.ERROR_MESSAGE);
                 jop.createDialog(null, "Conexión fallida").setVisible(true);
             }
+            jTextField1.setText("");
+            jPasswordField1.setText("");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
