@@ -28,7 +28,7 @@ import javax.swing.JOptionPane;
 public class DatosFiltroPanel extends javax.swing.JPanel implements InsidePanel{
     
     /** Creates new form DatosFiltroPanel */
-    public DatosFiltroPanel(/*MainForm parent*/) {
+    public DatosFiltroPanel(/*MainFrame parent*/) {
         initComponents();
     }
     
@@ -36,7 +36,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel implements InsidePanel{
      * 
      * @param parent 
      */
-    public void initData(MainForm parent){
+    public void initData(MainFrame parent){
         this.owner = parent;
         this.manager = this.owner.getManager();
         jTable1.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, this.manager.getConnector().getUsername(), this.manager.getConnector().getPassword(), this.manager.constructQueryIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
@@ -918,7 +918,7 @@ public class DatosFiltroPanel extends javax.swing.JPanel implements InsidePanel{
     private javax.swing.JTable jTable3;
     // Fin de declaración de variables//GEN-END:variables
     
-    private MainForm owner;
+    private MainFrame owner;
     private Manager manager;
     
     private String grupo;
