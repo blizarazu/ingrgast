@@ -1,20 +1,12 @@
 package ingrGast.db;
 
-//Fig. 25.28: ResultSetTableModel.java
-import ingrGast.db.Connector;
-import java.io.InputStream;
-import java.io.Reader;
-import java.math.BigDecimal;
-import java.net.URL;
 import java.sql.*;
-import java.util.Calendar;
-import java.util.Map;
 import javax.swing.JOptionPane;
 
 import javax.swing.table.AbstractTableModel;
 
 /**
- * 
+ *
  * ResultSet rows and columns are counted from 1 and JTable
  * rows and columns are counted from 0. When processing
  * ResultSet rows or columns for use in a JTable, it is
@@ -42,15 +34,15 @@ public class ResultSetTableModel extends AbstractTableModel {
     private boolean connectedToDatabase = false;
     
     /**
-     * 
-     * constructor initializes resultSet and obtains its meta data object 
+     *
+     * constructor initializes resultSet and obtains its meta data object
      * determines number of rows
      *
-     * @param driver 
-     * @param url 
-     * @param username 
-     * @param password 
-     * @param query 
+     * @param driver
+     * @param url
+     * @param username
+     * @param password
+     * @param query
      */
     public ResultSetTableModel(String driver, String url, String username,
             String password, String query) {
@@ -93,10 +85,10 @@ public class ResultSetTableModel extends AbstractTableModel {
     // get class that represents column type
     
     /**
-     * 
-     * @param column 
-     * @throws java.lang.IllegalStateException 
-     * @return 
+     *
+     * @param column
+     * @throws java.lang.IllegalStateException
+     * @return
      */
     public Class getColumnClass(int column) throws IllegalStateException {
         // ensure database connection is available
@@ -116,9 +108,9 @@ public class ResultSetTableModel extends AbstractTableModel {
     // get number of columns in ResultSet
     
     /**
-     * 
-     * @throws java.lang.IllegalStateException 
-     * @return 
+     *
+     * @throws java.lang.IllegalStateException
+     * @return
      */
     public int getColumnCount() throws IllegalStateException {
         // ensure database connection is available
@@ -136,10 +128,10 @@ public class ResultSetTableModel extends AbstractTableModel {
     // get name of a particular column in ResultSet
     
     /**
-     * 
-     * @param column 
-     * @throws java.lang.IllegalStateException 
-     * @return 
+     *
+     * @param column
+     * @throws java.lang.IllegalStateException
+     * @return
      */
     public String getColumnName(int column) throws IllegalStateException {
         // ensure database connection is available
@@ -157,9 +149,9 @@ public class ResultSetTableModel extends AbstractTableModel {
     // return number of rows in ResultSet
     
     /**
-     * 
-     * @throws java.lang.IllegalStateException 
-     * @return 
+     *
+     * @throws java.lang.IllegalStateException
+     * @return
      */
     public int getRowCount() throws IllegalStateException {
         // ensure database connection is available
@@ -170,11 +162,11 @@ public class ResultSetTableModel extends AbstractTableModel {
     // obtain value in particular row and column
     
     /**
-     * 
-     * @param row 
-     * @param column 
-     * @throws java.lang.IllegalStateException 
-     * @return 
+     *
+     * @param row
+     * @param column
+     * @throws java.lang.IllegalStateException
+     * @return
      */
     public Object getValueAt(int row, int column) throws IllegalStateException {
         // ensure database connection is available
@@ -193,10 +185,10 @@ public class ResultSetTableModel extends AbstractTableModel {
     // set new database query string
     
     /**
-     * 
-     * @param query 
-     * @throws java.sql.SQLException 
-     * @throws java.lang.IllegalStateException 
+     *
+     * @param query
+     * @throws java.sql.SQLException
+     * @throws java.lang.IllegalStateException
      */
     public void setQuery(String query) throws SQLException,
             IllegalStateException {
@@ -217,8 +209,8 @@ public class ResultSetTableModel extends AbstractTableModel {
     // close Statement and Connection
     
     /**
-     * 
-     * @throws java.sql.SQLException 
+     *
+     * @throws java.sql.SQLException
      */
     public void refress() throws SQLException{
         this.setQuery(this.lastQuery);

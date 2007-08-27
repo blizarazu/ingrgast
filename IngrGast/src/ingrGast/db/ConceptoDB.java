@@ -27,8 +27,8 @@ public class ConceptoDB {
     
     /**
      * Creates a new instance of ConceptoDB
-     * @param con 
-     * @throws java.sql.SQLException 
+     * @param con
+     * @throws java.sql.SQLException
      */
     public ConceptoDB(Connector con) throws SQLException {
         this.connection = con.getConnection();
@@ -36,12 +36,12 @@ public class ConceptoDB {
     }
     
     /**
-     * 
-     * @param motivo 
-     * @param proveedor 
-     * @param receptor 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @throws java.sql.SQLException
+     * @return
      */
     public int insert(String motivo, String proveedor, String receptor) throws SQLException{
         String sql = "INSERT INTO conceptos SET Motivo = ?, Proveedor = ?, Receptor = ?";
@@ -55,16 +55,16 @@ public class ConceptoDB {
     }
     
     /**
-     * 
-     * @param id 
-     * @param motivo 
-     * @param proveedor 
-     * @param receptor 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param id
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @throws java.sql.SQLException
+     * @return
      */
     public int insert(int id, String motivo, String proveedor, String receptor) throws SQLException{
-         String sql = "INSERT INTO conceptos SET ID = ?, Motivo = ?, Proveedor = ?, Receptor = ?";
+        String sql = "INSERT INTO conceptos SET ID = ?, Motivo = ?, Proveedor = ?, Receptor = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
         ps.setString(2, motivo);
@@ -74,17 +74,17 @@ public class ConceptoDB {
         ps.close();
         return result;
     }
-
+    
     /**
-     * 
-     * @param motivo 
-     * @param proveedor 
-     * @param receptor 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @throws java.sql.SQLException
+     * @return
      */
     public int find(String motivo, String proveedor, String receptor) throws SQLException {
-       String sql = "SELECT ID FROM conceptos WHERE Motivo = ? AND Proveedor = ? AND Receptor = ?";
+        String sql = "SELECT ID FROM conceptos WHERE Motivo = ? AND Proveedor = ? AND Receptor = ?";
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ps.setString(1, motivo);
         ps.setString(2, proveedor);
@@ -101,9 +101,9 @@ public class ConceptoDB {
     }
     
     /**
-     * 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<String> getMotivos() throws SQLException{
         String sql = "SELECT DISTINCT Motivo FROM conceptos ORDER BY Motivo";
@@ -118,9 +118,9 @@ public class ConceptoDB {
     }
     
     /**
-     * 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<String> getProveedores() throws SQLException{
         String sql = "SELECT DISTINCT Proveedor FROM conceptos ORDER BY Proveedor";
@@ -135,9 +135,9 @@ public class ConceptoDB {
     }
     
     /**
-     * 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<String> getReceptores() throws SQLException{
         String sql = "SELECT DISTINCT Receptor FROM conceptos ORDER BY Receptor";
@@ -150,13 +150,13 @@ public class ConceptoDB {
         ps.close();
         return vReceptor;
     }
-
+    
     /**
-     * 
-     * @param proveedor 
-     * @param nuevoProveedor 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param proveedor
+     * @param nuevoProveedor
+     * @throws java.sql.SQLException
+     * @return
      */
     public int updateProveedor(String proveedor, String nuevoProveedor) throws SQLException {
         String sql = "UPDATE conceptos SET Proveedor = ? WHERE Proveedor = ?";
@@ -167,13 +167,13 @@ public class ConceptoDB {
         ps.close();
         return result;
     }
-
+    
     /**
-     * 
-     * @param motivo 
-     * @param nuevoMotivo 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param motivo
+     * @param nuevoMotivo
+     * @throws java.sql.SQLException
+     * @return
      */
     public int updateMotivo(String motivo, String nuevoMotivo) throws SQLException {
         String sql = "UPDATE conceptos SET Motivo = ? WHERE Motivo = ?";
@@ -184,13 +184,13 @@ public class ConceptoDB {
         ps.close();
         return result;
     }
-
+    
     /**
-     * 
-     * @param receptor 
-     * @param nuevoReceptor 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param receptor
+     * @param nuevoReceptor
+     * @throws java.sql.SQLException
+     * @return
      */
     public int updateReceptor(String receptor, String nuevoReceptor) throws SQLException {
         String sql = "UPDATE conceptos SET Receptor = ? WHERE Receptor = ?";

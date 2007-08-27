@@ -9,7 +9,6 @@
 
 package ingrGast.db;
 
-import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -30,7 +29,7 @@ public class Connector {
      * The URL of the server where the database is hosted
      */
     public static final String DATABASE_URL = "jdbc:mysql://localhost/ingrgast_db";
-
+    
     private String username;
     private String password;
     
@@ -101,11 +100,11 @@ public class Connector {
     public boolean isConnectedToDatabase() {
         return connectedToDatabase;
     }
-
+    
     public String getUsername() {
         return username;
     }
-
+    
     public String getPassword() {
         return password;
     }
