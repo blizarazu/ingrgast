@@ -5,9 +5,6 @@
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
     </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="InsidePanel ip;&#xa;for(Component c: jPanel2.getComponents()){&#xa;    ip = (InsidePanel)c;&#xa;    ip.initData(this);&#xa;}"/>
-      </AuxValues>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>
@@ -394,31 +391,31 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
       <SubComponents>
-        <Component class="ingrGast.gui.GraficosPanel" name="graficosPanel1">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="card5"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="ingrGast.gui.BalancePanel" name="balancePanel1">
+        <Component class="ingrGast.gui.mainInsidePanels.BalancePanel" name="balancePanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="Balance"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ingrGast.gui.DatosFiltroPanel" name="datosFiltroPanel1">
+        <Component class="ingrGast.gui.mainInsidePanels.ConsultarDatosPanel" name="consultarDatosPanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="Consulta"/>
+              <CardConstraints cardName="Consultar"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ingrGast.gui.UltimasEntradasPanel" name="ultimasEntradasPanel1">
+        <Component class="ingrGast.gui.mainInsidePanels.UltimasEntradasPanel" name="ultimasEntradasPanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="UltimasEntradas"/>
+              <CardConstraints cardName="Ultimas"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="ingrGast.gui.mainInsidePanels.GraficosPanel" name="graficosPanel1">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+              <CardConstraints cardName="Graficos"/>
             </Constraint>
           </Constraints>
         </Component>

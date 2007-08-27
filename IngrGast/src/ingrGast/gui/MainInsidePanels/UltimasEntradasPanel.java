@@ -4,10 +4,12 @@
  * Created on 21 de agosto de 2007, 20:54
  */
 
-package ingrGast.gui;
+package ingrGast.gui.mainInsidePanels;
 
 import ingrGast.db.Connector;
 import ingrGast.db.ResultSetTableModel;
+import ingrGast.gui.*;
+import ingrGast.gui.dialogs.EditarAsientoDialog;
 import ingrGast.interfaces.InsidePanel;
 import ingrGast.management.Manager;
 import ingrGast.objects.AsientoContable;
@@ -18,7 +20,7 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 /**
- * 
+ *
  * @author Blizarazu
  */
 public class UltimasEntradasPanel extends javax.swing.JPanel implements InsidePanel{
@@ -143,7 +145,7 @@ public class UltimasEntradasPanel extends javax.swing.JPanel implements InsidePa
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jTable1.getSelectedRow() >= 0){
             int row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
@@ -178,9 +180,9 @@ public class UltimasEntradasPanel extends javax.swing.JPanel implements InsidePa
             jop.createDialog(null, "Imposible editar el asiento contable").setVisible(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         if (jTable1.getSelectedRow() >= 0){
+        if (jTable1.getSelectedRow() >= 0){
             int row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
             if (row >= 0){
                 JOptionPane jop = new JOptionPane();
@@ -220,8 +222,8 @@ public class UltimasEntradasPanel extends javax.swing.JPanel implements InsidePa
     }//GEN-LAST:event_jComboBox1ItemStateChanged
     
     /**
-     * 
-     * @param parent 
+     *
+     * @param parent
      */
     public void initData(MainFrame parent) {
         this.owner = parent;
@@ -247,7 +249,7 @@ public class UltimasEntradasPanel extends javax.swing.JPanel implements InsidePa
             jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
     }
-
+    
     public void disconnectResultSetTableModels() {
         ((ResultSetTableModel)jTable1.getModel()).disconnectFromDatabase();
     }

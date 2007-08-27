@@ -7,9 +7,11 @@
 package ingrGast.gui;
 
 import ingrGast.db.Connector;
+import ingrGast.gui.dialogs.EditarConceptoDialog;
+import ingrGast.gui.dialogs.EditarGrupoDialog;
+import ingrGast.gui.dialogs.NuevoAsientoDialog;
 import ingrGast.gui.themes.AquaMetalTheme;
 import ingrGast.gui.themes.ContrastMetalTheme;
-import ingrGast.gui.themes.DemoMetalTheme;
 import ingrGast.gui.themes.GreenMetalTheme;
 import ingrGast.gui.themes.SandMetalTheme;
 import ingrGast.gui.util.UISwitchListener;
@@ -18,26 +20,11 @@ import ingrGast.management.Manager;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Dialog;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Label;
-import java.awt.Panel;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.sql.SQLException;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.MetalTheme;
 import javax.swing.plaf.metal.OceanTheme;
@@ -55,6 +42,11 @@ public class MainFrame extends javax.swing.JFrame {
         UIManager.addPropertyChangeListener(new UISwitchListener((JComponent)getRootPane()));
         this.manager = new Manager(con);
         initComponents();
+        InsidePanel ip;
+        for(Component c: jPanel2.getComponents()){
+            ip = (InsidePanel)c;
+            ip.initData(this);
+        }
     }
     
     /** This method is called from within the constructor to
@@ -73,10 +65,10 @@ public class MainFrame extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        graficosPanel1 = new ingrGast.gui.GraficosPanel();
-        balancePanel1 = new ingrGast.gui.BalancePanel();
-        datosFiltroPanel1 = new ingrGast.gui.DatosFiltroPanel();
-        ultimasEntradasPanel1 = new ingrGast.gui.UltimasEntradasPanel();
+        balancePanel1 = new ingrGast.gui.mainInsidePanels.BalancePanel();
+        consultarDatosPanel1 = new ingrGast.gui.mainInsidePanels.ConsultarDatosPanel();
+        ultimasEntradasPanel1 = new ingrGast.gui.mainInsidePanels.UltimasEntradasPanel();
+        graficosPanel1 = new ingrGast.gui.mainInsidePanels.GraficosPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -180,13 +172,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.CardLayout());
 
-        jPanel2.add(graficosPanel1, "card5");
-
         jPanel2.add(balancePanel1, "Balance");
 
-        jPanel2.add(datosFiltroPanel1, "Consulta");
+        jPanel2.add(consultarDatosPanel1, "Consultar");
 
-        jPanel2.add(ultimasEntradasPanel1, "UltimasEntradas");
+        jPanel2.add(ultimasEntradasPanel1, "Ultimas");
+
+        jPanel2.add(graficosPanel1, "Graficos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -204,11 +196,6 @@ public class MainFrame extends javax.swing.JFrame {
             .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
         );
 
-        InsidePanel ip;
-        for(Component c: jPanel2.getComponents()){
-            ip = (InsidePanel)c;
-            ip.initData(this);
-        }
         jMenu4.setText("Archivo");
         jMenu5.setText("Nuevo");
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/NuevoAsiento_24x24.png")));
@@ -429,9 +416,9 @@ public class MainFrame extends javax.swing.JFrame {
         );
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "card5");
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Graficos");
     }//GEN-LAST:event_jButton5ActionPerformed
     
     private void jRadioButtonMenuItem6ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem6ItemStateChanged
@@ -504,15 +491,15 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "UltimasEntradas");
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Ultimas");
     }//GEN-LAST:event_jButton4ActionPerformed
     
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "UltimasEntradas");
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Ultimas");
     }//GEN-LAST:event_jMenuItem15ActionPerformed
     
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Consulta");
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Consultar");
     }//GEN-LAST:event_jMenuItem14ActionPerformed
     
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -524,7 +511,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Consulta");
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Consultar");
     }//GEN-LAST:event_jButton1ActionPerformed
     
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -641,10 +628,10 @@ public class MainFrame extends javax.swing.JFrame {
     }*/
     
     // Declaración de varibales -no modificar//GEN-BEGIN:variables
-    private ingrGast.gui.BalancePanel balancePanel1;
+    private ingrGast.gui.mainInsidePanels.BalancePanel balancePanel1;
     private javax.swing.ButtonGroup buttonGroup1;
-    private ingrGast.gui.DatosFiltroPanel datosFiltroPanel1;
-    private ingrGast.gui.GraficosPanel graficosPanel1;
+    private ingrGast.gui.mainInsidePanels.ConsultarDatosPanel consultarDatosPanel1;
+    private ingrGast.gui.mainInsidePanels.GraficosPanel graficosPanel1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -688,7 +675,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JToolBar jToolBar1;
-    private ingrGast.gui.UltimasEntradasPanel ultimasEntradasPanel1;
+    private ingrGast.gui.mainInsidePanels.UltimasEntradasPanel ultimasEntradasPanel1;
     // Fin de declaración de variables//GEN-END:variables
     
     private Dialog currentDialog = null;

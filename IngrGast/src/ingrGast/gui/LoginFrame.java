@@ -7,7 +7,6 @@
 package ingrGast.gui;
 
 import ingrGast.db.Connector;
-import java.net.ConnectException;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;

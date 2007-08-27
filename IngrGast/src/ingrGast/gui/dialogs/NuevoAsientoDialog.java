@@ -4,11 +4,11 @@
  * Created on 16 de julio de 2007, 19:31
  */
 
-package ingrGast.gui;
+package ingrGast.gui.dialogs;
 
 import com.toedter.calendar.JTextFieldDateEditor;
+import ingrGast.gui.*;
 import ingrGast.management.Manager;
-import ingrGast.objects.AsientoContable;
 import ingrGast.gui.util.AutoCompletion;
 import java.awt.Color;
 import java.util.Calendar;
@@ -17,21 +17,19 @@ import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 
 /**
- * 
+ *
  * @author Blizarazu
  */
-public class EditarAsientoDialog extends javax.swing.JDialog {
+public class NuevoAsientoDialog extends javax.swing.JDialog {
     
     /**
      * Creates new form NuevoAsientoDialog
-     * @param parent 
-     * @param modal 
-     * @param as 
+     * @param parent
+     * @param modal
      */
-    public EditarAsientoDialog(MainFrame parent, boolean modal, AsientoContable as) {
+    public NuevoAsientoDialog(MainFrame parent, boolean modal) {
         super(parent, modal);
         this.owner = parent;
-        this.as = as;
         this.manager = this.owner.getManager();
         initComponents();
     }
@@ -59,6 +57,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
@@ -102,27 +101,26 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
 
         jComboBox1.setEditable(true);
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(manager.getGruposNombres()));
-        jComboBox1.setSelectedItem(String.valueOf(as.getGrupo()));
+        jComboBox1.setSelectedItem(null);
         AutoCompletion.enable(jComboBox1);
 
         jComboBox2.setEditable(true);
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(manager.getConceptosMotivos()));
-        jComboBox2.setSelectedItem(String.valueOf(as.getMotivo()));
+        jComboBox2.setSelectedItem(null);
         AutoCompletion.enable(jComboBox2);
 
         jComboBox3.setEditable(true);
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(manager.getConceptosProveedores()));
-        jComboBox3.setSelectedItem(String.valueOf(as.getProveedor()));
+        jComboBox3.setSelectedItem(null);
         AutoCompletion.enable(jComboBox3);
 
         jComboBox4.setEditable(true);
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(manager.getConceptosReceptores()));
-        jComboBox4.setSelectedItem(String.valueOf(as.getReceptor()));
+        jComboBox4.setSelectedItem(null);
         AutoCompletion.enable(jComboBox4);
 
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField1.setText(String.valueOf(as.getImporte()));
-        this.formatImporte();
+        jTextField1.setText("0");
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField1FocusGained(evt);
@@ -144,10 +142,17 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("Guardar Cambios");
+        jButton2.setText("Guardar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Guardar y Seguir ->");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -156,7 +161,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
         jDateChooser1.setToolTipText("D\u00eda-Mes-A\u00f1o");
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
-        jDateChooser1.setCalendar(as.getFecha());
+        jDateChooser1.setCalendar(cal);
         ((JTextFieldDateEditor)jDateChooser1.getComponent(1)).setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -192,6 +197,14 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
                                         .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(380, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,12 +213,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jRadioButton2)
                                     .addComponent(jRadioButton1)))
-                            .addComponent(jLabel6)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(336, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                            .addComponent(jLabel6))))
                 .addContainerGap())
         );
 
@@ -240,8 +248,10 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
                 .addComponent(jRadioButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -250,8 +260,8 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +272,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
         );
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
         jTextField1.setCaretPosition(0);
         jTextField1.moveCaretPosition(jTextField1.getText().length());
@@ -273,6 +283,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
         try{
             Double d = Double.valueOf(importe);
             jButton2.setEnabled(true);
+            jButton3.setEnabled(true);
             if(d != 0){
                 if(importe.startsWith("-")){
                     jTextField1.setForeground(Color.RED);
@@ -299,9 +310,22 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
             jRadioButton1.setEnabled(false);
             jRadioButton2.setEnabled(false);
             jButton2.setEnabled(false);
+            jButton3.setEnabled(false);
         }
     }//GEN-LAST:event_jTextField1KeyReleased
-        
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try{
+            this.setData();
+            this.manager.guardarAsientoContable(this.grupo, this.motivo, this.proveedor, this.receptor, this.importe, this.fecha);
+        }catch (NumberFormatException ex){
+            JOptionPane jop = new JOptionPane("El importe introducido no es correcto", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(this, "Importe incorrecto").setVisible(true);
+        }
+        this.owner.updateData();
+        this.owner.openNuevoAsientoDialog();
+    }//GEN-LAST:event_jButton3ActionPerformed
+    
     private void setTipoImporte(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_setTipoImporte
         try {
             String importe = jTextField1.getText().replace(',', '.');
@@ -316,14 +340,10 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
                     jTextField1.setForeground(Color.GREEN);
                 }
             }
-        } catch (NumberFormatException ex){}        
+        } catch (NumberFormatException ex){}
     }//GEN-LAST:event_setTipoImporte
     
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-        formatImporte();
-    }//GEN-LAST:event_jTextField1FocusLost
-    
-    private void formatImporte(){
         try{
             String importe = jTextField1.getText().replace(',', '.');
             if(importe.length() == 0)
@@ -358,12 +378,13 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
             jop.createDialog(this, "Importe incorrecto").setVisible(true);
         }
         jButton2.setEnabled(true);
-    }
+        jButton3.setEnabled(true);
+    }//GEN-LAST:event_jTextField1FocusLost
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             this.setData();
-            this.manager.editarAsientoContable(this.as.getID(), this.grupo, this.motivo, this.proveedor, this.receptor, this.importe, this.fecha);
+            this.manager.guardarAsientoContable(this.grupo, this.motivo, this.proveedor, this.receptor, this.importe, this.fecha);
         } catch (NumberFormatException ex) {
             JOptionPane jop = new JOptionPane("El importe introducido no es correcto", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(this, "Importe incorrecto").setVisible(true);
@@ -375,8 +396,8 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
     
     /**
-     * 
-     * @throws java.lang.NumberFormatException 
+     *
+     * @throws java.lang.NumberFormatException
      */
     public void setData() throws NumberFormatException{
         this.grupo = jComboBox1.getSelectedItem().toString().trim();
@@ -397,6 +418,7 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -422,6 +444,4 @@ public class EditarAsientoDialog extends javax.swing.JDialog {
     private String receptor;
     private double importe;
     private Calendar fecha;
-    
-    private AsientoContable as;
 }

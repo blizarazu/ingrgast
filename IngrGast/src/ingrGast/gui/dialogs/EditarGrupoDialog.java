@@ -1,26 +1,26 @@
 /*
- * EditarConceptoDialog.java
+ * EditarGrupoDialog.java
  *
- * Created on 16 de julio de 2007, 20:02
+ * Created on 16 de julio de 2007, 19:45
  */
 
-package ingrGast.gui;
+package ingrGast.gui.dialogs;
 
+import ingrGast.gui.*;
 import ingrGast.management.Manager;
-import java.util.Vector;
 
 /**
- * 
+ *
  * @author Blizarazu
  */
-public class EditarConceptoDialog extends javax.swing.JDialog {
+public class EditarGrupoDialog extends javax.swing.JDialog {
     
     /**
-     * Creates new form EditarConceptoDialog
-     * @param parent 
-     * @param modal 
+     * Creates new form EditarGrupoDialog
+     * @param parent
+     * @param modal
      */
-    public EditarConceptoDialog(MainFrame parent, boolean modal) {
+    public EditarGrupoDialog(MainFrame parent, boolean modal) {
         super(parent, modal);
         this.owner = parent;
         this.manager = this.owner.getManager();
@@ -35,39 +35,28 @@ public class EditarConceptoDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc=" Código Generado  ">//GEN-BEGIN:initComponents
     private void initComponents() {
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        jComboBox1 = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Editar Concepto");
+        setTitle("Editar Grupo");
         setResizable(false);
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jLabel1.setText("Selecciona el Campo del Concepto:");
+        jLabel2.setText("Selecciona un Grupo:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Motivo", "Proveedor", "Receptor" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(this.manager.getGruposNombres()));
+        jComboBox1.setSelectedItem(null);
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
             }
         });
 
-        jLabel2.setText("Selecciona el Concepto:");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(this.manager.getConceptosMotivos()));
-        jComboBox2.setSelectedItem(null);
-        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox2ItemStateChanged(evt);
-            }
-        });
-
-        jLabel3.setText("Nuevo Nombre del Concepto:");
+        jLabel3.setText("Nuevo Nombre del Grupo:");
 
         jTextField1.setEnabled(false);
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -98,18 +87,18 @@ public class EditarConceptoDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jComboBox1, 0, 189, Short.MAX_VALUE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jTextField1)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton1)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -117,17 +106,13 @@ public class EditarConceptoDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1)))
@@ -139,8 +124,8 @@ public class EditarConceptoDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,6 +137,15 @@ public class EditarConceptoDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.setData();
+        this.manager.editarGrupo(this.nombre, this.nuevoNombre);
+        if (this.owner.getCurrentDialog() == this)
+            this.owner.setCurrentDialog(null);
+        this.owner.updateData();
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         if(jTextField1.getText().length() > 0)
             jButton1.setEnabled(true);
@@ -159,45 +153,15 @@ public class EditarConceptoDialog extends javax.swing.JDialog {
             jButton1.setEnabled(false);
     }//GEN-LAST:event_jTextField1KeyReleased
     
-    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
-        if(jComboBox2.getSelectedIndex() >= 0){
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        if(jComboBox1.getSelectedIndex() >= 0) {
             jTextField1.setEnabled(true);
-            jTextField1.setText(jComboBox2.getSelectedItem().toString().trim());
-        } else {
+            jTextField1.setText(jComboBox1.getSelectedItem().toString().trim());
+        } else{
             jTextField1.setEnabled(false);
             jTextField1.setText("");
         }
-    }//GEN-LAST:event_jComboBox2ItemStateChanged
-    
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        jComboBox2.removeAllItems();
-        Vector <String> v = null;
-        if(jComboBox1.getSelectedIndex() == 0)
-            v = this.manager.getConceptosMotivos();
-        else if (jComboBox1.getSelectedIndex() == 1)
-            v=  this.manager.getConceptosProveedores();
-        else if (jComboBox1.getSelectedIndex() == 2)
-            v=  this.manager.getConceptosReceptores();
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(v));
-        jComboBox2.setSelectedIndex(-1);
-        jComboBox2.setSelectedItem(null);
     }//GEN-LAST:event_jComboBox1ItemStateChanged
-    
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.setData();
-        if (jComboBox1.getSelectedIndex() == 0)
-            this.manager.editarConceptoMotivo(nombre, nuevoNombre);
-        else if (jComboBox1.getSelectedIndex() == 1)
-            this.manager.editarConceptoProveedor(nombre, nuevoNombre);
-        else if (jComboBox1.getSelectedIndex() == 2)
-            this.manager.editarConceptoReceptor(nombre, nuevoNombre);
-        else
-            System.out.println("Error al editar el concepto");
-        if (this.owner.getCurrentDialog() == this)
-            this.owner.setCurrentDialog(null);
-        this.owner.updateData();
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(this.owner.getCurrentDialog() == this)
@@ -206,11 +170,11 @@ public class EditarConceptoDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
     
     private void setData(){
-        this.nombre = jComboBox2.getSelectedItem().toString().trim();
+        this.nombre = jComboBox1.getSelectedItem().toString().trim();
         this.nuevoNombre = jTextField1.getText().trim();
     }
     
-    private void editarConcepto() {
+    private void editarGrupo() {
         throw new UnsupportedOperationException("Not yet implemented");
     }
     
@@ -218,8 +182,6 @@ public class EditarConceptoDialog extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
@@ -228,7 +190,6 @@ public class EditarConceptoDialog extends javax.swing.JDialog {
     
     private MainFrame owner;
     private Manager manager;
-    
-    private String nuevoNombre;
     private String nombre;
+    private String nuevoNombre;
 }
