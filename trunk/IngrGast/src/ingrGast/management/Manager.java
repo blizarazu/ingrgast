@@ -15,7 +15,6 @@ import ingrGast.objects.Concepto;
 import ingrGast.objects.Grupo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.ConnectException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Vector;
@@ -36,7 +35,7 @@ public class Manager {
     public Manager(String user, String pass) {
         try {
             this.connector = new Connector(user, pass);
-            } catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("El nombre de usuario o la contraseña son incorrectos.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Conexión fallida").setVisible(true);

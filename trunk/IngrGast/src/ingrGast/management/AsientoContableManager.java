@@ -23,7 +23,7 @@ import java.util.Vector;
 import ingrGast.objects.AsientoContable;
 
 /**
- * 
+ *
  * @author Blizarazu
  */
 public class AsientoContableManager{
@@ -32,20 +32,20 @@ public class AsientoContableManager{
     
     /**
      * Creates a new instance of AsientoContableManager
-     * @param c 
-     * @throws java.sql.SQLException 
+     * @param c
+     * @throws java.sql.SQLException
      */
     public AsientoContableManager(Connector c) throws SQLException {
         this.asDB  = new AsientoContableDB(c);
     }
     
     /**
-     * 
-     * @param fileName 
-     * @throws java.io.FileNotFoundException 
-     * @throws java.io.IOException 
-     * @throws java.lang.ClassNotFoundException 
-     * @return 
+     *
+     * @param fileName
+     * @throws java.io.FileNotFoundException
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     * @return
      */
     public Vector<AsientoContable> read(String fileName) throws FileNotFoundException, IOException, ClassNotFoundException{
         ObjectInputStream sar = new ObjectInputStream(new FileInputStream(fileName));
@@ -57,10 +57,10 @@ public class AsientoContableManager{
     }
     
     /**
-     * 
-     * @param as 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param as
+     * @throws java.sql.SQLException
+     * @return
      */
     public int guardar(AsientoContable as) throws SQLException{
         as.constructDate();
@@ -71,16 +71,16 @@ public class AsientoContableManager{
     }
     
     /**
-     * 
-     * @param i 
-     * @param grupo 
-     * @param motivo 
-     * @param proveedor 
-     * @param receptor 
-     * @param fechaIni 
-     * @param fechaFin 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param i
+     * @param grupo
+     * @param motivo
+     * @param proveedor
+     * @param receptor
+     * @param fechaIni
+     * @param fechaFin
+     * @throws java.sql.SQLException
+     * @return
      */
     public double getSUM(int i, String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) throws SQLException {
         String s = "";
@@ -105,10 +105,10 @@ public class AsientoContableManager{
     }
     
     /**
-     * 
-     * @param id 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param id
+     * @throws java.sql.SQLException
+     * @return
      */
     public int borrar(int id) throws SQLException {
         return asDB.delete(id);
@@ -138,9 +138,9 @@ public class AsientoContableManager{
     }
     
     /**
-     * 
-     * @param as 
-     * @throws java.sql.SQLException 
+     *
+     * @param as
+     * @throws java.sql.SQLException
      */
     public void editar(AsientoContable as) throws SQLException {
         as.constructDate();
@@ -148,9 +148,9 @@ public class AsientoContableManager{
     }
     
     /**
-     * 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<Calendar> getFechas() throws SQLException {
         Vector<String> vDate = asDB.getDates();
@@ -164,10 +164,10 @@ public class AsientoContableManager{
     }
     
     /**
-     * 
-     * @param año 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param año
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<Double> getIngresosAño(int año) throws SQLException{
         Vector<Double> ingAño = new Vector<Double>();
@@ -183,10 +183,10 @@ public class AsientoContableManager{
     }
     
     /**
-     * 
-     * @param año 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param año
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<Double> getGastosAño(int año) throws SQLException{
         Vector<Double> gastAño = new Vector<Double>();
@@ -202,10 +202,10 @@ public class AsientoContableManager{
     }
     
     /**
-     * 
-     * @param año 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param año
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<Double> getTotalesAño(int año) throws SQLException{
         Vector<Double> totAño = new Vector<Double>();
@@ -219,11 +219,11 @@ public class AsientoContableManager{
         totAño.addElement(new Double(asDB.getTotales(1, j, año)));
         return totAño;
     }
-
+    
     /**
-     * 
-     * @param i 
-     * @return 
+     *
+     * @param i
+     * @return
      */
     public String constructLast(int i) {
         return "SELECT A.ID AS ID, A.Fecha_creacion AS 'Fecha de Entrada', G.Nombre AS Grupo, C.Motivo AS Motivo, C.Proveedor AS Proveedor, C.Receptor AS Receptor, A.Fecha AS Fecha, A.Importe AS Importe FROM asientoscontables AS A INNER JOIN conceptos AS C ON A.Concepto_ID = C.ID INNER JOIN grupos AS G ON A.Grupo_ID = G.ID ORDER BY Fecha_creacion DESC LIMIT " + String.valueOf(i);
