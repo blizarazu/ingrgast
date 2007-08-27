@@ -1,14 +1,16 @@
 /*
- * DatosFiltroPanel.java
+ * ConsultarDatosPanel.java
  *
  * Created on July 15, 2007, 6:44 PM
  */
 
-package ingrGast.gui;
+package ingrGast.gui.mainInsidePanels;
 
 import com.toedter.calendar.JTextFieldDateEditor;
 import ingrGast.db.Connector;
 import ingrGast.db.ResultSetTableModel;
+import ingrGast.gui.*;
+import ingrGast.gui.dialogs.EditarAsientoDialog;
 import ingrGast.interfaces.InsidePanel;
 import ingrGast.management.Manager;
 import ingrGast.objects.AsientoContable;
@@ -25,16 +27,18 @@ import javax.swing.JOptionPane;
  *
  * @author  Beñat
  */
-public class DatosFiltroPanel extends javax.swing.JPanel implements InsidePanel{
+public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePanel{
     
-    /** Creates new form DatosFiltroPanel */
-    public DatosFiltroPanel(/*MainFrame parent*/) {
+    /**
+     * Creates new form ConsultarDatosPanel
+     */
+    public ConsultarDatosPanel(/*MainFrame parent*/) {
         initComponents();
     }
     
     /**
-     * 
-     * @param parent 
+     *
+     * @param parent
      */
     public void initData(MainFrame parent){
         this.owner = parent;

@@ -4,8 +4,9 @@
  * Created on 20 de agosto de 2007, 19:00
  */
 
-package ingrGast.gui;
+package ingrGast.gui.mainInsidePanels;
 
+import ingrGast.gui.*;
 import ingrGast.gui.util.RowHeaderRenderer;
 import ingrGast.interfaces.InsidePanel;
 import ingrGast.management.Manager;
@@ -17,7 +18,7 @@ import java.util.Vector;
 import javax.swing.JLabel;
 
 /**
- * 
+ *
  * @author Blizarazu
  */
 public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
@@ -30,8 +31,8 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
     }
     
     /**
-     * 
-     * @param parent 
+     *
+     * @param parent
      */
     public void initData(MainFrame parent){
         this.owner = parent;
@@ -45,7 +46,7 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
     }
     
     /**
-     * 
+     *
      */
     public void updateData() {
         this.chargeComboBox();
@@ -663,7 +664,7 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
         }
         setLabelText(jLabel53, vTotales.lastElement().doubleValue());
         jTable1.setValueAt(NumberFormat.getCurrencyInstance().format(vTotales.lastElement().doubleValue()/12), 0, 3);
-         vTotales.remove(vTotales.size()-1);
+        vTotales.remove(vTotales.size()-1);
         Collections.sort(vTotales);
         double mediana;
         if((vTotales.size()%2) != 0)
@@ -693,7 +694,7 @@ public class BalancePanel extends javax.swing.JPanel implements InsidePanel{
         else if (num < 0)
             label.setForeground(Color.RED);
     }
-
+    
     public void disconnectResultSetTableModels() {
     }
     
