@@ -12,21 +12,23 @@ package ingrGast.interfaces;
 import ingrGast.gui.*;
 
 /**
- * Panel that is created into a MainForm
+ * Panel that is created into a MainFrame
+ *
  * @author Blizarazu
  */
 public interface InsidePanel {
     /**
      * Initialices the data into the panel
-     * @param parent The MainForm where the InsidePanel is created
+     *
+     * @param parent The MainFrame where the InsidePanel is created
      */
-     public void initData(MainForm parent);
+    public void initData(MainFrame parent);
     /**
      * Updates de data of the InsidePannel
      */
-     public void updateData();
+    public void updateData();
     /**
      * Disconnects the ResultSetTableModels of the InsidePanel
      */
-     public void disconnectResultSetTableModels();
+    public void disconnectResultSetTableModels();
 }
