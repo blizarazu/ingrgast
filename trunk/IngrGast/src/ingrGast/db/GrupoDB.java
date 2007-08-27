@@ -27,8 +27,8 @@ public class GrupoDB {
     
     /**
      * Creates a new instance of GrupoDB
-     * @param con 
-     * @throws java.sql.SQLException 
+     * @param con
+     * @throws java.sql.SQLException
      */
     public GrupoDB(Connector con) throws SQLException {
         this.connection = con.getConnection();
@@ -36,11 +36,11 @@ public class GrupoDB {
     }
     
     /**
-     * 
-     * @param id 
-     * @param nombre 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param id
+     * @param nombre
+     * @throws java.sql.SQLException
+     * @return
      */
     public int insert(int id, String nombre) throws SQLException{
         String sql = "INSERT INTO grupos SET ID=?, Nombre=?";
@@ -53,10 +53,10 @@ public class GrupoDB {
     }
     
     /**
-     * 
-     * @param nombre 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param nombre
+     * @throws java.sql.SQLException
+     * @return
      */
     public int insert(String nombre) throws SQLException{
         String sql = "INSERT INTO grupos SET Nombre = ?";
@@ -68,10 +68,10 @@ public class GrupoDB {
     }
     
     /**
-     * 
-     * @param nombre 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param nombre
+     * @throws java.sql.SQLException
+     * @return
      */
     public int find(String nombre) throws SQLException{
         String sql = "SELECT ID FROM grupos WHERE Nombre = ?";
@@ -89,9 +89,9 @@ public class GrupoDB {
     }
     
     /**
-     * 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<String> getNombres() throws SQLException{
         String sql = "SELECT DISTINCT Nombre FROM grupos ORDER BY Nombre";
@@ -104,13 +104,13 @@ public class GrupoDB {
         ps.close();
         return vNombres;
     }
-
+    
     /**
-     * 
-     * @param nombre 
-     * @param nuevoNombre 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param nombre
+     * @param nuevoNombre
+     * @throws java.sql.SQLException
+     * @return
      */
     public int update(String nombre, String nuevoNombre) throws SQLException {
         String sql = "UPDATE grupos SET Nombre = ? WHERE Nombre = ?";

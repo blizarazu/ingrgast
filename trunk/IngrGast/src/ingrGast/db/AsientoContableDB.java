@@ -19,7 +19,7 @@ import java.util.GregorianCalendar;
 import java.util.Vector;
 
 /**
- * 
+ *
  * @author Blizarazu
  */
 public class AsientoContableDB {
@@ -29,8 +29,8 @@ public class AsientoContableDB {
     
     /**
      * Creates a new instance of AsientoContableDB
-     * @param con 
-     * @throws java.sql.SQLException 
+     * @param con
+     * @throws java.sql.SQLException
      */
     public AsientoContableDB(Connector con) throws SQLException {
         this.connection = con.getConnection();
@@ -39,13 +39,13 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param conceptoID 
-     * @param grupoID 
-     * @param importe 
-     * @param fecha 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param conceptoID
+     * @param grupoID
+     * @param importe
+     * @param fecha
+     * @throws java.sql.SQLException
+     * @return
      */
     public int insert(int conceptoID, int grupoID, double importe, Calendar fecha) throws SQLException{
         String sql = "INSERT INTO asientoscontables SET Concepto_ID = ?, Grupo_ID = ?, importe = ?, Fecha = ?, Fecha_creacion = NOW()";
@@ -60,14 +60,14 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param ID 
-     * @param conceptoID 
-     * @param grupoID 
-     * @param importe 
-     * @param fecha 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param ID
+     * @param conceptoID
+     * @param grupoID
+     * @param importe
+     * @param fecha
+     * @throws java.sql.SQLException
+     * @return
      */
     public int insert(int ID, int conceptoID, int grupoID, double importe, Calendar fecha) throws SQLException{
         String sql = "INSERT INTO asientoscontables SET ID=?, Concepto_ID = ?, Grupo_ID = ?, importe = ?, Fecha = ?, Fecha_creacion = NOW()";
@@ -83,20 +83,20 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param sql 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param sql
+     * @throws java.sql.SQLException
+     * @return
      */
     public ResultSet executeQuery(String sql) throws SQLException {
         return statement.executeQuery(sql);
     }
     
     /**
-     * 
-     * @param id 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param id
+     * @throws java.sql.SQLException
+     * @return
      */
     public int delete(int id) throws SQLException {
         String sql = "DELETE FROM asientoscontables WHERE ID = ?";
@@ -108,10 +108,10 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param s 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param s
+     * @throws java.sql.SQLException
+     * @return
      */
     public double SUM(String s) throws SQLException {
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables AS A INNER JOIN conceptos AS C ON A.Concepto_ID = C.ID INNER JOIN grupos AS G ON A.Grupo_ID = G.ID WHERE " + s;
@@ -125,14 +125,14 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param id 
-     * @param cId 
-     * @param gId 
-     * @param imp 
-     * @param fecha 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param id
+     * @param cId
+     * @param gId
+     * @param imp
+     * @param fecha
+     * @throws java.sql.SQLException
+     * @return
      */
     public int update(int id, int cId, int gId, double imp, Calendar fecha) throws SQLException {
         String sql = "UPDATE asientoscontables SET Concepto_ID = ?, Grupo_ID = ?, Importe = ?, Fecha = ? WHERE ID = ?";
@@ -148,9 +148,9 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<String> getDates() throws SQLException {
         String sql = "SELECT Fecha FROM asientoscontables ORDER BY Fecha DESC";
@@ -162,11 +162,11 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param mes 
-     * @param año 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param mes
+     * @param año
+     * @throws java.sql.SQLException
+     * @return
      */
     public double getIngresos(int mes, int año) throws SQLException{
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Importe >= 0 AND Fecha BETWEEN ? AND ?";
@@ -183,12 +183,12 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param mes1 
-     * @param mes2 
-     * @param año 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param mes1
+     * @param mes2
+     * @param año
+     * @throws java.sql.SQLException
+     * @return
      */
     public double getIngresos(int mes1, int mes2, int año) throws SQLException{
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Importe >= 0 AND Fecha BETWEEN ? AND ?";
@@ -205,11 +205,11 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param mes 
-     * @param año 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param mes
+     * @param año
+     * @throws java.sql.SQLException
+     * @return
      */
     public double getGastos(int mes, int año) throws SQLException{
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Importe < 0 AND Fecha BETWEEN ? AND ?";
@@ -226,12 +226,12 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param mes1 
-     * @param mes2 
-     * @param año 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param mes1
+     * @param mes2
+     * @param año
+     * @throws java.sql.SQLException
+     * @return
      */
     public double getGastos(int mes1, int mes2, int año) throws SQLException{
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Importe < 0 AND Fecha BETWEEN ? AND ?";
@@ -248,11 +248,11 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param mes 
-     * @param año 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param mes
+     * @param año
+     * @throws java.sql.SQLException
+     * @return
      */
     public double getTotales(int mes, int año) throws SQLException{
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Fecha BETWEEN ? AND ?";
@@ -269,12 +269,12 @@ public class AsientoContableDB {
     }
     
     /**
-     * 
-     * @param mes1 
-     * @param mes2 
-     * @param año 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param mes1
+     * @param mes2
+     * @param año
+     * @throws java.sql.SQLException
+     * @return
      */
     public double getTotales(int mes1, int mes2, int año) throws SQLException{
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Fecha BETWEEN ? AND ?";
