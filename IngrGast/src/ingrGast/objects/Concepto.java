@@ -12,7 +12,7 @@ package ingrGast.objects;
 import java.io.Serializable;
 
 /**
- * 
+ *
  * @author Blizarazu
  */
 public class Concepto implements  Serializable{
@@ -29,50 +29,50 @@ public class Concepto implements  Serializable{
         this.Proveedor = prov.trim();
         this.Receptor = recep.trim();
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getID() {
         return ID;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getMotivo() {
         return Motivo;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getProveedor() {
         return Proveedor;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getReceptor() {
         return Receptor;
     }
-
+    
     /**
-     * 
-     * @param ID 
+     *
+     * @param ID
      */
     public void setID(int ID) {
         this.ID = ID;
     }
     
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String toString(){
         return (String.valueOf(this.ID) + " " +

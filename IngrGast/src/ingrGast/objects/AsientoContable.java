@@ -10,12 +10,11 @@
 package ingrGast.objects;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * 
+ *
  * @author Blizarazu
  */
 public class AsientoContable implements Serializable{
@@ -44,16 +43,16 @@ public class AsientoContable implements Serializable{
         this.day = date.get(Calendar.DAY_OF_MONTH);
         this.ID = -1;
     }
-
+    
     /**
-     * 
-     * @param ID 
-     * @param gNombre 
-     * @param cMotivo 
-     * @param cProveedor 
-     * @param cReceptor 
-     * @param imp 
-     * @param date 
+     *
+     * @param ID
+     * @param gNombre
+     * @param cMotivo
+     * @param cProveedor
+     * @param cReceptor
+     * @param imp
+     * @param date
      */
     public AsientoContable(int ID, String gNombre, String cMotivo, String cProveedor, String cReceptor, double imp, Calendar date){
         this.ID = ID;
@@ -66,48 +65,48 @@ public class AsientoContable implements Serializable{
     }
     
     /**
-     * 
-     * @param ID 
+     *
+     * @param ID
      */
     public void setID(int ID) {
         this.ID = ID;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getConceptoID() {
         return ConceptoID;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public Calendar getFecha() {
         return Fecha;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getGrupoID() {
         return GrupoID;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getID() {
         return ID;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public double getImporte() {
         return Importe;
@@ -116,96 +115,96 @@ public class AsientoContable implements Serializable{
     public void constructDate(){
         this.Fecha = new GregorianCalendar(this.year, this.month, this.day);
     }
-
+    
     /**
-     * 
-     * @param GrupoID 
+     *
+     * @param GrupoID
      */
     public void setGrupoID(int GrupoID) {
         this.GrupoID = GrupoID;
     }
-
+    
     /**
-     * 
-     * @param ConceptoID 
+     *
+     * @param ConceptoID
      */
     public void setConceptoID(int ConceptoID) {
         this.ConceptoID = ConceptoID;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getGrupo() {
         return Grupo;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getMotivo() {
         return Motivo;
     }
-
+    
     /**
-     * 
-     * @param Grupo 
+     *
+     * @param Grupo
      */
     public void setGrupo(String Grupo) {
         this.Grupo = Grupo;
     }
-
+    
     /**
-     * 
-     * @param Motivo 
+     *
+     * @param Motivo
      */
     public void setMotivo(String Motivo) {
         this.Motivo = Motivo;
     }
-
+    
     /**
-     * 
-     * @param Receptor 
+     *
+     * @param Receptor
      */
     public void setReceptor(String Receptor) {
         this.Receptor = Receptor;
     }
-
+    
     /**
-     * 
-     * @param Proveedor 
+     *
+     * @param Proveedor
      */
     public void setProveedor(String Proveedor) {
         this.Proveedor = Proveedor;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getProveedor() {
         return Proveedor;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getReceptor() {
         return Receptor;
     }
     
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String toString(){
-       return (String.valueOf(this.ID) + " " +
-               String.valueOf(this.GrupoID) + " " +
-               String.valueOf(this.ConceptoID) + " " +
-               String.valueOf(this.Importe) + " " +
-               String.valueOf(this.Fecha.get(Calendar.YEAR)) + "/" + String.valueOf(this.Fecha.get(Calendar.MONTH)) + "/" + String.valueOf(this.Fecha.get(Calendar.DAY_OF_MONTH)));
+        return (String.valueOf(this.ID) + " " +
+                String.valueOf(this.GrupoID) + " " +
+                String.valueOf(this.ConceptoID) + " " +
+                String.valueOf(this.Importe) + " " +
+                String.valueOf(this.Fecha.get(Calendar.YEAR)) + "/" + String.valueOf(this.Fecha.get(Calendar.MONTH)) + "/" + String.valueOf(this.Fecha.get(Calendar.DAY_OF_MONTH)));
     }
 }
