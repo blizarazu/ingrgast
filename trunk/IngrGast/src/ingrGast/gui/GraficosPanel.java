@@ -10,27 +10,27 @@ import ingrGast.gui.charts.datasets.ModifiedDefaultCategoryDataset;
 import ingrGast.interfaces.InsidePanel;
 import ingrGast.management.Manager;
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Shape;
-import java.awt.Stroke;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
-import java.sql.SQLException;
 import java.util.Vector;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.DefaultCategoryItemRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.jdbc.JDBCCategoryDataset;
 import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.VerticalAlignment;
+import org.jfree.util.UnitType;
 
 /**
  *
@@ -54,6 +54,10 @@ public class GraficosPanel extends javax.swing.JPanel implements InsidePanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
+        jPanel3 = new javax.swing.JPanel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
 
@@ -69,6 +73,38 @@ public class GraficosPanel extends javax.swing.JPanel implements InsidePanel {
             }
         });
 
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jCheckBox1.setSelected(true);
+        jCheckBox1.setText("Ingresos");
+        jCheckBox1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jCheckBox1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox1ItemStateChanged(evt);
+            }
+        });
+
+        jCheckBox2.setSelected(true);
+        jCheckBox2.setText("Gastos");
+        jCheckBox2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jCheckBox2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jCheckBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox2ItemStateChanged(evt);
+            }
+        });
+
+        jCheckBox3.setSelected(true);
+        jCheckBox3.setText("Saldo");
+        jCheckBox3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jCheckBox3.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jCheckBox3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox3ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -77,8 +113,15 @@ public class GraficosPanel extends javax.swing.JPanel implements InsidePanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBox3)
+                    .addComponent(jCheckBox2)
+                    .addComponent(jCheckBox1))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,7 +129,16 @@ public class GraficosPanel extends javax.swing.JPanel implements InsidePanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox3)
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         jPanel1.add(jPanel2, "card2");
 
@@ -118,34 +170,77 @@ public class GraficosPanel extends javax.swing.JPanel implements InsidePanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jCheckBox3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox3ItemStateChanged
+        CategoryPlot categoryplot = chart.getCategoryPlot();
+        if(jCheckBox3.isSelected())
+            categoryplot.getRenderer(1).setSeriesVisible(0, true);
+        else
+            categoryplot.getRenderer(1).setSeriesVisible(0, false);
+    }//GEN-LAST:event_jCheckBox3ItemStateChanged
+
+    private void jCheckBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox2ItemStateChanged
+        CategoryPlot categoryplot = chart.getCategoryPlot();
+        if(jCheckBox2.isSelected())
+            categoryplot.getRenderer().setSeriesVisible(1, true);
+        else
+            categoryplot.getRenderer().setSeriesVisible(1, false);
+    }//GEN-LAST:event_jCheckBox2ItemStateChanged
+
+    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
+        CategoryPlot categoryplot = chart.getCategoryPlot();
+        if(jCheckBox1.isSelected())
+            categoryplot.getRenderer().setSeriesVisible(0, true);
+        else
+            categoryplot.getRenderer().setSeriesVisible(0, false);
+    }//GEN-LAST:event_jCheckBox1ItemStateChanged
+    
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         if(jComboBox1.getSelectedItem() != null){
             ModifiedDefaultCategoryDataset dataset1 = new ModifiedDefaultCategoryDataset();
             ModifiedDefaultCategoryDataset dataset2 = new ModifiedDefaultCategoryDataset();
             Vector<Vector<Double>> vBalance = this.manager.getBalanceAño(((Integer)jComboBox1.getSelectedItem()).intValue());
-            dataset1.addValuesToDataset(vBalance.elementAt(0), "Ingreso", months);
-            dataset1.addValuesToDataset(vBalance.elementAt(1), "Gasto", months);
-            dataset2.addValuesToDataset(vBalance.elementAt(2), "Total", months);
+            Vector<Double> vIngr = vBalance.elementAt(0);
+            vIngr.removeElementAt(vIngr.size()-1);
+            Vector<Double> vGast = vBalance.elementAt(1);
+            vGast.removeElementAt(vGast.size()-1);
+            for(Double d: vGast){
+                if(d.doubleValue() < 0)
+                    vGast.setElementAt(new Double(d.doubleValue() * (-1)), vGast.indexOf(d));
+            }
+            Vector<Double> vTot = vBalance.elementAt(2);
+            vTot.removeElementAt(vTot.size()-1);
+            dataset1.addValuesToDataset(vIngr, "Ingreso", months);
+            dataset1.addValuesToDataset(vGast, "Gasto", months);
+            dataset2.addValuesToDataset(vTot, "Saldo", months);
+            cd1 = dataset1;
+            cd2 = dataset2;
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
     
     
     // Declaración de varibales -no modificar//GEN-BEGIN:variables
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     // Fin de declaración de variables//GEN-END:variables
     
     private MainFrame owner;
     private Manager manager;
+    private CategoryDataset cd1;
+    private CategoryDataset cd2;
+    private JFreeChart chart;
     
-    private String[] months = new String[]{
-            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
-            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-        };
+    private final String[] months = new String[]{
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+        "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    };
     
     private void chargeComboBox(){
         Vector<Integer> vYears = this.manager.getAñosAsientos();
@@ -159,22 +254,8 @@ public class GraficosPanel extends javax.swing.JPanel implements InsidePanel {
         this.manager = this.owner.getManager();
         this.chargeComboBox();
         
-        ChartPanel jPanel3 = new ChartPanel(balanceAnualChart());
-        javax.swing.GroupLayout jPanel2Layout = (javax.swing.GroupLayout)jPanel2.getLayout();
-        jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-                );
-        jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-                );
+        ChartPanel jChartPanel = new ChartPanel(balanceAnualChart(cd1, cd2));
+        jPanel3.add(jChartPanel, BorderLayout.CENTER);
     }
     
     public void updateData() {
@@ -183,55 +264,53 @@ public class GraficosPanel extends javax.swing.JPanel implements InsidePanel {
     public void disconnectResultSetTableModels() {
     }
     
-    private JFreeChart balanceAnualChart(){
-        String[] months = new String[]{
-            "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
-            "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-        };
-        //DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        JDBCCategoryDataset dataset = new JDBCCategoryDataset(this.manager.getConnector().getConnection());
-        dataset.setTranspose(true);
-        JDBCCategoryDataset dataset1 = new JDBCCategoryDataset(this.manager.getConnector().getConnection());
-        try {
-            dataset.executeQuery("SELECT Grupo_ID AS Grupo, SUM(Importe) AS Ingresos FROM asientoscontables WHERE Importe >= 0 GROUP BY Grupo_ID");
-            dataset1.executeQuery("SELECT Grupo_ID AS Grupo, SUM(Importe) AS Gastos FROM asientoscontables WHERE Importe < 0 GROUP BY Grupo_ID");
-            //dataset.executeQuery("SELECT Grupo_ID, SUM(Importe) AS Total FROM asientoscontables WHERE Importe < 0 GROUP BY Grupo_ID");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        dataset1.setTranspose(true);
-        /*int i = 0;
-        for(Number value: dataIngresos){
-            dataset.setValue(value, "Ingresos", months[i]);
-            i++;
-        }
-        i = 0;
-        for(Number value: dataGastos){
-            dataset.setValue(value, "Gastos", months[i]);
-            i++;
-        }*/
-        JFreeChart jfreechart = ChartFactory.createLineChart("Balance Anual", "Meses", "Importe", dataset, PlotOrientation.VERTICAL, true, true, false);
-        jfreechart.addSubtitle(new TextTitle("Balance de ingresos y gastos obtenidos por mes."));
-        CategoryPlot categoryplot = (CategoryPlot)jfreechart.getPlot();
-        categoryplot.setDataset(1, dataset1);
-        //categoryplot.setBackgroundPaint(Color.lightGray);
-        //categoryplot.setRangeGridlinesVisible(false);
-        /*NumberAxis numberaxis = (NumberAxis)categoryplot.getRangeAxis();
-        numberaxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());*/
-        LineAndShapeRenderer lineandshaperenderer = (LineAndShapeRenderer)categoryplot.getRenderer();
-        lineandshaperenderer.setShapesVisible(true);
-        //lineandshaperenderer.setSeriesFillPaint(0, Color.GREEN);
-        lineandshaperenderer.setSeriesPaint(0, Color.GREEN);
-        lineandshaperenderer.setSeriesPaint(1, Color.RED);
-        //lineandshaperenderer.setDrawOutlines(true);
-        lineandshaperenderer.setUseFillPaint(true);
-        lineandshaperenderer.setBaseFillPaint(Color.white);
-        lineandshaperenderer.setSeriesStroke(0, new BasicStroke(3F));
-        lineandshaperenderer.setSeriesStroke(1, new BasicStroke(3F));
-        lineandshaperenderer.setSeriesOutlineStroke(0, new BasicStroke(2.0F));
-        lineandshaperenderer.setSeriesOutlineStroke(1, new BasicStroke(2.0F));
-        lineandshaperenderer.setSeriesShape(0, new java.awt.geom.Ellipse2D.Double(-5D, -5D, 10D, 10D));
-        lineandshaperenderer.setSeriesShape(1, new java.awt.geom.Ellipse2D.Double(-5D, -5D, 10D, 10D));
-        return jfreechart;
+    private JFreeChart balanceAnualChart(CategoryDataset categorydataset1, CategoryDataset categorydataset2){
+        JFreeChart chart = ChartFactory.createAreaChart("Balance Anual", "Mes", "Importe", categorydataset1, PlotOrientation.VERTICAL, true, true, false);
+        TextTitle texttitle = new TextTitle("Balance del año " + jComboBox1.getSelectedItem().toString());
+        texttitle.setFont(new Font("SansSerif", 0, 12));
+        texttitle.setPosition(RectangleEdge.TOP);
+        texttitle.setPadding(new RectangleInsets(UnitType.RELATIVE, 0.050000000000000003D, 0.050000000000000003D, 0.050000000000000003D, 0.050000000000000003D));
+        texttitle.setVerticalAlignment(VerticalAlignment.BOTTOM);
+        chart.addSubtitle(texttitle);
+        CategoryPlot categoryplot = (CategoryPlot)chart.getPlot();
+        categoryplot.setForegroundAlpha(0.5F);        
+        categoryplot.setAxisOffset(new RectangleInsets(5D, 5D, 5D, 5D));
+        
+        categoryplot.setDomainGridlinesVisible(true);
+        
+        categoryplot.setRangeGridlinesVisible(true);
+        
+        CategoryAxis categoryaxis = categoryplot.getDomainAxis();
+        categoryaxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+        categoryaxis.setLowerMargin(0.0D);
+        categoryaxis.setUpperMargin(0.0D);
+        
+        categoryplot.getRenderer().setSeriesPaint(0, Color.GREEN);
+        categoryplot.getRenderer().setSeriesPaint(1, Color.RED);
+     
+        NumberAxis numberaxis = (NumberAxis)categoryplot.getRangeAxis();
+        numberaxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        numberaxis.setLabelAngle(0.0D);
+        
+        categoryplot.setDataset(1, categorydataset2);
+        categoryplot.mapDatasetToRangeAxis(1, 0);
+        LineAndShapeRenderer linerenderer = new LineAndShapeRenderer();
+        linerenderer.setShapesVisible(true);
+        linerenderer.setUseFillPaint(true);
+        linerenderer.setBaseFillPaint(Color.white);
+        linerenderer.setSeriesStroke(0, new BasicStroke(3F));
+        linerenderer.setSeriesStroke(1, new BasicStroke(3F));
+        linerenderer.setSeriesOutlineStroke(0, new BasicStroke(2.0F));
+        linerenderer.setSeriesOutlineStroke(1, new BasicStroke(2.0F));
+        linerenderer.setSeriesShape(0, new java.awt.geom.Ellipse2D.Double(-5D, -5D, 10D, 10D));
+        linerenderer.setSeriesShape(1, new java.awt.geom.Ellipse2D.Double(-5D, -5D, 10D, 10D));
+        linerenderer.setSeriesPaint(0, Color.blue);
+        linerenderer.setBaseToolTipGenerator(new StandardCategoryToolTipGenerator());
+        categoryplot.setRenderer(1, linerenderer);
+        categoryplot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
+        
+        this.chart = chart;
+        
+        return chart;
     }
 }

@@ -71,6 +71,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         graficosPanel1 = new ingrGast.gui.GraficosPanel();
         balancePanel1 = new ingrGast.gui.BalancePanel();
@@ -167,6 +168,15 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jToolBar1.add(jButton4);
+
+        jButton5.setText("graficos");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jToolBar1.add(jButton5);
 
         jPanel2.setLayout(new java.awt.CardLayout());
 
@@ -419,6 +429,10 @@ public class MainFrame extends javax.swing.JFrame {
         );
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "card5");
+    }//GEN-LAST:event_jButton5ActionPerformed
     
     private void jRadioButtonMenuItem6ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem6ItemStateChanged
         try {
@@ -635,6 +649,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
