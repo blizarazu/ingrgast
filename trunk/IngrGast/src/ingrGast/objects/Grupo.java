@@ -12,7 +12,7 @@ package ingrGast.objects;
 import java.io.Serializable;
 
 /**
- * 
+ *
  * @author Blizarazu
  */
 public class Grupo implements Serializable{
@@ -25,34 +25,34 @@ public class Grupo implements Serializable{
         this.ID = -1;
         this.Nombre = name.trim();
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getID() {
         return ID;
     }
-
+    
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String getNombre() {
         return Nombre;
     }
-
+    
     /**
-     * 
-     * @param ID 
+     *
+     * @param ID
      */
     public void setID(int ID) {
         this.ID = ID;
     }
     
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public String toString(){
         return (String.valueOf(this.ID) + " " +
