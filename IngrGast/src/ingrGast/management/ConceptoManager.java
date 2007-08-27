@@ -11,7 +11,6 @@ package ingrGast.management;
 
 import ingrGast.db.ConceptoDB;
 import ingrGast.db.Connector;
-import ingrGast.objects.AsientoContable;
 import ingrGast.objects.Concepto;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,7 +19,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 /**
- * 
+ *
  * @author Blizarazu
  */
 public class ConceptoManager {
@@ -29,19 +28,19 @@ public class ConceptoManager {
     
     /**
      * Creates a new instance of ConceptoManager
-     * @param c 
-     * @throws java.sql.SQLException 
+     * @param c
+     * @throws java.sql.SQLException
      */
     public ConceptoManager(Connector c) throws SQLException {
         this.cDB = new ConceptoDB(c);
     }
     
     /**
-     * 
-     * @param fileName 
-     * @throws java.io.IOException 
-     * @throws java.lang.ClassNotFoundException 
-     * @return 
+     *
+     * @param fileName
+     * @throws java.io.IOException
+     * @throws java.lang.ClassNotFoundException
+     * @return
      */
     public Vector<Concepto> read(String fileName) throws IOException, ClassNotFoundException{
         ObjectInputStream sar = new ObjectInputStream(new FileInputStream(fileName));
@@ -53,10 +52,10 @@ public class ConceptoManager {
     }
     
     /**
-     * 
-     * @param c 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param c
+     * @throws java.sql.SQLException
+     * @return
      */
     public int guardar(Concepto c) throws SQLException{
         if (c.getID() > 0)
@@ -66,10 +65,10 @@ public class ConceptoManager {
     }
     
     /**
-     * 
-     * @param con 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @param con
+     * @throws java.sql.SQLException
+     * @return
      */
     public Concepto find(Concepto con) throws SQLException {
         int id = cDB.find(con.getMotivo(), con.getProveedor(), con.getReceptor());
@@ -81,37 +80,37 @@ public class ConceptoManager {
     }
     
     /**
-     * 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<String> getMotivos() throws SQLException{
         return cDB.getMotivos();
     }
     
     /**
-     * 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<String> getProveedores() throws SQLException{
         return cDB.getProveedores();
     }
     
     /**
-     * 
-     * @throws java.sql.SQLException 
-     * @return 
+     *
+     * @throws java.sql.SQLException
+     * @return
      */
     public Vector<String> getReceptores() throws SQLException{
         return cDB.getReceptores();
     }
     
     /**
-     * 
-     * @param motivo 
-     * @param nuevoMotivo 
-     * @throws java.sql.SQLException 
+     *
+     * @param motivo
+     * @param nuevoMotivo
+     * @throws java.sql.SQLException
      */
     public void editarMotivo(String motivo, String nuevoMotivo) throws SQLException {
         cDB.updateMotivo(motivo, nuevoMotivo);
