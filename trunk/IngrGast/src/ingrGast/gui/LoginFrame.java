@@ -109,6 +109,7 @@ public class LoginFrame extends javax.swing.JFrame {
             }
             jTextField1.setText("");
             jPasswordField1.setText("");
+            jTextField1.requestFocus();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
