@@ -93,6 +93,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
@@ -161,7 +162,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jToolBar1.add(jButton4);
 
-        jButton5.setText("graficos");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/Graficos_48x48.png")));
+        jButton5.setToolTipText("Gr\u00e1ficos");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -314,6 +316,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu1.add(jMenuItem15);
 
+        jMenuItem16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/Graficos_24x24.png")));
+        jMenuItem16.setText("Gr\u00e1ficos");
+        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem16ActionPerformed(evt);
+            }
+        });
+
+        jMenu1.add(jMenuItem16);
+
         jMenuBar1.add(jMenu1);
 
         jMenu8.setText("Opciones");
@@ -416,6 +428,10 @@ public class MainFrame extends javax.swing.JFrame {
         );
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
+        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Graficos");
+    }//GEN-LAST:event_jMenuItem16ActionPerformed
     
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Graficos");
@@ -656,6 +672,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
+    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
