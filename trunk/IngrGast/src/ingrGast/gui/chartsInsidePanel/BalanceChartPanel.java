@@ -91,7 +91,7 @@ public class BalanceChartPanel extends javax.swing.JPanel implements InsidePanel
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBox3)
@@ -109,7 +109,7 @@ public class BalanceChartPanel extends javax.swing.JPanel implements InsidePanel
                             .addComponent(jLabel1)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addComponent(jCheckBox1)
@@ -147,7 +147,7 @@ public class BalanceChartPanel extends javax.swing.JPanel implements InsidePanel
             Vector<Double> vTot = vBalance.elementAt(2);
             vTot.removeElementAt(vTot.size()-1);
             balanceChart.updateValues(vIngr, vGast, vTot);
-            balanceChart.addSubtitle(((Integer)jComboBox1.getSelectedItem()).intValue());
+            balanceChart.setTitle(((Integer)jComboBox1.getSelectedItem()).intValue());
         }
     }//GEN-LAST:event_jComboBox1ItemStateChanged
     
@@ -188,7 +188,7 @@ public class BalanceChartPanel extends javax.swing.JPanel implements InsidePanel
         vTot.removeElementAt(vTot.size()-1);
         
         balanceChart = new BalanceAnualChart(vIngr, vGast, vTot);
-        balanceChart.addSubtitle(((Integer)jComboBox1.getSelectedItem()).intValue());
+        balanceChart.setTitle(((Integer)jComboBox1.getSelectedItem()).intValue());
         jPanel3.add(balanceChart.getChartPanel(), BorderLayout.CENTER);
     }
     

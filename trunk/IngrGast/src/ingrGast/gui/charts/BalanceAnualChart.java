@@ -137,14 +137,14 @@ public class BalanceAnualChart{
         chartpanel = new ChartPanel(chart);
     }
     
-    public void addSubtitle(int año){
-        chart.clearSubtitles();
+    public void setTitle(int año){
+        //chart.clearSubtitles();
         TextTitle texttitle = new TextTitle("Balance del año " + String.valueOf(año));
         texttitle.setFont(new Font("SansSerif", 0, 12));
         texttitle.setPosition(RectangleEdge.TOP);
         texttitle.setPadding(new RectangleInsets(UnitType.RELATIVE, 0.050000000000000003D, 0.050000000000000003D, 0.050000000000000003D, 0.050000000000000003D));
         texttitle.setVerticalAlignment(VerticalAlignment.BOTTOM);
-        chart.addSubtitle(texttitle);
+        chart.setTitle(texttitle);
     }
     
     public void setIngresosVisible(boolean flag){
