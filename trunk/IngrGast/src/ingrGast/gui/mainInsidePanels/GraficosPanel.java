@@ -7,9 +7,9 @@
 package ingrGast.gui.mainInsidePanels;
 
 import ingrGast.gui.*;
-import ingrGast.gui.charts.BalanceAnualChart;
 import ingrGast.interfaces.InsidePanel;
 import ingrGast.management.Manager;
+import java.awt.CardLayout;
 import java.awt.Component;
 
 /**
@@ -32,13 +32,16 @@ public class GraficosPanel extends javax.swing.JPanel implements InsidePanel {
     private void initComponents() {
         jPanel1 = new javax.swing.JPanel();
         balanceChartPanel1 = new ingrGast.gui.chartsInsidePanel.BalanceChartPanel();
+        compararAñosChartPanel1 = new ingrGast.gui.chartsInsidePanel.CompararAñosChartPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Gr\u00e1ficos"));
         jPanel1.setLayout(new java.awt.CardLayout());
 
-        jPanel1.add(balanceChartPanel1, "card2");
+        jPanel1.add(balanceChartPanel1, "Balance");
+
+        jPanel1.add(compararAñosChartPanel1, "Comparar");
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Balance Anual", "Comparativa Anual" };
@@ -76,12 +79,16 @@ public class GraficosPanel extends javax.swing.JPanel implements InsidePanel {
     }// </editor-fold>//GEN-END:initComponents
     
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
-        //if(jList1.getSelectedValue())
+        if(jList1.getSelectedIndex() == 0)
+            ((CardLayout)jPanel1.getLayout()).show(jPanel1, "Balance");
+        else if(jList1.getSelectedIndex() == 1)
+            ((CardLayout)jPanel1.getLayout()).show(jPanel1, "Comparar");
     }//GEN-LAST:event_jList1ValueChanged
     
     
     // Declaración de varibales -no modificar//GEN-BEGIN:variables
     private ingrGast.gui.chartsInsidePanel.BalanceChartPanel balanceChartPanel1;
+    private ingrGast.gui.chartsInsidePanel.CompararAñosChartPanel compararAñosChartPanel1;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -89,7 +96,6 @@ public class GraficosPanel extends javax.swing.JPanel implements InsidePanel {
     
     private MainFrame owner;
     private Manager manager;
-    private BalanceAnualChart balanceChart;
     
     public void initData(MainFrame parent) {
         this.owner = parent;

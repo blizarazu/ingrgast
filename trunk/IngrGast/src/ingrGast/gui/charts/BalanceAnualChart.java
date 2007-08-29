@@ -23,6 +23,8 @@ import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.DatasetRenderingOrder;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.AreaRendererEndType;
+import org.jfree.chart.renderer.category.AreaRenderer;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
@@ -92,7 +94,7 @@ public class BalanceAnualChart{
     }
     
     public void createChart(){
-        chart = ChartFactory.createAreaChart("Balance Anual", "Mes", "Importe", categorydataset1, PlotOrientation.VERTICAL, true, true, false);
+        chart = ChartFactory.createAreaChart("Balance Anual", "Meses", "Importe", categorydataset1, PlotOrientation.VERTICAL, true, true, false);
         
         CategoryPlot categoryplot = (CategoryPlot)chart.getPlot();
         categoryplot.setForegroundAlpha(0.5F);
