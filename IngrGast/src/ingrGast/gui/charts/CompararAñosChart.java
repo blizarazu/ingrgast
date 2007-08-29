@@ -11,17 +11,25 @@ package ingrGast.gui.charts;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.util.Vector;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.CategoryAxis3D;
+import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis3D;
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.CombinedDomainCategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer3D;
+import org.jfree.chart.renderer.xy.ClusteredXYBarRenderer;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.title.Title;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.RectangleInsets;
@@ -95,7 +103,7 @@ public class CompararAñosChart {
         categoryplot1.setDomainGridlinesVisible(true);
         categoryplot1.setForegroundAlpha(0.7F);
         categoryplot1.getRenderer().setSeriesPaint(0, Color.BLUE);
-        categoryplot1.getRenderer().setSeriesPaint(1, Color.CYAN);
+        categoryplot1.getRenderer().setSeriesPaint(1, Color.RED);
         
         BarRenderer3D barrenderer3d2 = new BarRenderer3D();
         barrenderer3d2.setBaseToolTipGenerator(new StandardCategoryToolTipGenerator());
@@ -105,7 +113,7 @@ public class CompararAñosChart {
         categoryplot2.setDomainGridlinesVisible(true);
         categoryplot2.setForegroundAlpha(0.7F);
         categoryplot2.getRenderer().setSeriesPaint(0, Color.BLUE);
-        categoryplot2.getRenderer().setSeriesPaint(1, Color.CYAN);
+        categoryplot2.getRenderer().setSeriesPaint(1, Color.RED);
         
         BarRenderer3D barrenderer3d3 = new BarRenderer3D();
         barrenderer3d3.setBaseToolTipGenerator(new StandardCategoryToolTipGenerator());
@@ -115,9 +123,12 @@ public class CompararAñosChart {
         categoryplot3.setDomainGridlinesVisible(true);
         categoryplot3.setForegroundAlpha(0.7F);
         categoryplot3.getRenderer().setSeriesPaint(0, Color.BLUE);
-        categoryplot3.getRenderer().setSeriesPaint(1, Color.CYAN);
+        categoryplot3.getRenderer().setSeriesPaint(1, Color.RED);
         
-        CombinedDomainCategoryPlot combineddomaincategoryplot = new CombinedDomainCategoryPlot(new CategoryAxis("Meses"));
+        CategoryAxis3D categoryaxis3d = new CategoryAxis3D("Meses");
+        categoryaxis3d.setCategoryMargin(0.4D);
+        categoryaxis3d.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+        CombinedDomainCategoryPlot combineddomaincategoryplot = new CombinedDomainCategoryPlot(categoryaxis3d);
         combineddomaincategoryplot.add(categoryplot1, 1);
         combineddomaincategoryplot.add(categoryplot2, 1);
         combineddomaincategoryplot.add(categoryplot3, 1);
@@ -165,14 +176,16 @@ public class CompararAñosChart {
         }
     }
     
-    public void addSubtitle(int año1, int año2){
-        chart.clearSubtitles();
+    public void setTitle(int año1, int año2){
+        //chart.clearSubtitles();
+        
         TextTitle texttitle = new TextTitle("Comparativa entre los años " + String.valueOf(año1) + " y " + String.valueOf(año2));
         texttitle.setFont(new Font("SansSerif", 0, 12));
         texttitle.setPosition(RectangleEdge.TOP);
         texttitle.setPadding(new RectangleInsets(UnitType.RELATIVE, 0.050000000000000003D, 0.050000000000000003D, 0.050000000000000003D, 0.050000000000000003D));
         texttitle.setVerticalAlignment(VerticalAlignment.BOTTOM);
-        chart.addSubtitle(texttitle);
+        chart.setTitle(texttitle);
+        //chart.addSubtitle(texttitle);
     }
     
     public void setIngresosVisible(boolean flag){
