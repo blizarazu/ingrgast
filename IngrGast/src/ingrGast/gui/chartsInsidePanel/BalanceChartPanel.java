@@ -91,7 +91,7 @@ public class BalanceChartPanel extends javax.swing.JPanel implements InsidePanel
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCheckBox3)
@@ -109,7 +109,7 @@ public class BalanceChartPanel extends javax.swing.JPanel implements InsidePanel
                             .addComponent(jLabel1)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addComponent(jCheckBox1)
@@ -175,20 +175,24 @@ public class BalanceChartPanel extends javax.swing.JPanel implements InsidePanel
         this.manager = parent.getManager();
         this.chargeComboBox();
         
-        Vector<Vector<Double>> vBalance = this.manager.getBalanceAño(((Integer)jComboBox1.getSelectedItem()).intValue());
-        Vector<Double> vIngr = vBalance.elementAt(0);
-        vIngr.removeElementAt(vIngr.size()-1);
-        Vector<Double> vGast = vBalance.elementAt(1);
-        vGast.removeElementAt(vGast.size()-1);
-        for(Double d: vGast){
-            if(d.doubleValue() < 0)
-                vGast.setElementAt(new Double(d.doubleValue() * (-1)), vGast.indexOf(d));
+        if(jComboBox1.getSelectedItem() != null){
+            Vector<Vector<Double>> vBalance = this.manager.getBalanceAño(((Integer)jComboBox1.getSelectedItem()).intValue());
+            Vector<Double> vIngr = vBalance.elementAt(0);
+            vIngr.removeElementAt(vIngr.size()-1);
+            Vector<Double> vGast = vBalance.elementAt(1);
+            vGast.removeElementAt(vGast.size()-1);
+            for(Double d: vGast){
+                if(d.doubleValue() < 0)
+                    vGast.setElementAt(new Double(d.doubleValue() * (-1)), vGast.indexOf(d));
+            }
+            Vector<Double> vTot = vBalance.elementAt(2);
+            vTot.removeElementAt(vTot.size()-1);
+            
+            balanceChart = new BalanceAnualChart(vIngr, vGast, vTot);
+            balanceChart.setTitle(((Integer)jComboBox1.getSelectedItem()).intValue());
+        } else {
+            balanceChart = new BalanceAnualChart(new Vector(), new Vector(), new Vector());
         }
-        Vector<Double> vTot = vBalance.elementAt(2);
-        vTot.removeElementAt(vTot.size()-1);
-        
-        balanceChart = new BalanceAnualChart(vIngr, vGast, vTot);
-        balanceChart.setTitle(((Integer)jComboBox1.getSelectedItem()).intValue());
         jPanel3.add(balanceChart.getChartPanel(), BorderLayout.CENTER);
     }
     
