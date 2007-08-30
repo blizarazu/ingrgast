@@ -142,7 +142,7 @@ public class CompararAñosChartPanel extends javax.swing.JPanel implements Inside
             vGast.removeElementAt(vGast.size()-1);
             Vector<Double> vTot = vBalance.elementAt(2);
             vTot.removeElementAt(vTot.size()-1);
-
+            
             Vector<Vector<Double>> vBalance2 = this.manager.getBalanceAño(((Integer)jComboBox2.getSelectedItem()).intValue());
             Vector<Double> vIngr2 = vBalance2.elementAt(0);
             vIngr2.removeElementAt(vIngr2.size()-1);
@@ -205,24 +205,28 @@ public class CompararAñosChartPanel extends javax.swing.JPanel implements Inside
         this.manager = parent.getManager();
         this.chargeComboBoxes();
         
-        Vector<Vector<Double>> vBalance = this.manager.getBalanceAño(((Integer)jComboBox1.getSelectedItem()).intValue());
-        Vector<Double> vIngr = vBalance.elementAt(0);
-        vIngr.removeElementAt(vIngr.size()-1);
-        Vector<Double> vGast = vBalance.elementAt(1);
-        vGast.removeElementAt(vGast.size()-1);
-        Vector<Double> vTot = vBalance.elementAt(2);
-        vTot.removeElementAt(vTot.size()-1);
-        
-        Vector<Vector<Double>> vBalance2 = this.manager.getBalanceAño(((Integer)jComboBox2.getSelectedItem()).intValue());
-        Vector<Double> vIngr2 = vBalance2.elementAt(0);
-        vIngr2.removeElementAt(vIngr2.size()-1);
-        Vector<Double> vGast2 = vBalance2.elementAt(1);
-        vGast2.removeElementAt(vGast2.size()-1);
-        Vector<Double> vTot2 = vBalance2.elementAt(2);
-        vTot2.removeElementAt(vTot2.size()-1);
-        
-        compararChart = new CompararAñosChart(((Integer)jComboBox1.getSelectedItem()).intValue(), vIngr, vGast, vTot, ((Integer)jComboBox2.getSelectedItem()).intValue(), vIngr2, vGast2, vTot2);
-        compararChart.setTitle(((Integer)jComboBox1.getSelectedItem()).intValue(), ((Integer)jComboBox2.getSelectedItem()).intValue());
+        if (jComboBox1.getSelectedItem() != null && jComboBox2.getSelectedItem() != null){
+            Vector<Vector<Double>> vBalance = this.manager.getBalanceAño(((Integer)jComboBox1.getSelectedItem()).intValue());
+            Vector<Double> vIngr = vBalance.elementAt(0);
+            vIngr.removeElementAt(vIngr.size()-1);
+            Vector<Double> vGast = vBalance.elementAt(1);
+            vGast.removeElementAt(vGast.size()-1);
+            Vector<Double> vTot = vBalance.elementAt(2);
+            vTot.removeElementAt(vTot.size()-1);
+            
+            Vector<Vector<Double>> vBalance2 = this.manager.getBalanceAño(((Integer)jComboBox2.getSelectedItem()).intValue());
+            Vector<Double> vIngr2 = vBalance2.elementAt(0);
+            vIngr2.removeElementAt(vIngr2.size()-1);
+            Vector<Double> vGast2 = vBalance2.elementAt(1);
+            vGast2.removeElementAt(vGast2.size()-1);
+            Vector<Double> vTot2 = vBalance2.elementAt(2);
+            vTot2.removeElementAt(vTot2.size()-1);
+            
+            compararChart = new CompararAñosChart(((Integer)jComboBox1.getSelectedItem()).intValue(), vIngr, vGast, vTot, ((Integer)jComboBox2.getSelectedItem()).intValue(), vIngr2, vGast2, vTot2);
+            compararChart.setTitle(((Integer)jComboBox1.getSelectedItem()).intValue(), ((Integer)jComboBox2.getSelectedItem()).intValue());
+        } else {
+            compararChart = new CompararAñosChart(0, new Vector(), new Vector(), new Vector(), 0, new Vector(), new Vector(), new Vector());
+        }
         jPanel1.add(compararChart.getChartPanel(), BorderLayout.CENTER);
     }
     
