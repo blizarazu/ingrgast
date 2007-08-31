@@ -64,6 +64,10 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
     public void updateData(){
         this.updateTables();
         this.updateComboBoxes();
+        this.jComboBox1.setSelectedItem(this.grupo);
+        this.jComboBox2.setSelectedItem(this.motivo);
+        this.jComboBox3.setSelectedItem(this.proveedor);
+        this.jComboBox4.setSelectedItem(this.receptor);
     }
     
     /** This method is called from within the constructor to
