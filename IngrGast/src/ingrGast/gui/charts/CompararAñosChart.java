@@ -182,15 +182,15 @@ public class CompararAñosChart {
     
     public void setIngresosVisible(boolean flag){
         //((CategoryPlot)((CombinedDomainCategoryPlot)chart.getCategoryPlot()).getSubplots().get(1)).setWeight(0);
-        ((CategoryPlot)((CombinedDomainCategoryPlot)chart.getCategoryPlot()).getSubplots().get(1)).getRenderer().setSeriesVisible(0, flag);
+        //((CategoryPlot)((CombinedDomainCategoryPlot)chart.getCategoryPlot()).getSubplots().get(1)).getRenderer().setSeriesVisible(0, flag);
     }
     
     public void setGastosVisible(boolean flag){
-        chart.getCategoryPlot().getRenderer().setSeriesVisible(1, flag);
+        //chart.getCategoryPlot().getRenderer().setSeriesVisible(1, flag);
     }
     
     public void setSaldoVisible(boolean flag){
-        chart.getCategoryPlot().getRenderer(1).setSeriesVisible(0, flag);
+        //chart.getCategoryPlot().getRenderer(1).setSeriesVisible(0, flag);
     }
     
     public JFreeChart getChart(){
