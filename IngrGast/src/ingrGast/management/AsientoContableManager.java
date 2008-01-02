@@ -158,7 +158,7 @@ public class AsientoContableManager{
         String[] s;
         for(String d: vDate){
             s = d.split("-");
-            vCal.addElement(new GregorianCalendar(Integer.parseInt(s[0]), (Integer.parseInt(s[1])-1), Integer.parseInt(s[2])));
+            vCal.addElement(new GregorianCalendar(Integer.parseInt(s[0]), Integer.parseInt(s[1])-1, Integer.parseInt(s[2])));
         }
         return vCal;
     }
