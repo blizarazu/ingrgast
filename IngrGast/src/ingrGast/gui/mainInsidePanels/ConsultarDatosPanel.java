@@ -43,6 +43,8 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
     public void initData(MainFrame parent){
         this.owner = parent;
         this.manager = this.owner.getManager();
+        this.setData();
+        
         jTable1.setModel(new ResultSetTableModel(Connector.JDBC_DRIVER, Connector.DATABASE_URL, this.manager.getConnector().getUsername(), this.manager.getConnector().getPassword(), this.manager.constructQueryIngresos(this.grupo, this.motivo, this.proveedor, this.receptor, this.fecha1, this.fecha2)));
         this.setInfoTextIngresos();
         jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID")));
@@ -800,22 +802,26 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
             this.fecha1 = jDateChooser1.getCalendar();
             this.fecha2 = jDateChooser2.getCalendar();
         } else if(jRadioButton2.isSelected()){
-            if (jComboBox5.getSelectedIndex()==0){
-                Calendar c = Calendar.getInstance();
-                this.fecha1 = new GregorianCalendar(c.get(Calendar.YEAR), 1, 1);
-                this.fecha2 = new GregorianCalendar(c.get(Calendar.YEAR), 12, 31);
-            }
-            if (jComboBox5.getSelectedIndex()>1){
-                this.fecha1 = new GregorianCalendar(Integer.parseInt(jComboBox5.getSelectedItem().toString().trim()), 1, 1);
-                this.fecha2 = new GregorianCalendar(Integer.parseInt(jComboBox5.getSelectedItem().toString().trim()), 12, 31);
-            }
-            else{
+            if (jComboBox5.getSelectedIndex() == 1){
                 this.fecha1 = null;
                 this.fecha2 = null;
+                System.out.println("== 1");
+            }
+            else if (jComboBox5.getSelectedIndex() > 1){
+                this.fecha1 = new GregorianCalendar(Integer.parseInt(jComboBox5.getSelectedItem().toString().trim()), Calendar.JANUARY, 1);
+                this.fecha2 = new GregorianCalendar(Integer.parseInt(jComboBox5.getSelectedItem().toString().trim()), Calendar.DECEMBER, 31);
+                System.out.println("> 1");
+            }
+            else{
+                Calendar c = Calendar.getInstance();
+                this.fecha1 = new GregorianCalendar(c.get(Calendar.YEAR), Calendar.JANUARY, 1);
+                this.fecha2 = new GregorianCalendar(c.get(Calendar.YEAR), Calendar.DECEMBER, 31);
+                System.out.println("else 1");
             }
         }else{
             this.fecha1 = null;
             this.fecha2 = null;
+            System.out.println("else 2");
         }
     }
     
