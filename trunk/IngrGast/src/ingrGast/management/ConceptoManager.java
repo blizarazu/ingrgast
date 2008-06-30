@@ -6,7 +6,6 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package ingrGast.management;
 
 import ingrGast.db.ConceptoDB;
@@ -16,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.sql.SQLException;
+import java.util.Hashtable;
 import java.util.Vector;
 
 /**
@@ -23,9 +23,9 @@ import java.util.Vector;
  * @author Blizarazu
  */
 public class ConceptoManager {
-    
+
     private ConceptoDB cDB;
-    
+
     /**
      * Creates a new instance of ConceptoManager
      * @param c
@@ -34,7 +34,7 @@ public class ConceptoManager {
     public ConceptoManager(Connector c) throws SQLException {
         this.cDB = new ConceptoDB(c);
     }
-    
+
     /**
      *
      * @param fileName
@@ -42,28 +42,30 @@ public class ConceptoManager {
      * @throws java.lang.ClassNotFoundException
      * @return
      */
-    public Vector<Concepto> read(String fileName) throws IOException, ClassNotFoundException{
+    public Vector<Concepto> read(String fileName) throws IOException, ClassNotFoundException {
         ObjectInputStream sar = new ObjectInputStream(new FileInputStream(fileName));
         Object[] oArr = (Object[]) sar.readObject();
         Vector<Concepto> vC = new Vector<Concepto>();
-        for(Object o: oArr)
-            vC.addElement((Concepto)o);
+        for (Object o : oArr) {
+            vC.addElement((Concepto) o);
+        }
         return vC;
     }
-    
+
     /**
      *
      * @param c
      * @throws java.sql.SQLException
      * @return
      */
-    public int guardar(Concepto c) throws SQLException{
-        if (c.getID() > 0)
-            return cDB.insert(c.getID(), c.getMotivo(), c.getProveedor(),c.getReceptor());
-        else
+    public int guardar(Concepto c) throws SQLException {
+        if (c.getID() > 0) {
+            return cDB.insert(c.getID(), c.getMotivo(), c.getProveedor(), c.getReceptor());
+        } else {
             return cDB.insert(c.getMotivo(), c.getProveedor(), c.getReceptor());
+        }
     }
-    
+
     /**
      *
      * @param con
@@ -72,40 +74,41 @@ public class ConceptoManager {
      */
     public Concepto find(Concepto con) throws SQLException {
         int id = cDB.find(con.getMotivo(), con.getProveedor(), con.getReceptor());
-        if(id >= 0){
+        if (id >= 0) {
             con.setID(id);
             return con;
-        } else
+        } else {
             return null;
+        }
     }
-    
+
     /**
      *
      * @throws java.sql.SQLException
      * @return
      */
-    public Vector<String> getMotivos() throws SQLException{
+    public Vector<String> getMotivos() throws SQLException {
         return cDB.getMotivos();
     }
-    
+
     /**
      *
      * @throws java.sql.SQLException
      * @return
      */
-    public Vector<String> getProveedores() throws SQLException{
+    public Vector<String> getProveedores() throws SQLException {
         return cDB.getProveedores();
     }
-    
+
     /**
      *
      * @throws java.sql.SQLException
      * @return
      */
-    public Vector<String> getReceptores() throws SQLException{
+    public Vector<String> getReceptores() throws SQLException {
         return cDB.getReceptores();
     }
-    
+
     /**
      *
      * @param motivo
@@ -115,12 +118,36 @@ public class ConceptoManager {
     public void editarMotivo(String motivo, String nuevoMotivo) throws SQLException {
         cDB.updateMotivo(motivo, nuevoMotivo);
     }
-    
-    void editarProveedor(String proveedor, String nuevoProveedor) throws SQLException {
+
+    public void editarProveedor(String proveedor, String nuevoProveedor) throws SQLException {
         cDB.updateProveedor(proveedor, nuevoProveedor);
     }
-    
-    void editarReceptor(String receptor, String nuevoReceptor) throws SQLException {
+
+    public void editarReceptor(String receptor, String nuevoReceptor) throws SQLException {
         cDB.updateReceptor(receptor, nuevoReceptor);
+    }
+
+    Hashtable<String, Double> getGastosConcepto(int año, String grupo) throws SQLException {
+        if (año >= 0) {
+            return cDB.getGastos(año, grupo);
+        } else {
+            return cDB.getGastos(grupo);
+        }
+    }
+
+    Hashtable<String, Double> getIngresosConcepto(int año, String grupo) throws SQLException {
+        if (año >= 0) {
+            return cDB.getIngresos(año, grupo);
+        } else {
+            return cDB.getIngresos(grupo);
+        }
+    }
+
+    Hashtable<String, Double> getTotalesConcepto(int año, String grupo) throws SQLException {
+        if (año >= 0) {
+            return cDB.getTotales(año, grupo);
+        } else {
+            return cDB.getTotales(grupo);
+        }
     }
 }
