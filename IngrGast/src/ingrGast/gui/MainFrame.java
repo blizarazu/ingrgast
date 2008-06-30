@@ -3,7 +3,6 @@
  *
  * Created on July 5, 2007, 5:49 PM
  */
-
 package ingrGast.gui;
 
 import ingrGast.db.Connector;
@@ -34,21 +33,21 @@ import javax.swing.plaf.metal.OceanTheme;
  * @author Blizarazu
  */
 public class MainFrame extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form MainFrame
      */
     public MainFrame(Connector con) {
-        UIManager.addPropertyChangeListener(new UISwitchListener((JComponent)getRootPane()));
+        UIManager.addPropertyChangeListener(new UISwitchListener((JComponent) getRootPane()));
         this.manager = new Manager(con);
         initComponents();
         InsidePanel ip;
-        for(Component c: jPanel2.getComponents()){
-            ip = (InsidePanel)c;
+        for (Component c : jPanel2.getComponents()) {
+            ip = (InsidePanel) c;
             ip.initData(this);
         }
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -64,6 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -97,6 +97,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem17 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jMenu9 = new javax.swing.JMenu();
         jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
@@ -161,6 +162,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jButton4);
+        jToolBar1.add(jSeparator1);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/Graficos_48x48.png"))); // NOI18N
         jButton5.setToolTipText("Gráficos");
@@ -171,7 +173,8 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton5);
 
-        jButton6.setText("Cierre Del Año");
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/CierreAño_48x48.png"))); // NOI18N
+        jButton6.setToolTipText("Cierre del Año");
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -328,6 +331,15 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem16);
 
+        jMenuItem17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/CierreAño_24x24.png"))); // NOI18N
+        jMenuItem17.setText("Cierre del Año");
+        jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem17ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem17);
+
         jMenuBar1.add(jMenu1);
 
         jMenu8.setText("Opciones");
@@ -429,18 +441,18 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Graficos");
+        ((CardLayout) jPanel2.getLayout()).show(jPanel2, "Graficos");
     }//GEN-LAST:event_jMenuItem16ActionPerformed
-    
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Graficos");
+        ((CardLayout) jPanel2.getLayout()).show(jPanel2, "Graficos");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jRadioButtonMenuItem6ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem6ItemStateChanged
         try {
-            MetalTheme theme=new SandMetalTheme();
+            MetalTheme theme = new SandMetalTheme();
             MetalLookAndFeel.setCurrentTheme(theme);
             UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
@@ -450,34 +462,34 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jRadioButtonMenuItem5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem5ItemStateChanged
         try {
-            MetalTheme theme=new GreenMetalTheme();
+            MetalTheme theme = new GreenMetalTheme();
             MetalLookAndFeel.setCurrentTheme(theme);
             UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jRadioButtonMenuItem5ItemStateChanged
-    
+
     private void jRadioButtonMenuItem4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem4ItemStateChanged
         try {
-            MetalTheme theme=new ContrastMetalTheme();
+            MetalTheme theme = new ContrastMetalTheme();
             MetalLookAndFeel.setCurrentTheme(theme);
             UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jRadioButtonMenuItem4ItemStateChanged
-    
+
     private void jRadioButtonMenuItem3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem3ItemStateChanged
         try {
-            MetalTheme theme=new AquaMetalTheme();
+            MetalTheme theme = new AquaMetalTheme();
             MetalLookAndFeel.setCurrentTheme(theme);
             UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (UnsupportedLookAndFeelException ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_jRadioButtonMenuItem3ItemStateChanged
-    
+
     private void jRadioButtonMenuItem2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem2ItemStateChanged
         try {
             MetalTheme theme = new OceanTheme();
@@ -489,7 +501,7 @@ public class MainFrame extends javax.swing.JFrame {
             jop.createDialog(null, "Error").setVisible(true);
         }
     }//GEN-LAST:event_jRadioButtonMenuItem2ItemStateChanged
-    
+
     private void jRadioButtonMenuItem1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem1ItemStateChanged
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -499,84 +511,87 @@ public class MainFrame extends javax.swing.JFrame {
             jop.createDialog(null, "Error").setVisible(true);
         }
     }//GEN-LAST:event_jRadioButtonMenuItem1ItemStateChanged
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         NuevoAsientoDialog naDialog = new NuevoAsientoDialog(this, true);
         currentDialog = naDialog;
         naDialog.setLocationRelativeTo(null);
         naDialog.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Ultimas");
+        ((CardLayout) jPanel2.getLayout()).show(jPanel2, "Ultimas");
     }//GEN-LAST:event_jButton4ActionPerformed
-    
+
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Ultimas");
+        ((CardLayout) jPanel2.getLayout()).show(jPanel2, "Ultimas");
     }//GEN-LAST:event_jMenuItem15ActionPerformed
-    
+
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Consultar");
+        ((CardLayout) jPanel2.getLayout()).show(jPanel2, "Consultar");
     }//GEN-LAST:event_jMenuItem14ActionPerformed
-    
+
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Balance");
+        ((CardLayout) jPanel2.getLayout()).show(jPanel2, "Balance");
     }//GEN-LAST:event_jMenuItem7ActionPerformed
-    
+
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Balance");
+        ((CardLayout) jPanel2.getLayout()).show(jPanel2, "Balance");
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ((CardLayout)jPanel2.getLayout()).show(jPanel2, "Consultar");
+        ((CardLayout) jPanel2.getLayout()).show(jPanel2, "Consultar");
     }//GEN-LAST:event_jButton1ActionPerformed
-  
+
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.manager.disconnectDB();
         InsidePanel ip;
-        for(Component c: jPanel2.getComponents()){
-            ip = (InsidePanel)c;
+        for (Component c : jPanel2.getComponents()) {
+            ip = (InsidePanel) c;
             ip.disconnectResultSetTableModels();
         }
     }//GEN-LAST:event_formWindowClosing
-    
+
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
         JFileChooser jfcC = new JFileChooser();
         jfcC.showOpenDialog(this);
         String fileName = jfcC.getSelectedFile().getPath();
-        if (fileName.length() > 0)
+        if (fileName.length() > 0) {
             this.manager.importarConceptos(fileName);
+        }
     }//GEN-LAST:event_jMenuItem9ActionPerformed
-    
+
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         JFileChooser jfcAC = new JFileChooser();
         jfcAC.showOpenDialog(this);
         String fileName = jfcAC.getSelectedFile().getPath();
-        if (fileName.length() > 0)
+        if (fileName.length() > 0) {
             this.manager.importarAsientosContables(fileName);
+        }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
-    
+
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         JFileChooser jfcG = new JFileChooser();
         jfcG.showOpenDialog(this);
-        if (jfcG.getSelectedFile() != null)
+        if (jfcG.getSelectedFile() != null) {
             this.manager.importarGrupos(jfcG.getSelectedFile().getPath());
+        }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
-    
+
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         EditarConceptoDialog ecDialog = new EditarConceptoDialog(this, true);
         currentDialog = ecDialog;
         ecDialog.setLocationRelativeTo(null);
         ecDialog.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
-    
+
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         EditarGrupoDialog egDialog = new EditarGrupoDialog(this, true);
         currentDialog = egDialog;
         egDialog.setLocationRelativeTo(null);
         egDialog.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
-    
+
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         NuevoAsientoDialog naDialog = new NuevoAsientoDialog(this, true);
         currentDialog = naDialog;
@@ -585,8 +600,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-    ((CardLayout)jPanel2.getLayout()).show(jPanel2, "CierreAño");
+    ((CardLayout) jPanel2.getLayout()).show(jPanel2, "CierreAño");
 }//GEN-LAST:event_jButton6ActionPerformed
+
+private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
+    ((CardLayout) jPanel2.getLayout()).show(jPanel2, "CierreAño");
+}//GEN-LAST:event_jMenuItem17ActionPerformed
     
     public void openNuevoAsientoDialog(){
         if(currentDialog != null)
@@ -680,6 +699,7 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem17;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -696,6 +716,7 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem4;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem5;
     private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem6;
+    private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JToolBar jToolBar1;
