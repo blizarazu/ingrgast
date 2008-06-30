@@ -12,12 +12,24 @@ package ingrGast.management;
 import ingrGast.db.Connector;
 import ingrGast.objects.AsientoContable;
 import ingrGast.objects.Concepto;
+import ingrGast.objects.DatosCierreAño;
 import ingrGast.objects.Grupo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.print.DocFlavor.STRING;
 import javax.swing.JOptionPane;
 
 /**
@@ -553,6 +565,60 @@ public class Manager {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Error de base de datos").setVisible(true);
+            return null;
+        }
+    }
+    
+    public List<DatosCierreAño> getCierreAñoGastos(int año) {
+        try {
+            List<DatosCierreAño> list = new ArrayList<DatosCierreAño>();
+            Hashtable<String, Double> grupoImporte = gm.gastosGrupos(año);
+            List<String> grupos = Collections.list(grupoImporte.keys());
+            for (String grupo : grupos) {
+                Hashtable<String, Double> conceptoImporte = cm.getGastosConcepto(año, grupo);
+                List<String> conceptos = Collections.list(conceptoImporte.keys());
+                for(String concepto : conceptos)
+                    list.add(new DatosCierreAño(DatosCierreAño.GASTOS, año, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<DatosCierreAño> getCierreAñoIngresos(int año) {
+                try {
+            List<DatosCierreAño> list = new ArrayList<DatosCierreAño>();
+            Hashtable<String, Double> grupoImporte = gm.ingresosGrupos(año);
+            List<String> grupos = Collections.list(grupoImporte.keys());
+            for (String grupo : grupos) {
+                Hashtable<String, Double> conceptoImporte = cm.getIngresosConcepto(año, grupo);
+                List<String> conceptos = Collections.list(conceptoImporte.keys());
+                for(String concepto : conceptos)
+                    list.add(new DatosCierreAño(DatosCierreAño.INGRESOS, año, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public List<DatosCierreAño> getCierreAñoTotal(int año) {
+                try {
+            List<DatosCierreAño> list = new ArrayList<DatosCierreAño>();
+            Hashtable<String, Double> grupoImporte = gm.totalesGrupos(año);
+            List<String> grupos = Collections.list(grupoImporte.keys());
+            for (String grupo : grupos) {
+                Hashtable<String, Double> conceptoImporte = cm.getTotalesConcepto(año, grupo);
+                List<String> conceptos = Collections.list(conceptoImporte.keys());
+                for(String concepto : conceptos)
+                    list.add(new DatosCierreAño(DatosCierreAño.TOTALES, año, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
+            }
+            return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }

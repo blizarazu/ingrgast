@@ -805,23 +805,19 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
             if (jComboBox5.getSelectedIndex() == 1){
                 this.fecha1 = null;
                 this.fecha2 = null;
-                System.out.println("== 1");
             }
             else if (jComboBox5.getSelectedIndex() > 1){
                 this.fecha1 = new GregorianCalendar(Integer.parseInt(jComboBox5.getSelectedItem().toString().trim()), Calendar.JANUARY, 1);
                 this.fecha2 = new GregorianCalendar(Integer.parseInt(jComboBox5.getSelectedItem().toString().trim()), Calendar.DECEMBER, 31);
-                System.out.println("> 1");
             }
             else{
                 Calendar c = Calendar.getInstance();
                 this.fecha1 = new GregorianCalendar(c.get(Calendar.YEAR), Calendar.JANUARY, 1);
                 this.fecha2 = new GregorianCalendar(c.get(Calendar.YEAR), Calendar.DECEMBER, 31);
-                System.out.println("else 1");
             }
         }else{
             this.fecha1 = null;
             this.fecha2 = null;
-            System.out.println("else 2");
         }
     }
     
