@@ -118,7 +118,7 @@ public class BalanceAnualChart{
         categoryplot.mapDatasetToRangeAxis(1, 0);
         
         LineAndShapeRenderer linerenderer = new LineAndShapeRenderer();
-        linerenderer.setShapesVisible(true);
+        //linerenderer.setShapesVisible(true);
         linerenderer.setUseFillPaint(true);
         linerenderer.setBaseFillPaint(Color.white);
         linerenderer.setSeriesStroke(0, new BasicStroke(3F));
