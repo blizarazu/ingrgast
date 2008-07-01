@@ -46,7 +46,7 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="10">
+			<band height="10" isSplitAllowed="false">
 				<line direction="BottomUp">
 					<reportElement key="line" x="1" y="4" width="534" height="1"/>
 				</line>
@@ -84,7 +84,7 @@
 		<band/>
 	</columnHeader>
 	<detail>
-		<band height="21">
+		<band height="21" isSplitAllowed="false">
 			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true" hyperlinkType="None">
 				<reportElement key="textField" x="0" y="0" width="307" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box>
