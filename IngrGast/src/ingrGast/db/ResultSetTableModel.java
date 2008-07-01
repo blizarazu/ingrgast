@@ -139,7 +139,7 @@ public class ResultSetTableModel extends AbstractTableModel {
             throw new IllegalStateException("Not Connected to Database");
         // determine column name
         try {
-            return metaData.getColumnName(column + 1);
+            return metaData.getColumnLabel(column + 1);
         } // end try
         catch (SQLException sqlException) {
             sqlException.printStackTrace();
