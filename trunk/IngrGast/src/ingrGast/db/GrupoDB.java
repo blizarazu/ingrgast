@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -37,7 +38,7 @@ public class GrupoDB {
 
     public Hashtable<String, Double> getGastos() throws SQLException {
         Hashtable<String, Double> gastos = new Hashtable<String, Double>();
-        String sql = "SELECT g.nombre AS Grupo, SUM(A.Importe) AS 'Total Gastos' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE Importe < 0 GROUP BY G.ID";
+        String sql = "SELECT G.nombre AS Grupo, SUM(A.Importe) AS 'Total Gastos' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE Importe < 0 GROUP BY G.ID";
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -50,7 +51,7 @@ public class GrupoDB {
 
     public Hashtable<String, Double> getGastos(int año) throws SQLException {
         Hashtable<String, Double> gastos = new Hashtable<String, Double>();
-        String sql = "SELECT g.nombre AS Grupo, SUM(A.Importe) AS 'Total Gastos' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE Importe < 0 AND A.Fecha BETWEEN ? AND ? GROUP BY G.ID";
+        String sql = "SELECT G.nombre AS Grupo, SUM(A.Importe) AS 'Total Gastos' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE Importe < 0 AND A.Fecha BETWEEN ? AND ? GROUP BY G.ID";
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ps.setString(1, año + "/1/1");
         ps.setString(2, año + "/12/31");
@@ -63,9 +64,24 @@ public class GrupoDB {
         return gastos;
     }
 
+    public Hashtable<String, Double> getGastos(Calendar calendar, Calendar calendar0) throws SQLException {
+        Hashtable<String, Double> gastos = new Hashtable<String, Double>();
+        String sql = "SELECT G.nombre AS Grupo, SUM(A.Importe) AS 'Total Gastos' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE Importe < 0 AND A.Fecha BETWEEN ? AND ? GROUP BY G.ID";
+        PreparedStatement ps = this.connection.prepareStatement(sql);
+        ps.setString(1, calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.DAY_OF_MONTH));
+        ps.setString(2, calendar0.get(Calendar.YEAR) + "/" + (calendar0.get(Calendar.MONTH)+1) + "/" + calendar0.get(Calendar.DAY_OF_MONTH));
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            gastos.put(rs.getString("Grupo"), new Double(rs.getDouble("Total Gastos")));
+        }
+        rs.close();
+        ps.close();
+        return gastos;
+    }
+
     public Hashtable<String, Double> getIngresos() throws SQLException {
         Hashtable<String, Double> gastos = new Hashtable<String, Double>();
-        String sql = "SELECT g.nombre AS Grupo, SUM(A.Importe) AS 'Total Ingresos' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE Importe >= 0 GROUP BY G.ID";
+        String sql = "SELECT G.nombre AS Grupo, SUM(A.Importe) AS 'Total Ingresos' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE Importe >= 0 GROUP BY G.ID";
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -78,7 +94,7 @@ public class GrupoDB {
 
     public Hashtable<String, Double> getIngresos(int año) throws SQLException {
         Hashtable<String, Double> gastos = new Hashtable<String, Double>();
-        String sql = "SELECT g.nombre AS Grupo, SUM(A.Importe) AS 'Total Ingresos' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE Importe >= 0 AND A.Fecha BETWEEN ? AND ? GROUP BY G.ID";
+        String sql = "SELECT G.nombre AS Grupo, SUM(A.Importe) AS 'Total Ingresos' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE Importe >= 0 AND A.Fecha BETWEEN ? AND ? GROUP BY G.ID";
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ps.setString(1, año + "/1/1");
         ps.setString(2, año + "/12/31");
@@ -91,9 +107,24 @@ public class GrupoDB {
         return gastos;
     }
 
+    public Hashtable<String, Double> getIngresos(Calendar calendar, Calendar calendar0) throws SQLException {
+        Hashtable<String, Double> gastos = new Hashtable<String, Double>();
+        String sql = "SELECT G.nombre AS Grupo, SUM(A.Importe) AS 'Total Ingresos' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE Importe >= 0 AND A.Fecha BETWEEN ? AND ? GROUP BY G.ID";
+        PreparedStatement ps = this.connection.prepareStatement(sql);
+        ps.setString(1, calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.DAY_OF_MONTH));
+        ps.setString(2, calendar0.get(Calendar.YEAR) + "/" + (calendar0.get(Calendar.MONTH)+1) + "/" + calendar0.get(Calendar.DAY_OF_MONTH));
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            gastos.put(rs.getString("Grupo"), new Double(rs.getDouble("Total Ingresos")));
+        }
+        rs.close();
+        ps.close();
+        return gastos;
+    }
+
     public Hashtable<String, Double> getTotales() throws SQLException {
         Hashtable<String, Double> gastos = new Hashtable<String, Double>();
-        String sql = "SELECT g.nombre AS Grupo, SUM(A.Importe) AS 'Total Importe' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID GROUP BY G.ID";
+        String sql = "SELECT G.nombre AS Grupo, SUM(A.Importe) AS 'Total Importe' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID GROUP BY G.ID";
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -106,10 +137,25 @@ public class GrupoDB {
 
     public Hashtable<String, Double> getTotales(int año) throws SQLException {
         Hashtable<String, Double> gastos = new Hashtable<String, Double>();
-        String sql = "SELECT g.nombre AS Grupo, SUM(A.Importe) AS 'Total Importe' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE A.Fecha BETWEEN ? AND ? GROUP BY G.ID";
+        String sql = "SELECT G.nombre AS Grupo, SUM(A.Importe) AS 'Total Importe' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE A.Fecha BETWEEN ? AND ? GROUP BY G.ID";
         PreparedStatement ps = this.connection.prepareStatement(sql);
         ps.setString(1, año + "/1/1");
         ps.setString(2, año + "/12/31");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            gastos.put(rs.getString("Grupo"), new Double(rs.getDouble("Total Importe")));
+        }
+        rs.close();
+        ps.close();
+        return gastos;
+    }
+
+    public Hashtable<String, Double> getTotales(Calendar calendar, Calendar calendar0) throws SQLException {
+        Hashtable<String, Double> gastos = new Hashtable<String, Double>();
+        String sql = "SELECT G.nombre AS Grupo, SUM(A.Importe) AS 'Total Importe' FROM grupos G INNER JOIN asientoscontables A ON G.ID = A.Grupo_ID WHERE A.Fecha BETWEEN ? AND ? GROUP BY G.ID";
+        PreparedStatement ps = this.connection.prepareStatement(sql);
+        ps.setString(1, calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.DAY_OF_MONTH));
+        ps.setString(2, calendar0.get(Calendar.YEAR) + "/" + (calendar0.get(Calendar.MONTH)+1) + "/" + calendar0.get(Calendar.DAY_OF_MONTH));
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             gastos.put(rs.getString("Grupo"), new Double(rs.getDouble("Total Importe")));

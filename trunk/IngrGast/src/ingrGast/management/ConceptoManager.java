@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -135,6 +136,10 @@ public class ConceptoManager {
         }
     }
 
+    Hashtable<String, Double> getGastosConcepto(Calendar calendar, Calendar calendar0) throws SQLException {
+        return cDB.getGastos(calendar, calendar0);
+    }
+
     Hashtable<String, Double> getIngresosConcepto(int año, String grupo) throws SQLException {
         if (año >= 0) {
             return cDB.getIngresos(año, grupo);
@@ -143,11 +148,23 @@ public class ConceptoManager {
         }
     }
 
+    Hashtable<String, Double> getIngresosConcepto(Calendar calendar, Calendar calendar0) throws SQLException {
+        return cDB.getIngresos(calendar, calendar0);
+    }
+
+    Vector<String> getMotivos(String grupo) throws SQLException {
+        return cDB.getMotivos(grupo);
+    }
+
     Hashtable<String, Double> getTotalesConcepto(int año, String grupo) throws SQLException {
         if (año >= 0) {
             return cDB.getTotales(año, grupo);
         } else {
             return cDB.getTotales(grupo);
         }
+    }
+
+    Hashtable<String, Double> getTotalesConcepto(Calendar calendar, Calendar calendar0) throws SQLException {
+        return cDB.getTotales(calendar, calendar0);
     }
 }

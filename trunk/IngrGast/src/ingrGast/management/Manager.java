@@ -19,17 +19,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.print.DocFlavor.STRING;
 import javax.swing.JOptionPane;
 
 /**
@@ -75,6 +70,72 @@ public class Manager {
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Error de base de datos").setVisible(true);
             System.exit(1);
+        }
+    }
+
+    public Vector<String> getConceptosMotivos(String grupo) {
+        try {
+            return cm.getMotivos(grupo);
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
+            return null;
+        }
+    }
+
+    public Hashtable<String, Double> getGastosGruposConceptos(Calendar calendar, Calendar calendar0){
+        try {
+            Hashtable<String, Double> gastos = gm.gastosGrupos(calendar, calendar0);
+            Hashtable<String, Double> gastosConceptos = cm.getGastosConcepto(calendar, calendar0);
+            List<String> list = Collections.list(gastosConceptos.keys());
+            for (String s : list) {
+                gastos.put(s, gastosConceptos.get(s));
+            }
+            return gastos;
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
+            return null;
+        }
+    }
+
+    public Hashtable<String, Double> getIngresosGruposConceptos(Calendar calendar, Calendar calendar0){
+        try {
+            Hashtable<String, Double> ingresos = gm.ingresosGrupos(calendar, calendar0);
+            Hashtable<String, Double> ingresosConceptos = cm.getIngresosConcepto(calendar, calendar0);
+            List<String> list = Collections.list(ingresosConceptos.keys());
+            for (String s : list) {
+                ingresos.put(s, ingresosConceptos.get(s));
+            }
+            return ingresos;
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
+            return null;
+        }
+    }
+
+    public Hashtable<String, Double> getTotalesGruposConceptos(Calendar calendar, Calendar calendar0) {
+        try {
+            Hashtable<String, Double> totales = gm.totalesGrupos(calendar, calendar0);
+            Hashtable<String, Double> totalesConceptos = cm.getTotalesConcepto(calendar, calendar0);
+            List<String> list = Collections.list(totalesConceptos.keys());
+            for (String s : list) {
+                totales.put(s, totalesConceptos.get(s));
+            }
+            return totales;
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
+            return null;
         }
     }
     
@@ -400,6 +461,42 @@ public class Manager {
         try {
             return asm.getSUM(0, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
         } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
+            return 0;
+        }
+    }
+    
+    public double getTotalIngresos(Calendar calendar, Calendar calendar0) {
+        try {
+            return asm.getTotalIngresos(calendar, calendar0);
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
+            return 0;
+        }
+    }
+    
+    public double getTotalGastos(Calendar calendar, Calendar calendar0) {
+        try {
+            return asm.getTotalGastos(calendar, calendar0);
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+            JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de base de datos").setVisible(true);
+            return 0;
+        }
+    }
+
+    public double getTotal(Calendar calendar, Calendar calendar0) {
+        try {
+            return asm.getTotal(calendar, calendar0);
+        } catch (SQLException ex) {
+            Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Error de base de datos").setVisible(true);

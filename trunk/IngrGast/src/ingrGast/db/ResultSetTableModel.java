@@ -212,7 +212,7 @@ public class ResultSetTableModel extends AbstractTableModel {
      *
      * @throws java.sql.SQLException
      */
-    public void refress() throws SQLException{
+    public void refresh() throws SQLException{
         this.setQuery(this.lastQuery);
     }
     

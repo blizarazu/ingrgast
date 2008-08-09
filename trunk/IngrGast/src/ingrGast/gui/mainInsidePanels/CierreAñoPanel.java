@@ -102,26 +102,25 @@ public class CierreAñoPanel extends javax.swing.JPanel implements InsidePanel {
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder("Cierre del Año"));
 
         jLabel1.setText("Año:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jComboBox1ItemStateChanged(evt);
             }
         });
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
-        jTabbedPane1.addTab("Gastos", jPanel1);
-
         jPanel2.setLayout(new java.awt.BorderLayout());
         jTabbedPane1.addTab("Ingresos", jPanel2);
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+        jTabbedPane1.addTab("Gastos", jPanel1);
 
         jPanel3.setLayout(new java.awt.BorderLayout());
         jTabbedPane1.addTab("Totales", jPanel3);
@@ -147,7 +146,7 @@ public class CierreAñoPanel extends javax.swing.JPanel implements InsidePanel {
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

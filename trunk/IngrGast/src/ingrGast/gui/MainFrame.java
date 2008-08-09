@@ -66,12 +66,14 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         balancePanel1 = new ingrGast.gui.mainInsidePanels.BalancePanel();
         consultarDatosPanel1 = new ingrGast.gui.mainInsidePanels.ConsultarDatosPanel();
         ultimasEntradasPanel1 = new ingrGast.gui.mainInsidePanels.UltimasEntradasPanel();
         graficosPanel1 = new ingrGast.gui.mainInsidePanels.GraficosPanel();
         cierreAñoPanel1 = new ingrGast.gui.mainInsidePanels.CierreAñoPanel();
+        compararPanel1 = new ingrGast.gui.mainInsidePanels.CompararPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -185,12 +187,24 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton6);
 
+        jButton7.setText("Comparación");
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton7);
+
         jPanel2.setLayout(new java.awt.CardLayout());
         jPanel2.add(balancePanel1, "Balance");
         jPanel2.add(consultarDatosPanel1, "Consultar");
         jPanel2.add(ultimasEntradasPanel1, "Ultimas");
         jPanel2.add(graficosPanel1, "Graficos");
         jPanel2.add(cierreAñoPanel1, "CierreAño");
+        jPanel2.add(compararPanel1, "Comparación");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -422,7 +436,7 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+            .add(jToolBar1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
@@ -434,7 +448,7 @@ public class MainFrame extends javax.swing.JFrame {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(jToolBar1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 63, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
@@ -606,6 +620,10 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
     ((CardLayout) jPanel2.getLayout()).show(jPanel2, "CierreAño");
 }//GEN-LAST:event_jMenuItem17ActionPerformed
+
+private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    ((CardLayout) jPanel2.getLayout()).show(jPanel2, "Comparación");
+}//GEN-LAST:event_jButton7ActionPerformed
     
     public void openNuevoAsientoDialog(){
         if(currentDialog != null)
@@ -671,6 +689,7 @@ private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private ingrGast.gui.mainInsidePanels.BalancePanel balancePanel1;
     private javax.swing.ButtonGroup buttonGroup1;
     private ingrGast.gui.mainInsidePanels.CierreAñoPanel cierreAñoPanel1;
+    private ingrGast.gui.mainInsidePanels.CompararPanel compararPanel1;
     private ingrGast.gui.mainInsidePanels.ConsultarDatosPanel consultarDatosPanel1;
     private ingrGast.gui.mainInsidePanels.GraficosPanel graficosPanel1;
     private javax.swing.JButton jButton1;
@@ -679,6 +698,7 @@ private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;

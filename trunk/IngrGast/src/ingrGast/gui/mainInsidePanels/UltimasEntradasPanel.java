@@ -244,7 +244,7 @@ public class UltimasEntradasPanel extends javax.swing.JPanel implements InsidePa
     
     public void updateData() {
         try {
-            ((ResultSetTableModel)jTable1.getModel()).refress();
+            ((ResultSetTableModel)jTable1.getModel()).refresh();
             jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID")));
         } catch (SQLException ex) {
             ex.printStackTrace();
