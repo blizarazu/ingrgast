@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -112,6 +113,10 @@ public class GrupoManager {
         }
     }
 
+    Hashtable<String, Double> gastosGrupos(Calendar calendar, Calendar calendar0) throws SQLException {
+        return gDB.getGastos(calendar, calendar0);
+    }
+
     Hashtable<String, Double> ingresosGrupos(int año) throws SQLException {
         if (año >= 0) {
             return gDB.getIngresos(año);
@@ -120,11 +125,19 @@ public class GrupoManager {
         }
     }
 
+    Hashtable<String, Double> ingresosGrupos(Calendar calendar, Calendar calendar0) throws SQLException {
+        return gDB.getIngresos(calendar, calendar0);
+    }
+
     Hashtable<String, Double> totalesGrupos(int año) throws SQLException {
         if (año >= 0) {
             return gDB.getTotales(año);
         } else {
             return gDB.getTotales();
         }
+    }
+
+    Hashtable<String, Double> totalesGrupos(Calendar calendar, Calendar calendar0) throws SQLException {
+        return gDB.getTotales(calendar, calendar0);
     }
 }

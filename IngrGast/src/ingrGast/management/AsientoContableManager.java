@@ -228,4 +228,16 @@ public class AsientoContableManager{
     public String constructLast(int i) {
         return "SELECT A.ID AS ID, A.Fecha_creacion AS 'Fecha de Entrada', G.Nombre AS Grupo, C.Motivo AS Motivo, C.Proveedor AS Proveedor, C.Receptor AS Receptor, A.Fecha AS Fecha, A.Importe AS Importe FROM asientoscontables AS A INNER JOIN conceptos AS C ON A.Concepto_ID = C.ID INNER JOIN grupos AS G ON A.Grupo_ID = G.ID ORDER BY Fecha_creacion DESC LIMIT " + String.valueOf(i);
     }
+
+    double getTotal(Calendar calendar, Calendar calendar0) throws SQLException {
+        return asDB.getTotales(calendar.get(Calendar.DAY_OF_MONTH), calendar0.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH)+1, calendar0.get(Calendar.MONTH)+1, calendar.get(Calendar.YEAR), calendar0.get(Calendar.YEAR));
+    }
+
+    double getTotalGastos(Calendar calendar, Calendar calendar0) throws SQLException {
+        return asDB.getGastos(calendar.get(Calendar.DAY_OF_MONTH), calendar0.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH)+1, calendar0.get(Calendar.MONTH)+1, calendar.get(Calendar.YEAR), calendar0.get(Calendar.YEAR));
+    }
+
+    double getTotalIngresos(Calendar calendar, Calendar calendar0) throws SQLException {
+        return asDB.getIngresos(calendar.get(Calendar.DAY_OF_MONTH), calendar0.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH)+1, calendar0.get(Calendar.MONTH)+1, calendar.get(Calendar.YEAR), calendar0.get(Calendar.YEAR));
+    }
 }

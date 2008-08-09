@@ -823,7 +823,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
     
     private void updateTables(){
         try {
-            ((ResultSetTableModel)jTable1.getModel()).refress();
+            ((ResultSetTableModel)jTable1.getModel()).refresh();
             jTable1.getColumnModel().removeColumn(jTable1.getColumnModel().getColumn(jTable1.getColumnModel().getColumnIndex("ID")));
             this.setInfoTextIngresos();
         } catch (SQLException ex) {
@@ -832,7 +832,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
             jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
         try {
-            ((ResultSetTableModel)jTable2.getModel()).refress();
+            ((ResultSetTableModel)jTable2.getModel()).refresh();
             jTable2.getColumnModel().removeColumn(jTable2.getColumnModel().getColumn(jTable2.getColumnModel().getColumnIndex("ID")));
             this.setInfoTextGastos();
         } catch (SQLException ex) {
@@ -841,7 +841,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
             jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
         try {
-            ((ResultSetTableModel)jTable3.getModel()).refress();
+            ((ResultSetTableModel)jTable3.getModel()).refresh();
             jTable3.getColumnModel().removeColumn(jTable3.getColumnModel().getColumn(jTable3.getColumnModel().getColumnIndex("ID")));
             this.setInfoTextTotales();
         } catch (SQLException ex) {
