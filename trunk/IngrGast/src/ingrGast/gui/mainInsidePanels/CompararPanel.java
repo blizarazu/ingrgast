@@ -11,7 +11,7 @@ import ingrGast.gui.util.TreeTable.ComparacionTreeTableNode;
 import ingrGast.gui.util.TreeTable.ComparationModel;
 import ingrGast.interfaces.InsidePanel;
 import ingrGast.management.Manager;
-import java.awt.Color;
+import ingrGast.objects.ComparacionData;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,8 +19,6 @@ import java.util.GregorianCalendar;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
-import javax.swing.ListSelectionModel;
-import org.jdesktop.swingx.decorator.ColorHighlighter;
 
 /**
  *
@@ -63,7 +61,6 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
         setBorder(javax.swing.BorderFactory.createTitledBorder("Comparación"));
 
         jXTreeTable2.setAutoCreateRowSorter(true);
-        jXTreeTable2.setEditable(false);
         jScrollPane2.setViewportView(jXTreeTable2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -72,21 +69,20 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Ingresos", jPanel2);
 
         jXTreeTable1.setAutoCreateRowSorter(true);
-        jXTreeTable1.setEditable(false);
         jScrollPane1.setViewportView(jXTreeTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -95,21 +91,20 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Gastos", jPanel1);
 
         jXTreeTable3.setAutoCreateRowSorter(true);
-        jXTreeTable3.setEditable(false);
         jScrollPane3.setViewportView(jXTreeTable3);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -118,14 +113,14 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -160,7 +155,7 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
         cal2.setTime(new Date());
         jDateChooser2.setToolTipText("Día-Mes-Año"); // NOI18N
         jDateChooser2.setCalendar(cal2);
-        ((JTextFieldDateEditor)jDateChooser1.getComponent(1)).setEditable(false);
+        ((JTextFieldDateEditor)jDateChooser2.getComponent(1)).setEditable(false);
 
         jLabel2.setText("hasta el"); // NOI18N
 
@@ -223,12 +218,12 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
         Calendar cal2 = jDateChooser2.getCalendar();
         String columnName = cal1.get(Calendar.DAY_OF_MONTH) + "/" + (cal1.get(Calendar.MONTH) + 1) + "/" + cal1.get(Calendar.YEAR) + " - " + cal2.get(Calendar.DAY_OF_MONTH) + "/" + (cal2.get(Calendar.MONTH) + 1) + "/" + cal2.get(Calendar.YEAR);
 
-        Hashtable<String, Double> gastosGrupos = this.manager.getGastosGruposConceptos(cal1, cal2);
-        gastosGrupos.put("Total", new Double(this.manager.getTotalGastos(cal1, cal2)));
-        Hashtable<String, Double> ingresosGrupos = this.manager.getIngresosGruposConceptos(cal1, cal2);
-        ingresosGrupos.put("Total", this.manager.getTotalIngresos(cal1, cal2));
-        Hashtable<String, Double> totalesGrupos = this.manager.getTotalesGruposConceptos(cal1, cal2);
-        totalesGrupos.put("Total", this.manager.getTotal(cal1, cal2));
+        Hashtable<String, ComparacionData> gastosGrupos = this.manager.getGastosGruposConceptos(cal1, cal2);
+        gastosGrupos.put("Total", new ComparacionData("Total", this.manager.getTotalGastos(cal1, cal2)));
+        Hashtable<String, ComparacionData> ingresosGrupos = this.manager.getIngresosGruposConceptos(cal1, cal2);
+        ingresosGrupos.put("Total", new ComparacionData("Total", this.manager.getTotalIngresos(cal1, cal2)));
+        Hashtable<String, ComparacionData> totalesGrupos = this.manager.getTotalesGruposConceptos(cal1, cal2);
+        totalesGrupos.put("Total", new ComparacionData("Total", this.manager.getTotal(cal1, cal2)));
 
         gastosModel.addColumn(columnName, gastosGrupos);
         ingresosModel.addColumn(columnName, ingresosGrupos);
@@ -258,6 +253,7 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    @Override
     public void initData(MainFrame parent) {
         this.owner = parent;
         this.manager = this.owner.getManager();
@@ -296,12 +292,14 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
         return root;
     }
 
+    @Override
     public void updateData() {
         gastosModel.setRoot(constructRoot());
         ingresosModel.setRoot(constructRoot());
         totalesModel.setRoot(constructRoot());
     }
 
+    @Override
     public void disconnectResultSetTableModels() {
 
     }

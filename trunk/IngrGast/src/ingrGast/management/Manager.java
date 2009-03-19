@@ -6,11 +6,11 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package ingrGast.management;
 
 import ingrGast.db.Connector;
 import ingrGast.objects.AsientoContable;
+import ingrGast.objects.ComparacionData;
 import ingrGast.objects.Concepto;
 import ingrGast.objects.DatosCierreAño;
 import ingrGast.objects.Grupo;
@@ -32,12 +32,12 @@ import javax.swing.JOptionPane;
  * @author Blizarazu
  */
 public class Manager {
-    
+
     private Connector connector;
     private AsientoContableManager asm;
     private ConceptoManager cm;
     private GrupoManager gm;
-    
+
     /** Creates a new instance of Manager */
     public Manager(String user, String pass) {
         try {
@@ -51,20 +51,20 @@ public class Manager {
         try {
             this.asm = new AsientoContableManager(this.connector);
             this.cm = new ConceptoManager(this.connector);
-            this.gm= new GrupoManager(this.connector);
+            this.gm = new GrupoManager(this.connector);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Error de base de datos").setVisible(true);
         }
     }
-    
-    public Manager(Connector con){
+
+    public Manager(Connector con) {
         try {
             this.connector = con;
             this.asm = new AsientoContableManager(this.connector);
             this.cm = new ConceptoManager(this.connector);
-            this.gm= new GrupoManager(this.connector);
+            this.gm = new GrupoManager(this.connector);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Error al acceder a la base de datos.", JOptionPane.ERROR_MESSAGE);
@@ -85,15 +85,21 @@ public class Manager {
         }
     }
 
-    public Hashtable<String, Double> getGastosGruposConceptos(Calendar calendar, Calendar calendar0){
+    public Hashtable<String, ComparacionData> getGastosGruposConceptos(Calendar calendar, Calendar calendar0) {
         try {
             Hashtable<String, Double> gastos = gm.gastosGrupos(calendar, calendar0);
-            Hashtable<String, Double> gastosConceptos = cm.getGastosConcepto(calendar, calendar0);
+            Hashtable<String, ComparacionData> gastosConceptos = cm.getGastosConcepto(calendar, calendar0);
+
             List<String> list = Collections.list(gastosConceptos.keys());
             for (String s : list) {
-                gastos.put(s, gastosConceptos.get(s));
+                ComparacionData cd = gastosConceptos.get(s);
+                if (cd == null) {
+                    gastosConceptos.put(s, new ComparacionData(s, gastos.get(s)));
+                } else {
+                    cd.setTotalImporteGrupo(gastos.get(s));
+                }
             }
-            return gastos;
+            return gastosConceptos;
         } catch (SQLException ex) {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
@@ -103,15 +109,21 @@ public class Manager {
         }
     }
 
-    public Hashtable<String, Double> getIngresosGruposConceptos(Calendar calendar, Calendar calendar0){
+    public Hashtable<String, ComparacionData> getIngresosGruposConceptos(Calendar calendar, Calendar calendar0){
         try {
             Hashtable<String, Double> ingresos = gm.ingresosGrupos(calendar, calendar0);
-            Hashtable<String, Double> ingresosConceptos = cm.getIngresosConcepto(calendar, calendar0);
+            Hashtable<String, ComparacionData> ingresosConceptos = cm.getIngresosConcepto(calendar, calendar0);
+
             List<String> list = Collections.list(ingresosConceptos.keys());
             for (String s : list) {
-                ingresos.put(s, ingresosConceptos.get(s));
+                ComparacionData cd = ingresosConceptos.get(s);
+                if (cd == null) {
+                    ingresosConceptos.put(s, new ComparacionData(s, ingresos.get(s)));
+                } else {
+                    cd.setTotalImporteGrupo(ingresos.get(s));
+                }
             }
-            return ingresos;
+            return ingresosConceptos;
         } catch (SQLException ex) {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
@@ -121,15 +133,22 @@ public class Manager {
         }
     }
 
-    public Hashtable<String, Double> getTotalesGruposConceptos(Calendar calendar, Calendar calendar0) {
+    public Hashtable<String, ComparacionData> getTotalesGruposConceptos(Calendar calendar, Calendar calendar0) {
         try {
             Hashtable<String, Double> totales = gm.totalesGrupos(calendar, calendar0);
-            Hashtable<String, Double> totalesConceptos = cm.getTotalesConcepto(calendar, calendar0);
+            Hashtable<String, ComparacionData> totalesConceptos = cm.getTotalesConcepto(calendar, calendar0);
+
             List<String> list = Collections.list(totalesConceptos.keys());
             for (String s : list) {
-                totales.put(s, totalesConceptos.get(s));
+                ComparacionData cd = totalesConceptos.get(s);
+                if (cd == null) {
+                    totalesConceptos.put(s, new ComparacionData(s, totales.get(s)));
+                } else {
+                    cd.setTotalImporteGrupo(totales.get(s));
+                }
             }
-            return totales;
+            return totalesConceptos;
+
         } catch (SQLException ex) {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
@@ -138,16 +157,17 @@ public class Manager {
             return null;
         }
     }
-    
+
     /**
      *
      * @param fileName
      */
     public void importarAsientosContables(String fileName) {
         try {
-            Vector<AsientoContable> vAS  = this.asm.read(fileName);
-            for (AsientoContable as: vAS)
+            Vector<AsientoContable> vAS = this.asm.read(fileName);
+            for (AsientoContable as : vAS) {
                 this.asm.guardar(as);
+            }
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("El archivo seleccionado no existe.", JOptionPane.ERROR_MESSAGE);
@@ -166,7 +186,7 @@ public class Manager {
             jop.createDialog(null, "Error de importación").setVisible(true);
         }
     }
-    
+
     /**
      *
      * @param fileName
@@ -174,8 +194,9 @@ public class Manager {
     public void importarConceptos(String fileName) {
         try {
             Vector<Concepto> vC = this.cm.read(fileName);
-            for (Concepto c: vC)
+            for (Concepto c : vC) {
                 this.cm.guardar(c);
+            }
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("El archivo seleccionado no existe.", JOptionPane.ERROR_MESSAGE);
@@ -194,16 +215,17 @@ public class Manager {
             jop.createDialog(null, "Error de importación").setVisible(true);
         }
     }
-    
+
     /**
      *
      * @param fileName
      */
-    public void importarGrupos(String fileName){
+    public void importarGrupos(String fileName) {
         try {
             Vector<Grupo> vG = this.gm.read(fileName);
-            for (Grupo g: vG)
+            for (Grupo g : vG) {
                 this.gm.guardar(g);
+            }
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("El archivo seleccionado no existe.", JOptionPane.ERROR_MESSAGE);
@@ -222,7 +244,7 @@ public class Manager {
             jop.createDialog(null, "Error de importación").setVisible(true);
         }
     }
-    
+
     /**
      *
      * @param grupo
@@ -232,44 +254,44 @@ public class Manager {
      * @param importe
      * @param cal
      */
-    public void guardarAsientoContable(String grupo, String motivo, String proveedor, String receptor, double importe, Calendar cal){
+    public void guardarAsientoContable(String grupo, String motivo, String proveedor, String receptor, double importe, Calendar cal) {
         try {
-            if(grupo.length() != 0 && motivo.length() != 0 && proveedor.length() != 0 && receptor.length() != 0 && !Double.isNaN(importe) && cal != null){
+            if (grupo.length() != 0 && motivo.length() != 0 && proveedor.length() != 0 && receptor.length() != 0 && !Double.isNaN(importe) && cal != null) {
                 Grupo gr = new Grupo(grupo);
                 Grupo g = gm.find(gr);
-                if(g == null){
+                if (g == null) {
                     gm.guardar(gr);
                     g = gm.find(gr);
                 }
                 Concepto con = new Concepto(motivo, proveedor, receptor);
                 Concepto c = cm.find(con);
-                if(c == null){
+                if (c == null) {
                     cm.guardar(con);
                     c = cm.find(con);
                 }
                 AsientoContable as = new AsientoContable(c.getID(), g.getID(), importe, cal);
-                if (as.getGrupoID() != -1 && as.getConceptoID() != -1)
+                if (as.getGrupoID() != -1 && as.getConceptoID() != -1) {
                     asm.guardar(as);
-                else{
+                } else {
                     JOptionPane jop = new JOptionPane("Se ha producido un error al guardar el asiento contable.", JOptionPane.ERROR_MESSAGE);
                     jop.createDialog(null, "Error al guardar el asiento contable").setVisible(true);
                 }
-            } else{
+            } else {
                 JOptionPane jop = new JOptionPane("No ha sido posible guardar el asiento contable.", JOptionPane.ERROR_MESSAGE);
                 jop.createDialog(null, "Error al guardar el asiento contable").setVisible(true);
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("No ha sido posible guardar el asiento contable.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Error al guardar el asiento contable").setVisible(true);
         }
     }
-    
+
     /**
      *
      * @return
      */
-    public Vector<String> getGruposNombres(){
+    public Vector<String> getGruposNombres() {
         try {
             return gm.getNombres();
         } catch (SQLException ex) {
@@ -279,12 +301,12 @@ public class Manager {
             return null;
         }
     }
-    
+
     /**
      *
      * @return
      */
-    public Vector<String> getConceptosMotivos(){
+    public Vector<String> getConceptosMotivos() {
         try {
             return cm.getMotivos();
         } catch (SQLException ex) {
@@ -294,12 +316,12 @@ public class Manager {
             return null;
         }
     }
-    
+
     /**
      *
      * @return
      */
-    public Vector<String> getConceptosProveedores(){
+    public Vector<String> getConceptosProveedores() {
         try {
             return cm.getProveedores();
         } catch (SQLException ex) {
@@ -309,12 +331,12 @@ public class Manager {
             return null;
         }
     }
-    
+
     /**
      *
      * @return
      */
-    public Vector<String> getConceptosReceptores(){
+    public Vector<String> getConceptosReceptores() {
         try {
             return cm.getReceptores();
         } catch (SQLException ex) {
@@ -324,7 +346,7 @@ public class Manager {
             return null;
         }
     }
-    
+
     /**
      *
      * @param nombre
@@ -332,9 +354,9 @@ public class Manager {
      */
     public void editarGrupo(String nombre, String nuevoNombre) {
         try {
-            if (nuevoNombre.length() > 0)
+            if (nuevoNombre.length() > 0) {
                 gm.editar(nombre, nuevoNombre);
-            else{
+            } else {
                 JOptionPane jop = new JOptionPane("No ha sido posible editar el grupo.", JOptionPane.ERROR_MESSAGE);
                 jop.createDialog(null, "Error al editar el grupo").setVisible(true);
             }
@@ -344,7 +366,7 @@ public class Manager {
             jop.createDialog(null, "Error al editar el grupo").setVisible(true);
         }
     }
-    
+
     /**
      *
      * @param motivo
@@ -352,9 +374,9 @@ public class Manager {
      */
     public void editarConceptoMotivo(String motivo, String nuevoMotivo) {
         try {
-            if (nuevoMotivo.length() > 0)
+            if (nuevoMotivo.length() > 0) {
                 cm.editarMotivo(motivo, nuevoMotivo);
-            else{
+            } else {
                 JOptionPane jop = new JOptionPane("No ha sido posible editar el concepto.", JOptionPane.ERROR_MESSAGE);
                 jop.createDialog(null, "Error al editar el concepto").setVisible(true);
             }
@@ -364,7 +386,7 @@ public class Manager {
             jop.createDialog(null, "Error al editar el concepto").setVisible(true);
         }
     }
-    
+
     /**
      *
      * @param proveedor
@@ -372,9 +394,9 @@ public class Manager {
      */
     public void editarConceptoProveedor(String proveedor, String nuevoProveedor) {
         try {
-            if (nuevoProveedor.length() > 0)
+            if (nuevoProveedor.length() > 0) {
                 cm.editarProveedor(proveedor, nuevoProveedor);
-            else {
+            } else {
                 JOptionPane jop = new JOptionPane("No ha sido posible editar el concepto.", JOptionPane.ERROR_MESSAGE);
                 jop.createDialog(null, "Error al editar el concepto").setVisible(true);
             }
@@ -384,7 +406,7 @@ public class Manager {
             ex.printStackTrace();
         }
     }
-    
+
     /**
      *
      * @param receptor
@@ -392,9 +414,9 @@ public class Manager {
      */
     public void editarConceptoReceptor(String receptor, String nuevoReceptor) {
         try {
-            if (nuevoReceptor.length() > 0)
+            if (nuevoReceptor.length() > 0) {
                 cm.editarReceptor(receptor, nuevoReceptor);
-            else {
+            } else {
                 JOptionPane jop = new JOptionPane("No ha sido posible editar el concepto.", JOptionPane.ERROR_MESSAGE);
                 jop.createDialog(null, "Error al editar el concepto").setVisible(true);
             }
@@ -404,7 +426,7 @@ public class Manager {
             ex.printStackTrace();
         }
     }
-    
+
     /**
      *
      * @param grupo
@@ -425,7 +447,7 @@ public class Manager {
             return 0;
         }
     }
-    
+
     /**
      *
      * @param grupo
@@ -446,7 +468,7 @@ public class Manager {
             return 0;
         }
     }
-    
+
     /**
      *
      * @param grupo
@@ -467,7 +489,7 @@ public class Manager {
             return 0;
         }
     }
-    
+
     public double getTotalIngresos(Calendar calendar, Calendar calendar0) {
         try {
             return asm.getTotalIngresos(calendar, calendar0);
@@ -479,7 +501,7 @@ public class Manager {
             return 0;
         }
     }
-    
+
     public double getTotalGastos(Calendar calendar, Calendar calendar0) {
         try {
             return asm.getTotalGastos(calendar, calendar0);
@@ -503,7 +525,7 @@ public class Manager {
             return 0;
         }
     }
-    
+
     /**
      *
      * @param grupo
@@ -514,10 +536,10 @@ public class Manager {
      * @param fechaFin
      * @return
      */
-    public String constructQueryIngresos(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin){
+    public String constructQueryIngresos(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) {
         return asm.constructQuery(1, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
     }
-    
+
     /**
      *
      * @param grupo
@@ -528,10 +550,10 @@ public class Manager {
      * @param fechaFin
      * @return
      */
-    public String constructQueryGastos(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin){
+    public String constructQueryGastos(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) {
         return asm.constructQuery(-1, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
     }
-    
+
     /**
      *
      * @param grupo
@@ -542,15 +564,15 @@ public class Manager {
      * @param fechaFin
      * @return
      */
-    public String constructQueryTotales(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin){
+    public String constructQueryTotales(String grupo, String motivo, String proveedor, String receptor, Calendar fechaIni, Calendar fechaFin) {
         return asm.constructQuery(0, grupo, motivo, proveedor, receptor, fechaIni, fechaFin);
     }
-    
+
     /**
      *
      * @param id
      */
-    public void borrarAsiento(int id){
+    public void borrarAsiento(int id) {
         try {
             asm.borrar(id);
         } catch (SQLException ex) {
@@ -559,16 +581,16 @@ public class Manager {
             jop.createDialog(null, "Error as borrar el asiento contable").setVisible(true);
         }
     }
-    
+
     /**
      *
      * @return
      */
-    public Connector getConnector(){
+    public Connector getConnector() {
         return this.connector;
     }
-    
-    public void disconnectDB(){
+
+    public void disconnectDB() {
         try {
             connector.close();
         } catch (SQLException ex) {
@@ -577,7 +599,7 @@ public class Manager {
             jop.createDialog(null, "Error de desconexión").setVisible(true);
         }
     }
-    
+
     /**
      *
      * @param id
@@ -590,28 +612,28 @@ public class Manager {
      */
     public void editarAsientoContable(int id, String grupo, String motivo, String proveedor, String receptor, double importe, Calendar fecha) {
         try {
-            if(grupo.length() != 0 && motivo.length() != 0 && proveedor.length() != 0 && receptor.length() != 0 && !Double.isNaN(importe) && fecha != null){
+            if (grupo.length() != 0 && motivo.length() != 0 && proveedor.length() != 0 && receptor.length() != 0 && !Double.isNaN(importe) && fecha != null) {
                 Grupo gr = new Grupo(grupo);
                 Grupo g = gm.find(gr);
-                if(g == null){
+                if (g == null) {
                     gm.guardar(gr);
                     g = gm.find(gr);
                 }
                 Concepto con = new Concepto(motivo, proveedor, receptor);
                 Concepto c = cm.find(con);
-                if(c == null){
+                if (c == null) {
                     cm.guardar(con);
                     c = cm.find(con);
                 }
                 AsientoContable as = new AsientoContable(c.getID(), g.getID(), importe, fecha);
                 as.setID(id);
-                if (as.getGrupoID() != -1 && as.getConceptoID() != -1)
+                if (as.getGrupoID() != -1 && as.getConceptoID() != -1) {
                     asm.editar(as);
-                else{
+                } else {
                     JOptionPane jop = new JOptionPane("No ha sido posible editar el asiento contable.", JOptionPane.ERROR_MESSAGE);
                     jop.createDialog(null, "Error al editar el asiento contable").setVisible(true);
                 }
-            } else{
+            } else {
                 JOptionPane jop = new JOptionPane("No ha sido posible editar el asiento contable.", JOptionPane.ERROR_MESSAGE);
                 jop.createDialog(null, "Error al editar el asiento contable").setVisible(true);
             }
@@ -621,7 +643,7 @@ public class Manager {
             jop.createDialog(null, "Error al editar el asiento contable").setVisible(true);
         }
     }
-    
+
     /**
      *
      * @return
@@ -631,9 +653,9 @@ public class Manager {
             Vector<Calendar> vFechas = asm.getFechas();
             Vector<Integer> vYears = new Vector<Integer>();
             Integer year;
-            for (Calendar cal: vFechas){
+            for (Calendar cal : vFechas) {
                 year = new Integer(cal.get(Calendar.YEAR));
-                if(!vYears.contains(year)){
+                if (!vYears.contains(year)) {
                     vYears.addElement(year);
                 }
             }
@@ -645,7 +667,7 @@ public class Manager {
             return null;
         }
     }
-    
+
     /**
      *
      * @param año
@@ -665,7 +687,7 @@ public class Manager {
             return null;
         }
     }
-    
+
     public List<DatosCierreAño> getCierreAñoGastos(int año) {
         try {
             List<DatosCierreAño> list = new ArrayList<DatosCierreAño>();
@@ -674,8 +696,9 @@ public class Manager {
             for (String grupo : grupos) {
                 Hashtable<String, Double> conceptoImporte = cm.getGastosConcepto(año, grupo);
                 List<String> conceptos = Collections.list(conceptoImporte.keys());
-                for(String concepto : conceptos)
+                for (String concepto : conceptos) {
                     list.add(new DatosCierreAño(DatosCierreAño.GASTOS, año, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
+                }
             }
             return list;
         } catch (SQLException ex) {
@@ -685,15 +708,16 @@ public class Manager {
     }
 
     public List<DatosCierreAño> getCierreAñoIngresos(int año) {
-                try {
+        try {
             List<DatosCierreAño> list = new ArrayList<DatosCierreAño>();
             Hashtable<String, Double> grupoImporte = gm.ingresosGrupos(año);
             List<String> grupos = Collections.list(grupoImporte.keys());
             for (String grupo : grupos) {
                 Hashtable<String, Double> conceptoImporte = cm.getIngresosConcepto(año, grupo);
                 List<String> conceptos = Collections.list(conceptoImporte.keys());
-                for(String concepto : conceptos)
+                for (String concepto : conceptos) {
                     list.add(new DatosCierreAño(DatosCierreAño.INGRESOS, año, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
+                }
             }
             return list;
         } catch (SQLException ex) {
@@ -703,15 +727,16 @@ public class Manager {
     }
 
     public List<DatosCierreAño> getCierreAñoTotal(int año) {
-                try {
+        try {
             List<DatosCierreAño> list = new ArrayList<DatosCierreAño>();
             Hashtable<String, Double> grupoImporte = gm.totalesGrupos(año);
             List<String> grupos = Collections.list(grupoImporte.keys());
             for (String grupo : grupos) {
                 Hashtable<String, Double> conceptoImporte = cm.getTotalesConcepto(año, grupo);
                 List<String> conceptos = Collections.list(conceptoImporte.keys());
-                for(String concepto : conceptos)
+                for (String concepto : conceptos) {
                     list.add(new DatosCierreAño(DatosCierreAño.TOTALES, año, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
+                }
             }
             return list;
         } catch (SQLException ex) {
@@ -719,7 +744,7 @@ public class Manager {
             return null;
         }
     }
-    
+
     /**
      *
      * @param i
