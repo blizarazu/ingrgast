@@ -1,5 +1,6 @@
 package ingrGast.gui.util.TreeTable;
 
+import ingrGast.objects.ComparacionData;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -7,7 +8,6 @@ import java.util.List;
 import javax.swing.tree.TreePath;
 import org.jdesktop.swingx.treetable.AbstractTreeTableModel;
 import org.jdesktop.swingx.treetable.MutableTreeTableNode;
-import org.jdesktop.swingx.treetable.TreeTableNode;
 import org.jdesktop.swingx.treetable.TreeTableNode;
 
 public class ComparationModel extends AbstractTreeTableModel {
@@ -94,7 +94,7 @@ public class ComparationModel extends AbstractTreeTableModel {
         List<String> autoCalculatedIndentifiers = new ArrayList<String>();
 
         if (exemplar != null) {
-            for (int i = 0,  len = exemplar.getColumnCount(); i < len; i++) {
+            for (int i = 0, len = exemplar.getColumnCount(); i < len; i++) {
                 // forces getColumnName to use super.getColumnName
                 autoCalculatedIndentifiers.add(null);
             }
@@ -218,6 +218,7 @@ public class ComparationModel extends AbstractTreeTableModel {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Object getChild(Object parent, int index) {
         if (!isValidTreeTableNode(parent)) {
             throw new IllegalArgumentException(
@@ -230,6 +231,7 @@ public class ComparationModel extends AbstractTreeTableModel {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getChildCount(Object parent) {
         if (!isValidTreeTableNode(parent)) {
             throw new IllegalArgumentException(
@@ -242,6 +244,7 @@ public class ComparationModel extends AbstractTreeTableModel {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getIndexOfChild(Object parent, Object child) {
         if (!isValidTreeTableNode(parent)) {
             throw new IllegalArgumentException(
@@ -374,23 +377,25 @@ public class ComparationModel extends AbstractTreeTableModel {
                 index, node);
     }
 
-    public void addColumn(String columnName, Hashtable<String, Double> data) {
+    public void addColumn(String columnName, Hashtable<String, ComparacionData> data) {
         columnIdentifiers.add(columnName);
 
         TreeTableNode rootNode = (TreeTableNode) root;
 
         //setValueAt(data.get(rootNode.getUserObject()), root, columnIdentifiers.size() - 1);
         List<? extends TreeTableNode> children = Collections.list(rootNode.children());
+
         for (TreeTableNode node : children) {
-            if (data.get(node.getUserObject()) != null) {
-                setValueAt(data.get(node.getUserObject()), node, columnIdentifiers.size() - 1);
+            ComparacionData cd = data.get(node.getUserObject());
+            if (cd != null) {
+                setValueAt(cd.getTotalImporteGrupo(), node, columnIdentifiers.size() - 1);
             } else {
                 setValueAt(new Double(0.0), node, columnIdentifiers.size() - 1);
             }
             List<? extends TreeTableNode> children2 = Collections.list(node.children());
             for (TreeTableNode node2 : children2) {
-                if (data.get(node2.getUserObject()) != null) {
-                    setValueAt(data.get(node2.getUserObject()), node2, columnIdentifiers.size() - 1);
+                if (cd != null && cd.get(node2.getUserObject()) != null) {
+                    setValueAt(cd.get(node2.getUserObject()), node2, columnIdentifiers.size() - 1);
                 } else {
                     setValueAt(new Double(0.0), node2, columnIdentifiers.size() - 1);
                 }

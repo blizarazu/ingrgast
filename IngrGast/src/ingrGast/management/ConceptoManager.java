@@ -10,6 +10,7 @@ package ingrGast.management;
 
 import ingrGast.db.ConceptoDB;
 import ingrGast.db.Connector;
+import ingrGast.objects.ComparacionData;
 import ingrGast.objects.Concepto;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -136,7 +137,7 @@ public class ConceptoManager {
         }
     }
 
-    Hashtable<String, Double> getGastosConcepto(Calendar calendar, Calendar calendar0) throws SQLException {
+    Hashtable<String, ComparacionData> getGastosConcepto(Calendar calendar, Calendar calendar0) throws SQLException {
         return cDB.getGastos(calendar, calendar0);
     }
 
@@ -148,7 +149,7 @@ public class ConceptoManager {
         }
     }
 
-    Hashtable<String, Double> getIngresosConcepto(Calendar calendar, Calendar calendar0) throws SQLException {
+    Hashtable<String, ComparacionData> getIngresosConcepto(Calendar calendar, Calendar calendar0) throws SQLException {
         return cDB.getIngresos(calendar, calendar0);
     }
 
@@ -164,7 +165,7 @@ public class ConceptoManager {
         }
     }
 
-    Hashtable<String, Double> getTotalesConcepto(Calendar calendar, Calendar calendar0) throws SQLException {
+    Hashtable<String, ComparacionData> getTotalesConcepto(Calendar calendar, Calendar calendar0) throws SQLException {
         return cDB.getTotales(calendar, calendar0);
     }
 }
