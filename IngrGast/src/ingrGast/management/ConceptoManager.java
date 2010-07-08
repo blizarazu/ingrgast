@@ -129,9 +129,9 @@ public class ConceptoManager {
         cDB.updateReceptor(receptor, nuevoReceptor);
     }
 
-    Hashtable<String, Double> getGastosConcepto(int año, String grupo) throws SQLException {
-        if (año >= 0) {
-            return cDB.getGastos(año, grupo);
+    Hashtable<String, Double> getGastosConcepto(int aÃ±o, String grupo) throws SQLException {
+        if (aÃ±o >= 0) {
+            return cDB.getGastos(aÃ±o, grupo);
         } else {
             return cDB.getGastos(grupo);
         }
@@ -141,9 +141,9 @@ public class ConceptoManager {
         return cDB.getGastos(calendar, calendar0);
     }
 
-    Hashtable<String, Double> getIngresosConcepto(int año, String grupo) throws SQLException {
-        if (año >= 0) {
-            return cDB.getIngresos(año, grupo);
+    Hashtable<String, Double> getIngresosConcepto(int aÃ±o, String grupo) throws SQLException {
+        if (aÃ±o >= 0) {
+            return cDB.getIngresos(aÃ±o, grupo);
         } else {
             return cDB.getIngresos(grupo);
         }
@@ -157,9 +157,9 @@ public class ConceptoManager {
         return cDB.getMotivos(grupo);
     }
 
-    Hashtable<String, Double> getTotalesConcepto(int año, String grupo) throws SQLException {
-        if (año >= 0) {
-            return cDB.getTotales(año, grupo);
+    Hashtable<String, Double> getTotalesConcepto(int aÃ±o, String grupo) throws SQLException {
+        if (aÃ±o >= 0) {
+            return cDB.getTotales(aÃ±o, grupo);
         } else {
             return cDB.getTotales(grupo);
         }

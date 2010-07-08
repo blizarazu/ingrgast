@@ -16,7 +16,7 @@ import javax.swing.SwingUtilities;
 
 /**
  *
- * @author Beñat
+ * @author BeÃ±at
  */
 public class UISwitchListener implements PropertyChangeListener{
     

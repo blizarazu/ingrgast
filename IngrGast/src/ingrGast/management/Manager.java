@@ -12,7 +12,7 @@ import ingrGast.db.Connector;
 import ingrGast.objects.AsientoContable;
 import ingrGast.objects.ComparacionData;
 import ingrGast.objects.Concepto;
-import ingrGast.objects.DatosCierreAño;
+import ingrGast.objects.DatosCierreAÃ±o;
 import ingrGast.objects.Grupo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -44,8 +44,8 @@ public class Manager {
             this.connector = new Connector(user, pass);
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane jop = new JOptionPane("El nombre de usuario o la contraseña son incorrectos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexión fallida").setVisible(true);
+            JOptionPane jop = new JOptionPane("El nombre de usuario o la contraseÃ±a son incorrectos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "ConexiÃ³n fallida").setVisible(true);
             System.exit(1);
         }
         try {
@@ -175,15 +175,15 @@ public class Manager {
         } catch (IOException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los asientos contables.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación").setVisible(true);
+            jop.createDialog(null, "Error de importaciÃ³n").setVisible(true);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los asientos contables.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación").setVisible(true);
+            jop.createDialog(null, "Error de importaciÃ³n").setVisible(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los asientos contables.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación").setVisible(true);
+            jop.createDialog(null, "Error de importaciÃ³n").setVisible(true);
         }
     }
 
@@ -204,15 +204,15 @@ public class Manager {
         } catch (IOException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los conceptos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación").setVisible(true);
+            jop.createDialog(null, "Error de importaciÃ³n").setVisible(true);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los conceptos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación").setVisible(true);
+            jop.createDialog(null, "Error de importaciÃ³n").setVisible(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los conceptos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación").setVisible(true);
+            jop.createDialog(null, "Error de importaciÃ³n").setVisible(true);
         }
     }
 
@@ -233,15 +233,15 @@ public class Manager {
         } catch (IOException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los grupos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación").setVisible(true);
+            jop.createDialog(null, "Error de importaciÃ³n").setVisible(true);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los grupos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación").setVisible(true);
+            jop.createDialog(null, "Error de importaciÃ³n").setVisible(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
             JOptionPane jop = new JOptionPane("Se ha producido un error al importar los grupos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de importación").setVisible(true);
+            jop.createDialog(null, "Error de importaciÃ³n").setVisible(true);
         }
     }
 
@@ -595,8 +595,8 @@ public class Manager {
             connector.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane jop = new JOptionPane("Se ha producido un error al intentar la desconexión con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Error de desconexión").setVisible(true);
+            JOptionPane jop = new JOptionPane("Se ha producido un error al intentar la desconexiÃ³n con la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Error de desconexiÃ³n").setVisible(true);
         }
     }
 
@@ -648,7 +648,7 @@ public class Manager {
      *
      * @return
      */
-    public Vector<Integer> getAñosAsientos() {
+    public Vector<Integer> getAÃ±osAsientos() {
         try {
             Vector<Calendar> vFechas = asm.getFechas();
             Vector<Integer> vYears = new Vector<Integer>();
@@ -670,15 +670,15 @@ public class Manager {
 
     /**
      *
-     * @param año
+     * @param aÃ±o
      * @return
      */
-    public Vector<Vector<Double>> getBalanceAño(int año) {
+    public Vector<Vector<Double>> getBalanceAÃ±o(int aÃ±o) {
         try {
             Vector<Vector<Double>> vBalance = new Vector<Vector<Double>>();
-            vBalance.addElement(asm.getIngresosAño(año));
-            vBalance.addElement(asm.getGastosAño(año));
-            vBalance.addElement(asm.getTotalesAño(año));
+            vBalance.addElement(asm.getIngresosAÃ±o(aÃ±o));
+            vBalance.addElement(asm.getGastosAÃ±o(aÃ±o));
+            vBalance.addElement(asm.getTotalesAÃ±o(aÃ±o));
             return vBalance;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -688,16 +688,16 @@ public class Manager {
         }
     }
 
-    public List<DatosCierreAño> getCierreAñoGastos(int año) {
+    public List<DatosCierreAÃ±o> getCierreAÃ±oGastos(int aÃ±o) {
         try {
-            List<DatosCierreAño> list = new ArrayList<DatosCierreAño>();
-            Hashtable<String, Double> grupoImporte = gm.gastosGrupos(año);
+            List<DatosCierreAÃ±o> list = new ArrayList<DatosCierreAÃ±o>();
+            Hashtable<String, Double> grupoImporte = gm.gastosGrupos(aÃ±o);
             List<String> grupos = Collections.list(grupoImporte.keys());
             for (String grupo : grupos) {
-                Hashtable<String, Double> conceptoImporte = cm.getGastosConcepto(año, grupo);
+                Hashtable<String, Double> conceptoImporte = cm.getGastosConcepto(aÃ±o, grupo);
                 List<String> conceptos = Collections.list(conceptoImporte.keys());
                 for (String concepto : conceptos) {
-                    list.add(new DatosCierreAño(DatosCierreAño.GASTOS, año, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
+                    list.add(new DatosCierreAÃ±o(DatosCierreAÃ±o.GASTOS, aÃ±o, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
                 }
             }
             return list;
@@ -707,16 +707,16 @@ public class Manager {
         }
     }
 
-    public List<DatosCierreAño> getCierreAñoIngresos(int año) {
+    public List<DatosCierreAÃ±o> getCierreAÃ±oIngresos(int aÃ±o) {
         try {
-            List<DatosCierreAño> list = new ArrayList<DatosCierreAño>();
-            Hashtable<String, Double> grupoImporte = gm.ingresosGrupos(año);
+            List<DatosCierreAÃ±o> list = new ArrayList<DatosCierreAÃ±o>();
+            Hashtable<String, Double> grupoImporte = gm.ingresosGrupos(aÃ±o);
             List<String> grupos = Collections.list(grupoImporte.keys());
             for (String grupo : grupos) {
-                Hashtable<String, Double> conceptoImporte = cm.getIngresosConcepto(año, grupo);
+                Hashtable<String, Double> conceptoImporte = cm.getIngresosConcepto(aÃ±o, grupo);
                 List<String> conceptos = Collections.list(conceptoImporte.keys());
                 for (String concepto : conceptos) {
-                    list.add(new DatosCierreAño(DatosCierreAño.INGRESOS, año, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
+                    list.add(new DatosCierreAÃ±o(DatosCierreAÃ±o.INGRESOS, aÃ±o, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
                 }
             }
             return list;
@@ -726,16 +726,16 @@ public class Manager {
         }
     }
 
-    public List<DatosCierreAño> getCierreAñoTotal(int año) {
+    public List<DatosCierreAÃ±o> getCierreAÃ±oTotal(int aÃ±o) {
         try {
-            List<DatosCierreAño> list = new ArrayList<DatosCierreAño>();
-            Hashtable<String, Double> grupoImporte = gm.totalesGrupos(año);
+            List<DatosCierreAÃ±o> list = new ArrayList<DatosCierreAÃ±o>();
+            Hashtable<String, Double> grupoImporte = gm.totalesGrupos(aÃ±o);
             List<String> grupos = Collections.list(grupoImporte.keys());
             for (String grupo : grupos) {
-                Hashtable<String, Double> conceptoImporte = cm.getTotalesConcepto(año, grupo);
+                Hashtable<String, Double> conceptoImporte = cm.getTotalesConcepto(aÃ±o, grupo);
                 List<String> conceptos = Collections.list(conceptoImporte.keys());
                 for (String concepto : conceptos) {
-                    list.add(new DatosCierreAño(DatosCierreAño.TOTALES, año, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
+                    list.add(new DatosCierreAÃ±o(DatosCierreAÃ±o.TOTALES, aÃ±o, grupo, grupoImporte.get(grupo).doubleValue(), concepto, conceptoImporte.get(concepto).doubleValue()));
                 }
             }
             return list;

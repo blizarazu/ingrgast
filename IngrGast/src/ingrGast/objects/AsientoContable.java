@@ -19,7 +19,12 @@ import java.util.GregorianCalendar;
  */
 public class AsientoContable implements Serializable{
     
-    private int ID;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2704096558833442345L;
+	
+	private int ID;
     private int ConceptoID;
     private int GrupoID;
     private double Importe;

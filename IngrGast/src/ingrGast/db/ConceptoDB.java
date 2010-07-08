@@ -9,23 +9,22 @@
 package ingrGast.db;
 
 import ingrGast.objects.ComparacionData;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.Vector;
 
 /**
  *
- * @author Beñat
+ * @author BeÃ±at
  */
 public class ConceptoDB {
 
     private Connection connection;
-    private Statement statement;
 
     /**
      * Creates a new instance of ConceptoDB
@@ -34,7 +33,6 @@ public class ConceptoDB {
      */
     public ConceptoDB(Connector con) throws SQLException {
         this.connection = con.getConnection();
-        this.statement = con.getStatement();
     }
 
     public Hashtable<String, Double> getGastos(String grupo) throws SQLException {
@@ -51,12 +49,12 @@ public class ConceptoDB {
         return hash;
     }
 
-    public Hashtable<String, Double> getGastos(int año, String grupo) throws SQLException {
+    public Hashtable<String, Double> getGastos(int aÃ±o, String grupo) throws SQLException {
         Hashtable<String, Double> hash = new Hashtable<String, Double>();
         String sql = "SELECT Motivo AS Concepto, SUM(A.Importe) AS 'Total Gastos' FROM (conceptos C INNER JOIN asientoscontables A ON C.ID = A.Concepto_ID) INNER JOIN grupos G ON A.Grupo_ID = G.ID WHERE A.Importe < 0 AND A.Fecha BETWEEN ? AND ? AND G.Nombre=? GROUP BY C.Motivo";
         PreparedStatement ps = this.connection.prepareStatement(sql);
-        ps.setString(1, año + "/1/1");
-        ps.setString(2, año + "/12/31");
+        ps.setString(1, aÃ±o + "/1/1");
+        ps.setString(2, aÃ±o + "/12/31");
         ps.setString(3, grupo);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -102,12 +100,12 @@ public class ConceptoDB {
         return hash;
     }
 
-    public Hashtable<String, Double> getIngresos(int año, String grupo) throws SQLException {
+    public Hashtable<String, Double> getIngresos(int aÃ±o, String grupo) throws SQLException {
         Hashtable<String, Double> hash = new Hashtable<String, Double>();
         String sql = "SELECT Motivo AS Concepto, SUM(A.Importe) AS 'Total Ingresos' FROM (conceptos C INNER JOIN asientoscontables A ON C.ID = A.Concepto_ID) INNER JOIN grupos G ON A.Grupo_ID = G.ID WHERE A.Importe > 0 AND A.Fecha BETWEEN ? AND ? AND G.Nombre=? GROUP BY C.Motivo";
         PreparedStatement ps = this.connection.prepareStatement(sql);
-        ps.setString(1, año + "/1/1");
-        ps.setString(2, año + "/12/31");
+        ps.setString(1, aÃ±o + "/1/1");
+        ps.setString(2, aÃ±o + "/12/31");
         ps.setString(3, grupo);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -153,12 +151,12 @@ public class ConceptoDB {
         return hash;
     }
 
-    public Hashtable<String, Double> getTotales(int año, String grupo) throws SQLException {
+    public Hashtable<String, Double> getTotales(int aÃ±o, String grupo) throws SQLException {
         Hashtable<String, Double> hash = new Hashtable<String, Double>();
         String sql = "SELECT Motivo AS Concepto, SUM(A.Importe) AS 'Total Importe' FROM (conceptos C INNER JOIN asientoscontables A ON C.ID = A.Concepto_ID) INNER JOIN grupos G ON A.Grupo_ID = G.ID WHERE A.Fecha BETWEEN ? AND ? AND G.Nombre=? GROUP BY C.Motivo";
         PreparedStatement ps = this.connection.prepareStatement(sql);
-        ps.setString(1, año + "/1/1");
-        ps.setString(2, año + "/12/31");
+        ps.setString(1, aÃ±o + "/1/1");
+        ps.setString(2, aÃ±o + "/12/31");
         ps.setString(3, grupo);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

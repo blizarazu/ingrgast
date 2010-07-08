@@ -1,5 +1,5 @@
 /*
- * CompararAñosChart.java
+ * CompararAÃ±osChart.java
  *
  * Created on 27 de agosto de 2007, 23:31
  *
@@ -30,9 +30,9 @@ import org.jfree.util.UnitType;
 
 /**
  *
- * @author Beñat
+ * @author BeÃ±at
  */
-public class CompararAñosChart {
+public class CompararAÃ±osChart {
     
     private JFreeChart chart;
     private ChartPanel chartpanel;
@@ -45,42 +45,42 @@ public class CompararAñosChart {
         "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
     };
     
-    /** Creates a new instance of CompararAñosChart */
-    public CompararAñosChart(int año1, Vector<Double> vIngr1, Vector<Double> vGast1, Vector<Double> vSaldo1, int año2, Vector<Double> vIngr2, Vector<Double> vGast2, Vector<Double> vSaldo2) {
+    /** Creates a new instance of CompararAÃ±osChart */
+    public CompararAÃ±osChart(int aÃ±o1, Vector<Double> vIngr1, Vector<Double> vGast1, Vector<Double> vSaldo1, int aÃ±o2, Vector<Double> vIngr2, Vector<Double> vGast2, Vector<Double> vSaldo2) {
         categorydataset1 = new DefaultCategoryDataset();
         categorydataset2 = new DefaultCategoryDataset();
         categorydataset3 = new DefaultCategoryDataset();
         int i;
         i = 0;
         for(Double value: vIngr1){
-            categorydataset1.addValue(value.doubleValue(), String.valueOf(año1), months[i]);
+            categorydataset1.addValue(value.doubleValue(), String.valueOf(aÃ±o1), months[i]);
             i++;
         }
         i = 0;
         for(Double value: vIngr2){
-            categorydataset1.addValue(value.doubleValue(), String.valueOf(año2), months[i]);
+            categorydataset1.addValue(value.doubleValue(), String.valueOf(aÃ±o2), months[i]);
             i++;
         }
         
         i = 0;
         for(Double value: vGast1){
-            categorydataset2.addValue(value.doubleValue(), String.valueOf(año1), months[i]);
+            categorydataset2.addValue(value.doubleValue(), String.valueOf(aÃ±o1), months[i]);
             i++;
         }
         i = 0;
         for(Double value: vGast2){
-            categorydataset2.addValue(value.doubleValue(), String.valueOf(año2), months[i]);
+            categorydataset2.addValue(value.doubleValue(), String.valueOf(aÃ±o2), months[i]);
             i++;
         }
         
         i = 0;
         for(Double value: vSaldo1){
-            categorydataset3.addValue(value.doubleValue(), String.valueOf(año1), months[i]);
+            categorydataset3.addValue(value.doubleValue(), String.valueOf(aÃ±o1), months[i]);
             i++;
         }
         i = 0;
         for(Double value: vSaldo2){
-            categorydataset3.addValue(value.doubleValue(), String.valueOf(año2), months[i]);
+            categorydataset3.addValue(value.doubleValue(), String.valueOf(aÃ±o2), months[i]);
             i++;
         }
         this.createChart();
@@ -129,49 +129,49 @@ public class CompararAñosChart {
         chartpanel = new ChartPanel(chart);
     }
     
-    public void updateValues(int año1, Vector<Double> vIngr1, Vector<Double> vGast1, Vector<Double> vSaldo1, int año2, Vector<Double> vIngr2, Vector<Double> vGast2, Vector<Double> vSaldo2){
+    public void updateValues(int aÃ±o1, Vector<Double> vIngr1, Vector<Double> vGast1, Vector<Double> vSaldo1, int aÃ±o2, Vector<Double> vIngr2, Vector<Double> vGast2, Vector<Double> vSaldo2){
         categorydataset1.clear();
         categorydataset2.clear();
         categorydataset3.clear();
         int i;
         i = 0;
         for(Double value: vIngr1){
-            categorydataset1.addValue(value.doubleValue(), String.valueOf(año1), months[i]);
+            categorydataset1.addValue(value.doubleValue(), String.valueOf(aÃ±o1), months[i]);
             i++;
         }
         i = 0;
         for(Double value: vIngr2){
-            categorydataset1.addValue(value.doubleValue(), String.valueOf(año2), months[i]);
+            categorydataset1.addValue(value.doubleValue(), String.valueOf(aÃ±o2), months[i]);
             i++;
         }
         
         i = 0;
         for(Double value: vGast1){
-            categorydataset2.addValue(value.doubleValue(), String.valueOf(año1), months[i]);
+            categorydataset2.addValue(value.doubleValue(), String.valueOf(aÃ±o1), months[i]);
             i++;
         }
         i = 0;
         for(Double value: vGast2){
-            categorydataset2.addValue(value.doubleValue(), String.valueOf(año2), months[i]);
+            categorydataset2.addValue(value.doubleValue(), String.valueOf(aÃ±o2), months[i]);
             i++;
         }
         
         i = 0;
         for(Double value: vSaldo1){
-            categorydataset3.addValue(value.doubleValue(), String.valueOf(año1), months[i]);
+            categorydataset3.addValue(value.doubleValue(), String.valueOf(aÃ±o1), months[i]);
             i++;
         }
         i = 0;
         for(Double value: vSaldo2){
-            categorydataset3.addValue(value.doubleValue(), String.valueOf(año2), months[i]);
+            categorydataset3.addValue(value.doubleValue(), String.valueOf(aÃ±o2), months[i]);
             i++;
         }
     }
     
-    public void setTitle(int año1, int año2){
+    public void setTitle(int aÃ±o1, int aÃ±o2){
         //chart.clearSubtitles();
         
-        TextTitle texttitle = new TextTitle("Comparativa entre los años " + String.valueOf(año1) + " y " + String.valueOf(año2));
+        TextTitle texttitle = new TextTitle("Comparativa entre los aÃ±os " + String.valueOf(aÃ±o1) + " y " + String.valueOf(aÃ±o2));
         texttitle.setFont(new Font("SansSerif", 0, 12));
         texttitle.setPosition(RectangleEdge.TOP);
         texttitle.setPadding(new RectangleInsets(UnitType.RELATIVE, 0.050000000000000003D, 0.050000000000000003D, 0.050000000000000003D, 0.050000000000000003D));

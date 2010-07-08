@@ -17,7 +17,12 @@ import java.io.Serializable;
  */
 public class Grupo implements Serializable{
     
-    private int ID;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8616523844601774149L;
+	
+	private int ID;
     private String Nombre;
     
     /** Creates a new instance of Grupo */

@@ -11,7 +11,12 @@ import javax.swing.text.*;
  * http://creativecommons.org/licenses/publicdomain/
  */
 public class AutoCompletion extends PlainDocument {
-    JComboBox comboBox;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	JComboBox comboBox;
     ComboBoxModel model;
     JTextComponent editor;
     // flag to indicate if setSelectedItem has been called

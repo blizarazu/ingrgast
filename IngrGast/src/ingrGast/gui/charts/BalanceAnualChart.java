@@ -33,7 +33,7 @@ import org.jfree.util.UnitType;
 
 /**
  *
- * @author Beñat
+ * @author BeÃ±at
  */
 public class BalanceAnualChart{
     
@@ -135,9 +135,9 @@ public class BalanceAnualChart{
         chartpanel = new ChartPanel(chart);
     }
     
-    public void setTitle(int año){
+    public void setTitle(int aÃ±o){
         //chart.clearSubtitles();
-        TextTitle texttitle = new TextTitle("Balance del año " + String.valueOf(año));
+        TextTitle texttitle = new TextTitle("Balance del aÃ±o " + String.valueOf(aÃ±o));
         texttitle.setFont(new Font("SansSerif", 0, 12));
         texttitle.setPosition(RectangleEdge.TOP);
         texttitle.setPadding(new RectangleInsets(UnitType.RELATIVE, 0.050000000000000003D, 0.050000000000000003D, 0.050000000000000003D, 0.050000000000000003D));

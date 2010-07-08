@@ -15,9 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Vector;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  *
@@ -36,7 +34,6 @@ public class AsientoContableDB {
     public AsientoContableDB(Connector con) throws SQLException {
         this.connection = con.getConnection();
         this.statement = con.getStatement();
-        Calendar cal = new GregorianCalendar();
     }
     
     /**
@@ -165,39 +162,39 @@ public class AsientoContableDB {
     /**
      *
      * @param mes
-     * @param año
+     * @param aÃ±o
      * @throws java.sql.SQLException
      * @return
      */
-    public double getIngresos(int mes, int año) throws SQLException{
-        return getIngresos(1, 31, mes, mes, año, año);
+    public double getIngresos(int mes, int aÃ±o) throws SQLException{
+        return getIngresos(1, 31, mes, mes, aÃ±o, aÃ±o);
     }
     
     /**
      *
      * @param mes1
      * @param mes2
-     * @param año
+     * @param aÃ±o
      * @throws java.sql.SQLException
      * @return
      */
-    public double getIngresos(int mes1, int mes2, int año) throws SQLException{
-        return getIngresos(1, 31, mes1, mes2, año, año);
+    public double getIngresos(int mes1, int mes2, int aÃ±o) throws SQLException{
+        return getIngresos(1, 31, mes1, mes2, aÃ±o, aÃ±o);
     }
     
     /**
      *
      * @param mes1
      * @param mes2
-     * @param año
+     * @param aÃ±o
      * @throws java.sql.SQLException
      * @return
      */
-    public double getIngresos(int dia1, int dia2, int mes1, int mes2, int año, int año2) throws SQLException{
+    public double getIngresos(int dia1, int dia2, int mes1, int mes2, int aÃ±o, int aÃ±o2) throws SQLException{
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Importe >= 0 AND Fecha BETWEEN ? AND ?";
         PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, String.valueOf(año) + "/" + String.valueOf(mes1) + "/" + dia1);
-        ps.setString(2, String.valueOf(año2) + "/" + String.valueOf(mes2) + "/" + dia2);
+        ps.setString(1, String.valueOf(aÃ±o) + "/" + String.valueOf(mes1) + "/" + dia1);
+        ps.setString(2, String.valueOf(aÃ±o2) + "/" + String.valueOf(mes2) + "/" + dia2);
         ResultSet rs = ps.executeQuery();
         double result = 0;
         if(rs.next())
@@ -210,31 +207,31 @@ public class AsientoContableDB {
     /**
      *
      * @param mes
-     * @param año
+     * @param aÃ±o
      * @throws java.sql.SQLException
      * @return
      */
-    public double getGastos(int mes, int año) throws SQLException{
-        return getGastos(1, 31, mes, mes, año, año);
+    public double getGastos(int mes, int aÃ±o) throws SQLException{
+        return getGastos(1, 31, mes, mes, aÃ±o, aÃ±o);
     }
     
     /**
      *
      * @param mes1
      * @param mes2
-     * @param año
+     * @param aÃ±o
      * @throws java.sql.SQLException
      * @return
      */
-    public double getGastos(int mes1, int mes2, int año) throws SQLException{
-        return getGastos(1, 31, mes1, mes2, año, año);
+    public double getGastos(int mes1, int mes2, int aÃ±o) throws SQLException{
+        return getGastos(1, 31, mes1, mes2, aÃ±o, aÃ±o);
     }
     
-    public double getGastos(int dia1, int dia2, int mes1, int mes2, int año1, int año2) throws SQLException{
+    public double getGastos(int dia1, int dia2, int mes1, int mes2, int aÃ±o1, int aÃ±o2) throws SQLException{
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Importe < 0 AND Fecha BETWEEN ? AND ?";
         PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, String.valueOf(año1) + "/" + String.valueOf(mes1) + "/" + String.valueOf(dia1));
-        ps.setString(2, String.valueOf(año2) + "/" + String.valueOf(mes2) + "/" + String.valueOf(dia2));
+        ps.setString(1, String.valueOf(aÃ±o1) + "/" + String.valueOf(mes1) + "/" + String.valueOf(dia1));
+        ps.setString(2, String.valueOf(aÃ±o2) + "/" + String.valueOf(mes2) + "/" + String.valueOf(dia2));
         ResultSet rs = ps.executeQuery();
         double result = 0;
         if(rs.next())
@@ -247,31 +244,31 @@ public class AsientoContableDB {
     /**
      *
      * @param mes
-     * @param año
+     * @param aÃ±o
      * @throws java.sql.SQLException
      * @return
      */
-    public double getTotales(int mes, int año) throws SQLException{
-        return getTotales(1, 31, mes, mes, año, año);
+    public double getTotales(int mes, int aÃ±o) throws SQLException{
+        return getTotales(1, 31, mes, mes, aÃ±o, aÃ±o);
     }
     
     /**
      *
      * @param mes1
      * @param mes2
-     * @param año
+     * @param aÃ±o
      * @throws java.sql.SQLException
      * @return
      */
-    public double getTotales(int mes1, int mes2, int año) throws SQLException{
-        return getTotales(1, 31, mes1, mes2, año, año);
+    public double getTotales(int mes1, int mes2, int aÃ±o) throws SQLException{
+        return getTotales(1, 31, mes1, mes2, aÃ±o, aÃ±o);
     }
     
-    public double getTotales(int dia1, int dia2, int mes1, int mes2, int año, int año2) throws SQLException{
+    public double getTotales(int dia1, int dia2, int mes1, int mes2, int aÃ±o, int aÃ±o2) throws SQLException{
         String sql = "SELECT SUM(Importe) AS Total FROM asientoscontables WHERE Fecha BETWEEN ? AND ?";
         PreparedStatement ps = connection.prepareStatement(sql);
-        ps.setString(1, String.valueOf(año) + "/" + String.valueOf(mes1) + "/" + dia1);
-        ps.setString(2, String.valueOf(año2) + "/" + String.valueOf(mes2) + "/" + dia2);
+        ps.setString(1, String.valueOf(aÃ±o) + "/" + String.valueOf(mes1) + "/" + dia1);
+        ps.setString(2, String.valueOf(aÃ±o2) + "/" + String.valueOf(mes2) + "/" + dia2);
         ResultSet rs = ps.executeQuery();
         double result = 0;
         if(rs.next())

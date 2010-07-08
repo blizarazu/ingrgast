@@ -70,16 +70,16 @@ public class ResultSetTableModel extends AbstractTableModel {
             }
         } catch (IllegalStateException ex) {
             ex.printStackTrace();
-            JOptionPane jop = new JOptionPane("Error al establecer la conexi髇 con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexi髇 fallida").setVisible(true);
+            JOptionPane jop = new JOptionPane("Error al establecer la conexi贸n con la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Conexi贸n fallida").setVisible(true);
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane jop = new JOptionPane("Error al establecer la conexi髇 con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexi髇 fallida").setVisible(true);
+            JOptionPane jop = new JOptionPane("Error al establecer la conexi贸n con la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Conexi贸n fallida").setVisible(true);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
-            JOptionPane jop = new JOptionPane("Error al establecer la conexi髇 con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexi髇 fallida").setVisible(true);
+            JOptionPane jop = new JOptionPane("Error al establecer la conexi贸n con la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Conexi贸n fallida").setVisible(true);
         }
     } // end constructor ResultSetTableModel
     // get class that represents column type
@@ -90,7 +90,7 @@ public class ResultSetTableModel extends AbstractTableModel {
      * @throws java.lang.IllegalStateException
      * @return
      */
-    public Class getColumnClass(int column) throws IllegalStateException {
+    public Class<?> getColumnClass(int column) throws IllegalStateException {
         // ensure database connection is available
         if (!connectedToDatabase)
             throw new IllegalStateException("Not Connected to Database");

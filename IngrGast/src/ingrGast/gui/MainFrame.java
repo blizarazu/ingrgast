@@ -35,6 +35,11 @@ import javax.swing.plaf.metal.OceanTheme;
 public class MainFrame extends javax.swing.JFrame {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5871665325419092790L;
+	
+	/**
      * Creates new form MainFrame
      */
     public MainFrame(Connector con) {
@@ -72,7 +77,7 @@ public class MainFrame extends javax.swing.JFrame {
         consultarDatosPanel1 = new ingrGast.gui.mainInsidePanels.ConsultarDatosPanel();
         ultimasEntradasPanel1 = new ingrGast.gui.mainInsidePanels.UltimasEntradasPanel();
         graficosPanel1 = new ingrGast.gui.mainInsidePanels.GraficosPanel();
-        cierreAñoPanel1 = new ingrGast.gui.mainInsidePanels.CierreAñoPanel();
+        cierreAÃ±oPanel1 = new ingrGast.gui.mainInsidePanels.CierreAÃ±oPanel();
         compararPanel1 = new ingrGast.gui.mainInsidePanels.CompararPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -157,7 +162,7 @@ public class MainFrame extends javax.swing.JFrame {
         jToolBar1.add(jButton1);
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/UltimasEntradas_48x48.png"))); // NOI18N
-        jButton4.setToolTipText("Últimas Entradas");
+        jButton4.setToolTipText("Ãšltimas Entradas");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -167,7 +172,7 @@ public class MainFrame extends javax.swing.JFrame {
         jToolBar1.add(jSeparator1);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/Graficos_48x48.png"))); // NOI18N
-        jButton5.setToolTipText("Gráficos");
+        jButton5.setToolTipText("GrÃ¡ficos");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -175,8 +180,8 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton5);
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/CierreAño_48x48.png"))); // NOI18N
-        jButton6.setToolTipText("Cierre del Año");
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/CierreAÃ±o_48x48.png"))); // NOI18N
+        jButton6.setToolTipText("Cierre del AÃ±o");
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -187,7 +192,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton6);
 
-        jButton7.setText("Comparación");
+        jButton7.setText("ComparaciÃ³n");
         jButton7.setFocusable(false);
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -203,8 +208,8 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.add(consultarDatosPanel1, "Consultar");
         jPanel2.add(ultimasEntradasPanel1, "Ultimas");
         jPanel2.add(graficosPanel1, "Graficos");
-        jPanel2.add(cierreAñoPanel1, "CierreAño");
-        jPanel2.add(compararPanel1, "Comparación");
+        jPanel2.add(cierreAÃ±oPanel1, "CierreAÃ±o");
+        jPanel2.add(compararPanel1, "ComparaciÃ³n");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -328,7 +333,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItem14);
 
         jMenuItem15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/UltimasEntradas_24x24.png"))); // NOI18N
-        jMenuItem15.setText("Últimas Entradas");
+        jMenuItem15.setText("Ãšltimas Entradas");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem15ActionPerformed(evt);
@@ -337,7 +342,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItem15);
 
         jMenuItem16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/Graficos_24x24.png"))); // NOI18N
-        jMenuItem16.setText("Gráficos");
+        jMenuItem16.setText("GrÃ¡ficos");
         jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem16ActionPerformed(evt);
@@ -345,8 +350,8 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem16);
 
-        jMenuItem17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/CierreAño_24x24.png"))); // NOI18N
-        jMenuItem17.setText("Cierre del Año");
+        jMenuItem17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ingrGast/resources/CierreAÃ±o_24x24.png"))); // NOI18N
+        jMenuItem17.setText("Cierre del AÃ±o");
         jMenuItem17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem17ActionPerformed(evt);
@@ -614,15 +619,15 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-    ((CardLayout) jPanel2.getLayout()).show(jPanel2, "CierreAño");
+    ((CardLayout) jPanel2.getLayout()).show(jPanel2, "CierreAÃ±o");
 }//GEN-LAST:event_jButton6ActionPerformed
 
 private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
-    ((CardLayout) jPanel2.getLayout()).show(jPanel2, "CierreAño");
+    ((CardLayout) jPanel2.getLayout()).show(jPanel2, "CierreAÃ±o");
 }//GEN-LAST:event_jMenuItem17ActionPerformed
 
 private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-    ((CardLayout) jPanel2.getLayout()).show(jPanel2, "Comparación");
+    ((CardLayout) jPanel2.getLayout()).show(jPanel2, "ComparaciÃ³n");
 }//GEN-LAST:event_jButton7ActionPerformed
     
     public void openNuevoAsientoDialog(){
@@ -688,7 +693,7 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ingrGast.gui.mainInsidePanels.BalancePanel balancePanel1;
     private javax.swing.ButtonGroup buttonGroup1;
-    private ingrGast.gui.mainInsidePanels.CierreAñoPanel cierreAñoPanel1;
+    private ingrGast.gui.mainInsidePanels.CierreAÃ±oPanel cierreAÃ±oPanel1;
     private ingrGast.gui.mainInsidePanels.CompararPanel compararPanel1;
     private ingrGast.gui.mainInsidePanels.ConsultarDatosPanel consultarDatosPanel1;
     private ingrGast.gui.mainInsidePanels.GraficosPanel graficosPanel1;

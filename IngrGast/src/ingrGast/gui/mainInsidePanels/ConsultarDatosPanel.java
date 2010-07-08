@@ -25,11 +25,16 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author  Beñat
+ * @author  BeÃ±at
  */
 public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePanel{
     
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2569338174334062293L;
+	
+	/**
      * Creates new form ConsultarDatosPanel
      */
     public ConsultarDatosPanel(/*MainFrame parent*/) {
@@ -150,14 +155,14 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
             }
         });
 
-        jDateChooser1.setToolTipText("Día-Mes-Año");
+        jDateChooser1.setToolTipText("DÃ­a-Mes-AÃ±o");
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
         jDateChooser1.setCalendar(cal);
         jDateChooser1.setEnabled(false);
         ((JTextFieldDateEditor)jDateChooser1.getComponent(1)).setEditable(false);
 
-        jDateChooser2.setToolTipText("Día-Mes-Año");
+        jDateChooser2.setToolTipText("DÃ­a-Mes-AÃ±o");
         Calendar cal2 = new GregorianCalendar();
         cal2.setTime(new Date());
         jDateChooser2.setCalendar(cal2);
@@ -174,14 +179,14 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setSelected(true);
-        jRadioButton2.setText("Año:");
+        jRadioButton2.setText("AÃ±o:");
         jRadioButton2.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 jRadioButton2StateChanged(evt);
             }
         });
 
-        jComboBox5.setToolTipText("Se mostrarán solo los asientos contables del año seleccionado.");
+        jComboBox5.setToolTipText("Se mostrarÃ¡n solo los asientos contables del aÃ±o seleccionado.");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -270,7 +275,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
 
         jLabel5.setText("Total:");
 
-        jLabel1.setText("0€");
+        jLabel1.setText("0â‚¬");
 
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -367,7 +372,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
 
         jLabel7.setText("Total:");
 
-        jLabel11.setText("0€");
+        jLabel11.setText("0â‚¬");
 
         org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -466,7 +471,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
 
         jLabel13.setText("Total:");
 
-        jLabel14.setText("0€");
+        jLabel14.setText("0â‚¬");
 
         org.jdesktop.layout.GroupLayout jPanel10Layout = new org.jdesktop.layout.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -597,7 +602,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
                 ead.setVisible(true);
             }
         } else{
-            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane jop = new JOptionPane("No has seleccionado ningÃºn asiento contable. Selecciona una fila e intÃ©ntalo de nuevo.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Imposible editar el asiento contable").setVisible(true);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -632,7 +637,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
                 ead.setVisible(true);
             }
         } else{
-            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane jop = new JOptionPane("No has seleccionado ningÃºn asiento contable. Selecciona una fila e intÃ©ntalo de nuevo.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Imposible editar el asiento contable").setVisible(true);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -667,7 +672,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
                 ead.setVisible(true);
             }
         } else{
-            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane jop = new JOptionPane("No has seleccionado ningÃºn asiento contable. Selecciona una fila e intÃ©ntalo de nuevo.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Imposible editar el asiento contable").setVisible(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -676,9 +681,8 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
         if (jTable3.getSelectedRow() >= 0){
             int row = jTable3.convertRowIndexToModel(jTable3.getSelectedRow());
             if (row >= 0){
-                JOptionPane jop = new JOptionPane();
                 //0 -> YES, 1 -> NO
-                int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
+                int option =JOptionPane.showConfirmDialog(this, "Â¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
                 if(option == 0){
                     Integer asID = new Integer(((ResultSetTableModel)jTable3.getModel()).getValueAt(row, 0).toString());
                     manager.borrarAsiento(asID.intValue());
@@ -686,7 +690,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
             }
             this.owner.updateData();
         } else{
-            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane jop = new JOptionPane("No has seleccionado ningÃºn asiento contable. Selecciona una fila e intÃ©ntalo de nuevo.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Imposible borrar el asiento contable").setVisible(true);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
@@ -695,9 +699,8 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
         if (jTable2.getSelectedRow() >= 0){
             int row = jTable2.convertRowIndexToModel(jTable2.getSelectedRow());
             if (row >= 0){
-                JOptionPane jop = new JOptionPane();
                 //0 -> YES, 1 -> NO
-                int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
+                int option =JOptionPane.showConfirmDialog(this, "Â¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
                 if(option == 0){
                     Integer asID = new Integer(((ResultSetTableModel)jTable2.getModel()).getValueAt(row, 0).toString());
                     manager.borrarAsiento(asID.intValue());
@@ -705,7 +708,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
             }
             this.owner.updateData();
         } else{
-            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane jop = new JOptionPane("No has seleccionado ningÃºn asiento contable. Selecciona una fila e intÃ©ntalo de nuevo.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Imposible borrar el asiento contable").setVisible(true);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -749,9 +752,8 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
         if (jTable1.getSelectedRow() >= 0){
             int row = jTable1.convertRowIndexToModel(jTable1.getSelectedRow());
             if (row >= 0){
-                JOptionPane jop = new JOptionPane();
                 //0 -> YES, 1 -> NO
-                int option =jop.showConfirmDialog(this, "¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
+                int option =JOptionPane.showConfirmDialog(this, "Â¿Estas seguro de que quieres borrar el asiento seleccionado?", "Se va a borrar un asiento contable", JOptionPane.YES_NO_OPTION);
                 if(option == 0){
                     Integer asID = new Integer(((ResultSetTableModel)jTable1.getModel()).getValueAt(row, 0).toString());
                     manager.borrarAsiento(asID.intValue());
@@ -759,7 +761,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
             }
             this.owner.updateData();
         } else{
-            JOptionPane jop = new JOptionPane("No has seleccionado ningún asiento contable. Selecciona una fila e inténtalo de nuevo.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane jop = new JOptionPane("No has seleccionado ningÃºn asiento contable. Selecciona una fila e intÃ©ntalo de nuevo.", JOptionPane.ERROR_MESSAGE);
             jop.createDialog(null, "Imposible borrar el asiento contable").setVisible(true);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -874,9 +876,9 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
         
         jComboBox5.removeAllItems();
         Vector<String> vA = new Vector<String>();
-        vA.addElement("Este año");
+        vA.addElement("Este aÃ±o");
         vA.addElement("TODOS");
-        for(Integer i: this.manager.getAñosAsientos())
+        for(Integer i: this.manager.getAÃ±osAsientos())
             vA.addElement(String.valueOf(i.intValue()));
         jComboBox5.setModel(new javax.swing.DefaultComboBoxModel(vA));
         jComboBox5.setSelectedIndex(0);
@@ -885,7 +887,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
     private void setInfoTextIngresos(){
         int ingNum = ((ResultSetTableModel)jTable1.getModel()).getRowCount();
         if(ingNum <= 0)
-            jLabel4.setText("No se ha encontrado ningún ingreso.");
+            jLabel4.setText("No se ha encontrado ningÃºn ingreso.");
         else if(ingNum == 1)
             jLabel4.setText("Se ha encontrado un ingreso.");
         else
@@ -904,7 +906,7 @@ public class ConsultarDatosPanel extends javax.swing.JPanel implements InsidePan
     private void setInfoTextGastos(){
         int gastNum = ((ResultSetTableModel)jTable2.getModel()).getRowCount();
         if(gastNum <= 0)
-            jLabel6.setText("No se ha encontrado ningún gasto.");
+            jLabel6.setText("No se ha encontrado ningÃºn gasto.");
         else if(gastNum == 1)
             jLabel6.setText("Se ha encontrado un gasto.");
         else

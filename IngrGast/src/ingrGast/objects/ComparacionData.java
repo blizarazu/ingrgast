@@ -13,7 +13,12 @@ import java.util.HashMap;
  */
 public class ComparacionData extends HashMap<String, Double>{
 
-    private String grupo;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1818576467374056878L;
+	
+	private String grupo;
     private double totalImporteGrupo;
 
     public ComparacionData(String nombreGrupo, double totalImporteGrupo) {

@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Be馻t
+ * @author Be帽at
  */
 public class Connector {
     
@@ -51,18 +51,18 @@ public class Connector {
             System.out.println("Driverra Kargatuta");
         /*} catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane jop = new JOptionPane("Error al establecer la conexi髇 con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexi髇 fallida").setVisible(true);
+            JOptionPane jop = new JOptionPane("Error al establecer la conexi贸n con la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Conexi贸n fallida").setVisible(true);
             System.exit(1);*/
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
-            JOptionPane jop = new JOptionPane("Error al establecer la conexi髇 con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexi髇 fallida").setVisible(true);
+            JOptionPane jop = new JOptionPane("Error al establecer la conexi贸n con la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Conexi贸n fallida").setVisible(true);
             System.exit(1);
         } /*catch (Exception ex){
             ex.printStackTrace();
-            JOptionPane jop = new JOptionPane("Error al establecer la conexi髇 con la base de datos.", JOptionPane.ERROR_MESSAGE);
-            jop.createDialog(null, "Conexi髇 fallida").setVisible(true);
+            JOptionPane jop = new JOptionPane("Error al establecer la conexi贸n con la base de datos.", JOptionPane.ERROR_MESSAGE);
+            jop.createDialog(null, "Conexi贸n fallida").setVisible(true);
             System.exit(1);
         }*/
     }

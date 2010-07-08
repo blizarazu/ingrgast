@@ -8,24 +8,24 @@ package ingrGast.objects;
  *
  * @author Blizarazu
  */
-public class DatosCierreAño {
+public class DatosCierreAÃ±o {
 
     public static int TOTALES = 0;
     public static int GASTOS = 1;
     public static int INGRESOS = 2;
     private int tipo;
-    private Integer año;
+    private Integer aÃ±o;
     private String grupos_Nombre;
     private Double importeGrupo;
     private Double importe;
     private String conceptos_Motivo;
 
-    public DatosCierreAño() {
+    public DatosCierreAÃ±o() {
     }
 
-    public DatosCierreAño(int tipo, int año, String grupos_Nombre, double ImporteGrupo, String conceptos_Motivo, double importe) {
+    public DatosCierreAÃ±o(int tipo, int aÃ±o, String grupos_Nombre, double ImporteGrupo, String conceptos_Motivo, double importe) {
         this.tipo = tipo;
-        this.año = año;
+        this.aÃ±o = aÃ±o;
         this.grupos_Nombre = grupos_Nombre;
         this.importeGrupo = ImporteGrupo;
         this.importe = importe;
@@ -44,8 +44,8 @@ public class DatosCierreAño {
         return importeGrupo;
     }
 
-    public Integer getAño() {
-        return año;
+    public Integer getAÃ±o() {
+        return aÃ±o;
     }
 
     public Double getImporte() {
