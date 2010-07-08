@@ -17,7 +17,12 @@ import java.io.Serializable;
  */
 public class Concepto implements  Serializable{
     
-    private int ID;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -458540470410190928L;
+	
+	private int ID;
     private String Motivo;
     private String Proveedor;
     private String Receptor;

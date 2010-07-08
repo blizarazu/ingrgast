@@ -165,59 +165,59 @@ public class AsientoContableManager{
     
     /**
      *
-     * @param año
+     * @param aÃ±o
      * @throws java.sql.SQLException
      * @return
      */
-    public Vector<Double> getIngresosAño(int año) throws SQLException{
-        Vector<Double> ingAño = new Vector<Double>();
+    public Vector<Double> getIngresosAÃ±o(int aÃ±o) throws SQLException{
+        Vector<Double> ingAÃ±o = new Vector<Double>();
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
         int j = 12;
-        if(cal.get(Calendar.YEAR) == año)
+        if(cal.get(Calendar.YEAR) == aÃ±o)
             j = (cal.get(Calendar.MONTH)+1);
         for(int i = 1; i <= j; i++)
-            ingAño.addElement(new Double(asDB.getIngresos(i, año)));
-        ingAño.addElement(new Double(asDB.getIngresos(1, j, año)));
-        return ingAño;
+            ingAÃ±o.addElement(new Double(asDB.getIngresos(i, aÃ±o)));
+        ingAÃ±o.addElement(new Double(asDB.getIngresos(1, j, aÃ±o)));
+        return ingAÃ±o;
     }
     
     /**
      *
-     * @param año
+     * @param aÃ±o
      * @throws java.sql.SQLException
      * @return
      */
-    public Vector<Double> getGastosAño(int año) throws SQLException{
-        Vector<Double> gastAño = new Vector<Double>();
+    public Vector<Double> getGastosAÃ±o(int aÃ±o) throws SQLException{
+        Vector<Double> gastAÃ±o = new Vector<Double>();
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
         int j = 12;
-        if(cal.get(Calendar.YEAR) == año)
+        if(cal.get(Calendar.YEAR) == aÃ±o)
             j = (cal.get(Calendar.MONTH)+1);
         for(int i = 1; i <= j; i++)
-            gastAño.addElement(new Double(asDB.getGastos(i, año)));
-        gastAño.addElement(new Double(asDB.getGastos(1, j, año)));
-        return gastAño;
+            gastAÃ±o.addElement(new Double(asDB.getGastos(i, aÃ±o)));
+        gastAÃ±o.addElement(new Double(asDB.getGastos(1, j, aÃ±o)));
+        return gastAÃ±o;
     }
     
     /**
      *
-     * @param año
+     * @param aÃ±o
      * @throws java.sql.SQLException
      * @return
      */
-    public Vector<Double> getTotalesAño(int año) throws SQLException{
-        Vector<Double> totAño = new Vector<Double>();
+    public Vector<Double> getTotalesAÃ±o(int aÃ±o) throws SQLException{
+        Vector<Double> totAÃ±o = new Vector<Double>();
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
         int j = 12;
-        if(cal.get(Calendar.YEAR) == año)
+        if(cal.get(Calendar.YEAR) == aÃ±o)
             j = (cal.get(Calendar.MONTH)+1);
         for(int i = 1; i <= j; i++)
-            totAño.addElement(new Double(asDB.getTotales(i, año)));
-        totAño.addElement(new Double(asDB.getTotales(1, j, año)));
-        return totAño;
+            totAÃ±o.addElement(new Double(asDB.getTotales(i, aÃ±o)));
+        totAÃ±o.addElement(new Double(asDB.getTotales(1, j, aÃ±o)));
+        return totAÃ±o;
     }
     
     /**

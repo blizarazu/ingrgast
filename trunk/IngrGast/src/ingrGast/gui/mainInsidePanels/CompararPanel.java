@@ -5,13 +5,13 @@
  */
 package ingrGast.gui.mainInsidePanels;
 
-import com.toedter.calendar.JTextFieldDateEditor;
 import ingrGast.gui.MainFrame;
 import ingrGast.gui.util.TreeTable.ComparacionTreeTableNode;
 import ingrGast.gui.util.TreeTable.ComparationModel;
 import ingrGast.interfaces.InsidePanel;
 import ingrGast.management.Manager;
 import ingrGast.objects.ComparacionData;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,13 +20,25 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+
+import com.toedter.calendar.JTextFieldDateEditor;
+
 /**
  *
  * @author  blizarazu
  */
 public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
 
-    /** Creates new form CompararPanel */
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/** Creates new form CompararPanel */
     public CompararPanel() {
         initComponents();
     }
@@ -58,9 +70,9 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder("Comparación"));
+        setBorder(javax.swing.BorderFactory.createTitledBorder("ComparaciÃ³n"));
 
-        jXTreeTable2.setAutoCreateRowSorter(true);
+        jXTreeTable2.setAutoCreateRowSorter(true);        
         jScrollPane2.setViewportView(jXTreeTable2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -82,7 +94,7 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
 
         jTabbedPane1.addTab("Ingresos", jPanel2);
 
-        jXTreeTable1.setAutoCreateRowSorter(true);
+        jXTreeTable1.setAutoCreateRowSorter(true);        
         jScrollPane1.setViewportView(jXTreeTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -130,11 +142,11 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
 
         Calendar cal = new GregorianCalendar();
         cal.setTime(new Date());
-        jDateChooser1.setToolTipText("Día-Mes-Año"); // NOI18N
+        jDateChooser1.setToolTipText("DÃ­a-Mes-AÃ±o"); // NOI18N
         jDateChooser1.setCalendar(cal);
         ((JTextFieldDateEditor)jDateChooser1.getComponent(1)).setEditable(false);
 
-        jButton1.setText("Añadir"); // NOI18N
+        jButton1.setText("AÃ±adir"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -153,13 +165,13 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
 
         Calendar cal2 = new GregorianCalendar();
         cal2.setTime(new Date());
-        jDateChooser2.setToolTipText("Día-Mes-Año"); // NOI18N
+        jDateChooser2.setToolTipText("DÃ­a-Mes-AÃ±o"); // NOI18N
         jDateChooser2.setCalendar(cal2);
         ((JTextFieldDateEditor)jDateChooser2.getComponent(1)).setEditable(false);
 
         jLabel2.setText("hasta el"); // NOI18N
 
-        jLabel3.setText("Quitar comparación:"); // NOI18N
+        jLabel3.setText("Quitar comparaciÃ³n:"); // NOI18N
         jLabel3.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -229,6 +241,39 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
         ingresosModel.addColumn(columnName, ingresosGrupos);
         totalesModel.addColumn(columnName, totalesGrupos);
 
+        //Tabla gastos
+        TableCellRenderer renderer1 = new DefaultTableCellRenderer();
+        JLabel label1 = (JLabel)renderer1;
+        label1.setHorizontalAlignment(JLabel.RIGHT);
+        
+        jXTreeTable1.setAutoCreateColumnsFromModel(false);
+		TableColumn column1 = new TableColumn(jXTreeTable1.getColumnCount());
+		column1.setHeaderRenderer(renderer1);
+		column1.setHeaderValue(columnName);
+        jXTreeTable1.addColumn(column1);
+        
+        //Tabla ingresos
+        TableCellRenderer renderer2 = new DefaultTableCellRenderer();
+        JLabel label2 = (JLabel)renderer2;
+        label2.setHorizontalAlignment(JLabel.RIGHT);
+        
+        jXTreeTable2.setAutoCreateColumnsFromModel(false);
+		TableColumn column2 = new TableColumn(jXTreeTable2.getColumnCount());
+		column2.setHeaderRenderer(renderer2);
+		column2.setHeaderValue(columnName);
+        jXTreeTable2.addColumn(column2);
+        
+        //Tabla totales
+        TableCellRenderer renderer3 = new DefaultTableCellRenderer();
+        JLabel label3 = (JLabel)renderer3;
+        label3.setHorizontalAlignment(JLabel.RIGHT);
+        
+        jXTreeTable3.setAutoCreateColumnsFromModel(false);
+		TableColumn column3 = new TableColumn(jXTreeTable3.getColumnCount());
+		column3.setHeaderRenderer(renderer3);
+		column3.setHeaderValue(columnName);
+        jXTreeTable3.addColumn(column3);
+        
         jComboBox1.addItem(columnName);
         jLabel3.setEnabled(true);
         jComboBox1.setEnabled(true);
@@ -238,11 +283,15 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String columnName = jComboBox1.getSelectedItem().toString();
 
-        int index = gastosModel.getColumnIdentifiers().indexOf(columnName);
+        //int index = gastosModel.getColumnIdentifiers().indexOf(columnName);
 
-        gastosModel.removeColumn(index);
-        ingresosModel.removeColumn(index);
-        totalesModel.removeColumn(index);
+        jXTreeTable1.removeColumn(jXTreeTable1.getColumn(columnName));
+        jXTreeTable2.removeColumn(jXTreeTable2.getColumn(columnName));
+        jXTreeTable3.removeColumn(jXTreeTable3.getColumn(columnName));
+        
+        //gastosModel.removeColumn(index);
+        //ingresosModel.removeColumn(index);
+        //totalesModel.removeColumn(index);
 
         jComboBox1.removeItem(columnName);
 
@@ -271,6 +320,21 @@ public class CompararPanel extends javax.swing.JPanel implements InsidePanel {
         jXTreeTable1.setTreeTableModel(gastosModel);
         jXTreeTable2.setTreeTableModel(ingresosModel);
         jXTreeTable3.setTreeTableModel(totalesModel);
+        
+        TableCellRenderer renderer1 = new DefaultTableCellRenderer();
+        JLabel label1 = (JLabel)renderer1;
+        label1.setHorizontalAlignment(JLabel.LEFT);
+        jXTreeTable1.getColumn(0).setHeaderRenderer(renderer1);
+        
+        TableCellRenderer renderer2 = new DefaultTableCellRenderer();
+        JLabel label2 = (JLabel)renderer2;
+        label2.setHorizontalAlignment(JLabel.LEFT);
+        jXTreeTable2.getColumn(0).setHeaderRenderer(renderer2);
+        
+        TableCellRenderer renderer3 = new DefaultTableCellRenderer();
+        JLabel label3 = (JLabel)renderer3;
+        label3.setHorizontalAlignment(JLabel.LEFT);
+        jXTreeTable3.getColumn(0).setHeaderRenderer(renderer3);
     }
 
     private ComparacionTreeTableNode constructRoot() {

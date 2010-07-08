@@ -105,9 +105,9 @@ public class GrupoManager {
         return gDB.update(nombre, nuevoNombre);
     }
 
-    Hashtable<String, Double> gastosGrupos(int año) throws SQLException {
-        if (año >= 0) {
-            return gDB.getGastos(año);
+    Hashtable<String, Double> gastosGrupos(int aÃ±o) throws SQLException {
+        if (aÃ±o >= 0) {
+            return gDB.getGastos(aÃ±o);
         } else {
             return gDB.getGastos();
         }
@@ -117,9 +117,9 @@ public class GrupoManager {
         return gDB.getGastos(calendar, calendar0);
     }
 
-    Hashtable<String, Double> ingresosGrupos(int año) throws SQLException {
-        if (año >= 0) {
-            return gDB.getIngresos(año);
+    Hashtable<String, Double> ingresosGrupos(int aÃ±o) throws SQLException {
+        if (aÃ±o >= 0) {
+            return gDB.getIngresos(aÃ±o);
         } else {
             return gDB.getIngresos();
         }
@@ -129,9 +129,9 @@ public class GrupoManager {
         return gDB.getIngresos(calendar, calendar0);
     }
 
-    Hashtable<String, Double> totalesGrupos(int año) throws SQLException {
-        if (año >= 0) {
-            return gDB.getTotales(año);
+    Hashtable<String, Double> totalesGrupos(int aÃ±o) throws SQLException {
+        if (aÃ±o >= 0) {
+            return gDB.getTotales(aÃ±o);
         } else {
             return gDB.getTotales();
         }

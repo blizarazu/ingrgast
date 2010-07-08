@@ -18,10 +18,15 @@ import javax.swing.table.TableCellRenderer;
 
 /**
  *
- * @author Beñat
+ * @author BeÃ±at
  */
 public class RowHeaderRenderer extends JLabel implements TableCellRenderer {
-    public RowHeaderRenderer(JTable table) {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public RowHeaderRenderer(JTable table) {
         JTableHeader header = table.getTableHeader();
         setOpaque(true);
         setBorder(UIManager.getBorder("JTableHeader.cellBorder"));
