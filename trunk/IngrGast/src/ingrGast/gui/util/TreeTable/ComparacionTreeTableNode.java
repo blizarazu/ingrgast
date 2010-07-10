@@ -63,6 +63,6 @@ public class ComparacionTreeTableNode extends AbstractMutableTreeTableNode imple
     
     void removeColumn(int column){
         if(column > 0)
-            data.remove(column);
+            data.removeElementAt(column);
     }
 }

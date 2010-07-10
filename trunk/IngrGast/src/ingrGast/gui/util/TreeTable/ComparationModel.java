@@ -407,6 +407,7 @@ public class ComparationModel extends AbstractTreeTableModel {
 
     public void removeColumn(int index) {
         columnIdentifiers.remove(index);
+        
         ComparacionTreeTableNode rootNode = (ComparacionTreeTableNode) root;
 //        if (index < rootNode.getColumnCount()) {
 //            rootNode.removeColumn(index);
@@ -425,6 +426,7 @@ public class ComparationModel extends AbstractTreeTableModel {
                 }
             }
         }
+        
         modelSupport.fireNewRoot();
     }
 
